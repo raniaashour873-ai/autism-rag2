@@ -1,0 +1,849 @@
+[
+  {
+    "chunk_id": "chunk_0001",
+    "page_number": 1,
+    "section_title": "General",
+    "text": "Autism spectrum disorder \nin adults: diagnosis and \nmanagement \nClinical guideline \nPublished: 27 June 2012 \nLast updated: 14 June 2021 \nwww.nice.org.uk/guidance/cg142",
+    "estimated_tokens": 41
+  },
+  {
+    "chunk_id": "chunk_0002",
+    "page_number": 2,
+    "section_title": "General",
+    "text": "Your responsibility \nThe recommendations in this guideline represent the view of NICE, arrived at after careful \nconsideration of the evidence available. When exercising their judgement, professionals \nand practitioners are expected to take this guideline fully into account, alongside the \nindividual needs, preferences and values of their patients or the people using their service. \nIt is not mandatory to apply the recommendations, and the guideline does not override the \nresponsibility to make decisions appropriate to the circumstances of the individual, in \nconsultation with them and their families and carers or guardian. \nAll problems (adverse events) related to a medicine or medical device used for treatment \nor in a procedure should be reported to the Medicines and Healthcare products Regulatory \nAgency using the Yellow Card Scheme. \nLocal commissioners and providers of healthcare have a responsibility to enable the \nguideline to be applied when individual professionals and people using services wish to \nuse it. They should do so in the context of local and national priorities for funding and \ndeveloping services, and in light of their duties to have due regard to the need to eliminate \nunlawful discrimination, to advance equality of opportunity and to reduce health \ninequalities. Nothing in this guideline should be interpreted in a way that would be \ninconsistent with complying with those duties. \nCommissioners and providers have a responsibility to promote an environmentally \nsustainable health and care system and should assess and reduce the environmental \nimpact of implementing NICE recommendations wherever possible.",
+    "estimated_tokens": 413
+  },
+  {
+    "chunk_id": "chunk_0003",
+    "page_number": 3,
+    "section_title": "General",
+    "text": "Contents \nOverview ...................................................................................................................................... 4 \nWho is it for? ..........................................................................................................................................\n\nIntroduction .................................................................................................................................. 5 \nKey priorities for implementation ...............................................................................................\n\nGeneral principles of care ....................................................................................................................\n\nIdentification and assessment .............................................................................................................\n\nInterventions for autism ........................................................................................................................\n\nOrganisation and delivery of care ........................................................................................................",
+    "estimated_tokens": 290
+  },
+  {
+    "chunk_id": "chunk_0004",
+    "page_number": 3,
+    "section_title": "General",
+    "text": "Recommendations ....................................................................................................................... 10 \n1.1 General principles of care ................................................................................................................ 10 \n1.2 Identification and assessment ....................................................................................................... 16 \n1.3 Identifying the correct interventions and monitoring their use .................................................. 22 \n1.4 Interventions for autism .................................................................................................................. 24 \n1.5 Interventions for behaviour that challenges ................................................................................. 28 \n1.6 Interventions for coexisting mental disorders .............................................................................. 30 \n1.7 Assessment and interventions for families, partners and carers ............................................... 32 \n1.8 Organisation and delivery of care .................................................................................................. 32 \nTerms used in this guideline ................................................................................................................. 37 \nRecommendations for research .................................................................................................40 \n1 Facilitated self-help for anxiety and depression in autistic adults ................................................ 40 \n2 The structure and organisation of specialist teams ....................................................................... 41 \n3 Augmentative communication devices for autistic adults ............................................................. 41 \nFinding more information and committee details .....................................................................43 \nUpdate information .....................................................................................................................44",
+    "estimated_tokens": 534
+  },
+  {
+    "chunk_id": "chunk_0005",
+    "page_number": 4,
+    "section_title": "General",
+    "text": "This guideline is the basis of QS51. \nOverview \nThis guideline covers diagnosing and managing suspected or confirmed autism spectrum \ndisorder in people aged 18 and over. It aims to improve access and engagement with \ninterventions and services, and the experience of care, for people with autism. \nWho is it for? \n• Health and social care professionals (including those in the independent sector) \n• Commissioners and providers \n• Adults with autism and their families, partners and carers",
+    "estimated_tokens": 122
+  },
+  {
+    "chunk_id": "chunk_0006",
+    "page_number": 5,
+    "section_title": "General",
+    "text": "Introduction \nAutism is a lifelong neurodevelopmental condition, the core features of which are \npersistent difficulties in social interaction and communication and the presence of \nstereotypic (rigid and repetitive) behaviours, resistance to change or restricted interests. \nThe way that autism is expressed in individual people differs at different stages of life, in \nresponse to interventions, and with the presence of coexisting conditions such as learning \ndisabilities (also called 'intellectual disabilities'). Autistic people also commonly experience \ndifficulty with cognitive and behavioural flexibility, altered sensory sensitivity, sensory \nprocessing difficulties and emotional regulation difficulties. The features of autism may \nrange from mild to severe and may fluctuate over time or in response to changes in \ncircumstances. \nA significant proportion of autistic adults across the whole autistic spectrum experience \nsocial and economic exclusion. Their condition is often overlooked by healthcare, \neducation and social care professionals, which creates barriers to accessing the support \nand services they need to live independently. In addition, autistic people are more likely to \nhave coexisting mental and physical disorders, and other developmental disorders. Some \nmay have contact with the criminal justice system, as either victims of crime or offenders, \nand it is important that their needs are recognised. \nThere is wide variation in rates of identification and referral for diagnostic assessment, \nwaiting times for diagnosis, models of multi-professional working, assessment criteria and \ndiagnostic practice for adults with features of autism. These factors contribute to delays in \nreaching a diagnosis and subsequent access to appropriate services. \nWhen the diagnostic assessment process works well, professionals, the autistic person \nand their family, partner or carer(s) communicate right from the start and the autistic \nperson is involved in the decisions relating to their care. This lays the foundation for a \nlong-term understanding between the autistic person, their family, partner or carer(s) and \nthe professionals supporting their needs. However, many adults have difficulties accessing \na diagnostic assessment. Even if they manage to obtain a diagnosis they may receive no \nfollow-up support because of the absence of appropriate services or an agreed care \npathway. \nIn this guideline 'autism' refers to 'autism spectrum disorders' encompassing autism and \natypical autism (or pervasive developmental disorder not otherwise specified). The",
+    "estimated_tokens": 648
+  },
+  {
+    "chunk_id": "chunk_0007",
+    "page_number": 6,
+    "section_title": "General",
+    "text": "Guideline Development Group recognises, however, that different individuals and groups \nprefer a variety of terms for autism including autistic spectrum condition, autistic spectrum \ndifference and neurodiversity (in recent Department of Health, National Audit Office and \nPublic Accounts Committee documents, 'autism' is used to cover all of these terms). \nThis guideline covers the care provided by primary, community, secondary, tertiary and \nother health and social care professionals who have direct contact with, and make \ndecisions concerning the care of, autistic adults. \nA number of recommendations in this guideline have been adapted from recommendations \nin other NICE clinical guidelines. Where this occurred, the Guideline Development Group \nwas careful to preserve the meaning and intent of the original recommendations. Changes \nto wording or structure were made in order to fit the recommendations into this guideline. \nThe guideline will assume that prescribers will use a drug's summary of product \ncharacteristics (SPC) to inform decisions made with individual patients. In this guideline, \nrecommendations are marked with a note if drugs do not have a UK marketing \nauthorisation for the indication in question at the time of publication. Prescribers should \ncheck each drug's SPC for current licensed indications.",
+    "estimated_tokens": 333
+  },
+  {
+    "chunk_id": "chunk_0008",
+    "page_number": 7,
+    "section_title": "General",
+    "text": "Key priorities for implementation \nThe following recommendations have been identified as priorities for implementation. \nGeneral principles of care \n• All staff working with autistic adults should: \n－ work in partnership with autistic adults and, where appropriate, with their families, \npartners or carers \n－ offer support and care respectfully \n－ take time to build a trusting, supportive, empathic and non-judgemental \nrelationship as an essential part of care. \n• In order to effectively provide care and support for autistic adults, the local autism \nmulti-agency strategy group should include representation from managers, \ncommissioners and clinicians from adult services, including mental health, learning \ndisability, primary healthcare, social care, housing, educational and employment \nservices, the criminal justice system and the third sector. There should be meaningful \nrepresentation from autistic people and their families, partners and carers. \nIdentification and assessment \n• Consider assessment for possible autism when a person has: \n－ one or more of the following: \n◇ persistent difficulties in social interaction \n◇ persistent difficulties in social communication \n◇ stereotypic (rigid and repetitive) behaviours, resistance to change or \nrestricted interests, and \n－ one or more of the following: \n◇ problems in obtaining or sustaining employment or education",
+    "estimated_tokens": 346
+  },
+  {
+    "chunk_id": "chunk_0009",
+    "page_number": 8,
+    "section_title": "General",
+    "text": "◇ difficulties in initiating or sustaining social relationships \n◇ previous or current contact with mental health or learning disability services \n◇ a history of a neurodevelopmental condition (including learning disabilities and \nattention deficit hyperactivity disorder) or mental disorder. \n• For adults with possible autism who do not have a moderate or severe learning \ndisability, consider using the Autism-Spectrum Quotient – 10 items (AQ-10). (If a \nperson has reading difficulties, read out the AQ-10.) If a person scores 6 or above on \nthe AQ-10, or autism is suspected based on clinical judgement (taking into account \nany past history provided by an informant), offer a comprehensive assessment for \nautism. \n• When assessing behaviour that challenges carry out a functional analysis (see \nrecommendation 1.5.3) including identifying and evaluating any factors that may \ntrigger or maintain the behaviour, such as: \n－ physical disorders \n－ the social environment (including relationships with the family, partner, carer(s) \nand friends) \n－ the physical environment, including sensory factors \n－ coexisting mental disorders (including depression, anxiety disorders and \npsychosis) \n－ communication problems \n－ changes to routine or personal circumstances. \nInterventions for autism \n• For autistic adults without a learning disability or with a mild learning disability, who \nare having difficulty obtaining or maintaining employment, consider an individual \nsupported employment programme. \nOrganisation and delivery of care \n• Autism strategy groups should be responsible for developing, managing and",
+    "estimated_tokens": 403
+  },
+  {
+    "chunk_id": "chunk_0010",
+    "page_number": 9,
+    "section_title": "General",
+    "text": "evaluating local care pathways. The group should appoint a lead professional \nresponsible for the local autism care pathway. The aims of the strategy group should \ninclude: \n－ developing clear policy and protocols for the operation of the pathway \n－ ensuring the provision of multi-agency training about signs and features \nsuggesting possible autism, and training and support on the operation of the \npathway \n－ making sure the relevant professionals (health, social care, housing, educational \nand employment services and the third sector) are aware of the local autism \npathway and how to access services \n－ supporting the integrated delivery of services across all care settings \n－ supporting the smooth transition to adult services for young people going through \nthe pathway \n－ auditing and reviewing the performance of the pathway.",
+    "estimated_tokens": 209
+  },
+  {
+    "chunk_id": "chunk_0011",
+    "page_number": 10,
+    "section_title": "1.1 General principles of care",
+    "text": "1.1 General principles of care \nPrinciples for working with autistic adults and their families, \npartners and carers",
+    "estimated_tokens": 29
+  },
+  {
+    "chunk_id": "chunk_0012",
+    "page_number": 10,
+    "section_title": "1.1.1 All staff working with autistic adults should:",
+    "text": "1.1.1 \nAll staff working with autistic adults should: \n• work in partnership with autistic adults and, where appropriate, with their \nfamilies, partners and carers \n• offer support and care respectfully \n• take time to build a trusting, supportive, empathic and non-judgemental \nrelationship as an essential part of care.",
+    "estimated_tokens": 80
+  },
+  {
+    "chunk_id": "chunk_0013",
+    "page_number": 10,
+    "section_title": "1.1.2 All staff working with autistic adults should have an understanding of the:",
+    "text": "1.1.2 \nAll staff working with autistic adults should have an understanding of the: \n• nature, development and course of autism \n• impact on personal, social, educational and occupational functioning",
+    "estimated_tokens": 49
+  },
+  {
+    "chunk_id": "chunk_0014",
+    "page_number": 11,
+    "section_title": "1.1.3 All health and social care professionals providing care and support for autistic",
+    "text": "1.1.3 \nAll health and social care professionals providing care and support for autistic \nadults should have a broad understanding of the: \n• nature, development and course of autism \n• impact on personal, social, educational and occupational functioning \n• impact of and interaction with the social and physical environment \n• impact on and interaction with other coexisting mental and physical disorders \nand their management \n• potential discrepancy between intellectual functioning as measured by IQ and \nadaptive functioning as reflected, for example, by difficulties in planning and \nperforming activities of daily living including education or employment.",
+    "estimated_tokens": 165
+  },
+  {
+    "chunk_id": "chunk_0015",
+    "page_number": 11,
+    "section_title": "1.1.4 All health and social care professionals providing care and support for autistic",
+    "text": "1.1.4 \nAll health and social care professionals providing care and support for autistic \nadults should: \n• aim to foster the person's autonomy, promote active participation in \ndecisions about care and support self-management \n• maintain continuity of individual relationships wherever possible \n• ensure that comprehensive information about the nature of, and interventions \nand services for, their difficulties is available in an appropriate language or \nformat (including various visual, verbal and aural, easy read, and different \ncolour and font formats) \n• consider whether the person may benefit from access to a trained advocate.",
+    "estimated_tokens": 159
+  },
+  {
+    "chunk_id": "chunk_0016",
+    "page_number": 11,
+    "section_title": "1.1.5 All health and social care professionals providing care and support for autistic",
+    "text": "1.1.5 \nAll health and social care professionals providing care and support for autistic \nadults and their families, partners and carers should: \n• ensure that they are easily identifiable (for example, by producing or wearing \nappropriate identification) and approachable \n• clearly communicate their role and function \n• address the person using the name and title they prefer",
+    "estimated_tokens": 94
+  },
+  {
+    "chunk_id": "chunk_0017",
+    "page_number": 12,
+    "section_title": "1.1.6 All health and social care professionals providing care and support for autistic",
+    "text": "1.1.6 \nAll health and social care professionals providing care and support for autistic \nadults and their families, partners and carers should ensure that they are: \n• familiar with recognised local and national sources (organisations and \nwebsites) of information and/or support for autistic people \n• able to discuss and advise on how to access and engage with these \nresources.",
+    "estimated_tokens": 95
+  },
+  {
+    "chunk_id": "chunk_0018",
+    "page_number": 12,
+    "section_title": "1.1.7 Encourage autistic adults to participate in self-help or support groups or access",
+    "text": "1.1.7 \nEncourage autistic adults to participate in self-help or support groups or access \none-to-one support, and provide support so that they can attend meetings and \nengage in the activities.",
+    "estimated_tokens": 48
+  },
+  {
+    "chunk_id": "chunk_0019",
+    "page_number": 12,
+    "section_title": "1.1.8 In all settings, take into account the physical environment in which autistic adults",
+    "text": "1.1.8 \nIn all settings, take into account the physical environment in which autistic adults \nare assessed, supported and cared for, including any factors that may trigger \nbehaviour that challenges. If necessary make adjustments or adaptations to the: \n• amount of personal space given (at least an arm's length) \n• setting using visual supports (for example, use labels with words or symbols \nto provide visual cues about expected behaviour) \n• colour of walls and furnishings (avoid patterns and use low-arousal colours \nsuch as cream) \n• lighting (reduce fluorescent lighting, use blackout curtains or advise use of \ndark glasses or increase natural light) \n• noise levels (reduce external sounds or advise use of earplugs or ear \ndefenders). \nWhere it is not possible to adjust or adapt the environment, consider varying",
+    "estimated_tokens": 206
+  },
+  {
+    "chunk_id": "chunk_0020",
+    "page_number": 13,
+    "section_title": "1.1.9 All health and social care professionals providing care and support for autistic",
+    "text": "1.1.9 \nAll health and social care professionals providing care and support for autistic \nadults should: \n• be aware of under-reporting and under-recognition of physical disorders in \nautistic people \n• be vigilant for unusual likes and dislikes about food and/or lack of physical \nactivity \n• offer advice about the beneficial effects of a healthy diet and exercise, taking \ninto account any hyper- and/or hypo-sensory sensitivities; if necessary, \nsupport referral to a GP or dietician.",
+    "estimated_tokens": 121
+  },
+  {
+    "chunk_id": "chunk_0021",
+    "page_number": 13,
+    "section_title": "1.1.10 All staff working with autistic adults should be sensitive to issues of sexuality,",
+    "text": "1.1.10 \nAll staff working with autistic adults should be sensitive to issues of sexuality, \nincluding asexuality and the need to develop personal and sexual relationships. In \nparticular, be aware that problems in social interaction and communication may \nlead to the autistic person misunderstanding another person's behaviour or to \ntheir possible exploitation by others.",
+    "estimated_tokens": 93
+  },
+  {
+    "chunk_id": "chunk_0022",
+    "page_number": 13,
+    "section_title": "1.1.11 Ensure that autistic adults who have caring responsibilities receive support to",
+    "text": "1.1.11 \nEnsure that autistic adults who have caring responsibilities receive support to \naccess the full range of mental and physical health and social care services, \nincluding: \n• specific information, advice and support to parents about their parenting role, \nincluding parent training if needed, by professionals experienced in the care \nof autistic adults and children \n• social support, such as childcare, to enable them to attend appointments, \ngroups and therapy sessions, and to access education and employment. \nStructures for the organisation and delivery of care and \ninterventions",
+    "estimated_tokens": 148
+  },
+  {
+    "chunk_id": "chunk_0023",
+    "page_number": 13,
+    "section_title": "1.1.12 In order to effectively provide care and support for autistic adults, the local",
+    "text": "1.1.12 \nIn order to effectively provide care and support for autistic adults, the local \nautism multi-agency strategy group should include representation from",
+    "estimated_tokens": 39
+  },
+  {
+    "chunk_id": "chunk_0024",
+    "page_number": 14,
+    "section_title": "1.1.13 In each area a specialist community-based multidisciplinary team for autistic",
+    "text": "1.1.13 \nIn each area a specialist community-based multidisciplinary team for autistic \nadults (the specialist autism team) should be established. The membership \nshould include: \n• psychologists with training and experience in working with autistic adults \n• nurses \n• occupational therapists \n• psychiatrists \n• social workers \n• speech and language therapists \n• support staff (for example, staff supporting access to housing, educational \nand employment services, financial advice, and personal and community \nsafety skills).",
+    "estimated_tokens": 132
+  },
+  {
+    "chunk_id": "chunk_0025",
+    "page_number": 14,
+    "section_title": "1.1.14 The specialist autism team should have a key role in the delivery and coordination",
+    "text": "1.1.14 \nThe specialist autism team should have a key role in the delivery and coordination \nof: \n• specialist diagnostic and assessment services \n• specialist care and interventions \n• advice and training to other health and social care professionals on the \ndiagnosis, assessment, care and interventions for autistic adults (as not all \nmay be in the care of a specialist team) \n• support in accessing, and maintaining contact with, housing, educational and \nemployment services \n• support to families, partners and carers where appropriate",
+    "estimated_tokens": 135
+  },
+  {
+    "chunk_id": "chunk_0026",
+    "page_number": 15,
+    "section_title": "1.1.15 Discuss with autistic adults if and how they want their families, partners or carers",
+    "text": "1.1.15 \nDiscuss with autistic adults if and how they want their families, partners or carers \nto be involved in their care. During discussions, take into account any implications \nof the Mental Capacity Act (2005) and any communication needs the person may \nhave (see recommendation 1.1.5).",
+    "estimated_tokens": 72
+  },
+  {
+    "chunk_id": "chunk_0027",
+    "page_number": 15,
+    "section_title": "1.1.16 If the autistic person wants their family, partner or carer(s) to be involved,",
+    "text": "1.1.16 \nIf the autistic person wants their family, partner or carer(s) to be involved, \nencourage this involvement and: \n• negotiate between the autistic person and their family, partner or carer(s) \nabout confidentiality and sharing of information on an ongoing basis \n• explain how families, partners and carers can help support the autistic person \nand help with care plans \n• make sure that no services are withdrawn because of involvement of the \nfamily, partner or carer(s), unless this has been clearly agreed with both the \nautistic person and their family, partner or carer(s).",
+    "estimated_tokens": 146
+  },
+  {
+    "chunk_id": "chunk_0028",
+    "page_number": 15,
+    "section_title": "1.1.17 Give all families, partners and carer(s) (whether or not the person wants them to",
+    "text": "1.1.17 \nGive all families, partners and carer(s) (whether or not the person wants them to \nbe involved in their care) verbal and written information about: \n• autism and its management \n• local support groups and services specifically for families, partners and \ncarers \n• their right to a carer's assessment of their own physical and mental health \nneeds, and how to access this (see the NICE guideline on supporting adult \ncarers).",
+    "estimated_tokens": 108
+  },
+  {
+    "chunk_id": "chunk_0029",
+    "page_number": 15,
+    "section_title": "1.1.18 If an autistic person does not want their family, partners or carer(s) to be involved",
+    "text": "1.1.18 \nIf an autistic person does not want their family, partners or carer(s) to be involved",
+    "estimated_tokens": 23
+  },
+  {
+    "chunk_id": "chunk_0030",
+    "page_number": 16,
+    "section_title": "1.2 Identification and assessment",
+    "text": "1.2 Identification and assessment \nPrinciples for the effective assessment of autism",
+    "estimated_tokens": 21
+  },
+  {
+    "chunk_id": "chunk_0031",
+    "page_number": 16,
+    "section_title": "1.2.1 Staff who have responsibility for the identification or assessment of autistic",
+    "text": "1.2.1 \nStaff who have responsibility for the identification or assessment of autistic \nadults should adapt these procedures, if necessary, to ensure their effective \ndelivery, including modifications to the setting in which assessment is delivered \n(see recommendation 1.1.8) and the duration and pacing of the assessment. \nIdentification and initial assessment of possible autism",
+    "estimated_tokens": 95
+  },
+  {
+    "chunk_id": "chunk_0032",
+    "page_number": 16,
+    "section_title": "1.2.2 Consider assessment for possible autism when a person has:",
+    "text": "1.2.2 \nConsider assessment for possible autism when a person has: \n• one or more of the following: \n－ persistent difficulties in social interaction \n－ persistent difficulties in social communication \n－ stereotypic (rigid and repetitive) behaviours, resistance to change or \nrestricted interests, and \n• one or more of the following: \n－ problems in obtaining or sustaining employment or education \n－ difficulties in initiating or sustaining social relationships",
+    "estimated_tokens": 115
+  },
+  {
+    "chunk_id": "chunk_0033",
+    "page_number": 17,
+    "section_title": "1.2.3 For adults with possible autism who do not have a moderate or severe learning",
+    "text": "1.2.3 \nFor adults with possible autism who do not have a moderate or severe learning \ndisability, consider using the Autism-Spectrum Quotient – 10 items (AQ-10). (If a \nperson has reading difficulties, read out the AQ-10.) If a person scores 6 or above \non the AQ-10, or autism is suspected based on clinical judgement (taking into \naccount any past history provided by an informant), offer a comprehensive \nassessment for autism. [amended 2021]",
+    "estimated_tokens": 111
+  },
+  {
+    "chunk_id": "chunk_0034",
+    "page_number": 17,
+    "section_title": "1.2.4 For adults with possible autism who have a moderate or severe learning disability,",
+    "text": "1.2.4 \nFor adults with possible autism who have a moderate or severe learning disability, \nconsider a brief assessment to ascertain whether the following behaviours are \npresent (if necessary using information from a family member, partner or carer): \n• difficulties in reciprocal social interaction including: \n－ limited interaction with others (for example, being aloof, indifferent or \nunusual) \n－ interaction to fulfil needs only \n－ interaction that is naive or one-sided \n• lack of responsiveness to others \n• little or no change in behaviour in response to different social situations \n• limited social demonstration of empathy \n• rigid routines and resistance to change \n• marked repetitive activities (for example, rocking and hand or finger \nflapping), especially when under stress or expressing emotion. \nIf two or more of the above categories of behaviour are present, offer a \ncomprehensive assessment for autism.",
+    "estimated_tokens": 231
+  },
+  {
+    "chunk_id": "chunk_0035",
+    "page_number": 18,
+    "section_title": "1.2.5 A comprehensive assessment should:",
+    "text": "1.2.5 \nA comprehensive assessment should: \n• be undertaken by professionals who are trained and competent \n• be team-based and draw on a range of professions and skills \n• where possible involve a family member, partner, carer or other informant or \nuse documentary evidence (such as school reports) of current and past \nbehaviour and early development.",
+    "estimated_tokens": 88
+  },
+  {
+    "chunk_id": "chunk_0036",
+    "page_number": 18,
+    "section_title": "1.2.6 At the beginning of a comprehensive assessment, discuss with the person the",
+    "text": "1.2.6 \nAt the beginning of a comprehensive assessment, discuss with the person the \npurpose of the assessment and how the outcome of the assessment will be fed \nback to them. Feedback should be individualised, and consider involving a family \nmember, partner, carer or advocate, where appropriate, to support the person \nand help explain the feedback.",
+    "estimated_tokens": 87
+  },
+  {
+    "chunk_id": "chunk_0037",
+    "page_number": 18,
+    "section_title": "1.2.7 During a comprehensive assessment, enquire about and assess the following:",
+    "text": "1.2.7 \nDuring a comprehensive assessment, enquire about and assess the following: \n• core autism features (difficulties in social interaction and communication and \nthe presence of stereotypic behaviour, resistance to change or restricted \ninterests) that have been present in childhood and continuing into adulthood \n• early developmental history, where possible \n• behavioural problems \n• functioning at home, in education or in employment \n• past and current physical and mental disorders \n• other neurodevelopmental conditions \n• hyper- and/or hypo-sensory sensitivities and attention to detail. \nCarry out direct observation of core autism features especially in social \nsituations.",
+    "estimated_tokens": 171
+  },
+  {
+    "chunk_id": "chunk_0038",
+    "page_number": 18,
+    "section_title": "1.2.8 To aid more complex diagnosis and assessment for adults, consider using a",
+    "text": "1.2.8 \nTo aid more complex diagnosis and assessment for adults, consider using a",
+    "estimated_tokens": 20
+  },
+  {
+    "chunk_id": "chunk_0039",
+    "page_number": 19,
+    "section_title": "1.2.9 To organise and structure the process of a more complex assessment, consider",
+    "text": "1.2.9 \nTo organise and structure the process of a more complex assessment, consider \nusing a formal assessment tool, such as the Diagnostic Interview for Social and \nCommunication Disorders (DISCO), the ADOS-G or the ADI-R.",
+    "estimated_tokens": 55
+  },
+  {
+    "chunk_id": "chunk_0040",
+    "page_number": 19,
+    "section_title": "1.2.10 During a comprehensive assessment, take into account and assess for possible",
+    "text": "1.2.10 \nDuring a comprehensive assessment, take into account and assess for possible \ndifferential diagnoses and coexisting disorders or conditions, such as: \n• other neurodevelopmental conditions (use formal assessment tools for \nlearning disabilities) \n• mental disorders (for example, schizophrenia, depression or other mood \ndisorders, and anxiety disorders, in particular, social anxiety disorder and \nobsessive–compulsive disorder) \n• neurological disorders (for example, epilepsy) \n• physical disorders \n• communication difficulties (for example, speech and language problems, and \nselective mutism)",
+    "estimated_tokens": 151
+  },
+  {
+    "chunk_id": "chunk_0041",
+    "page_number": 20,
+    "section_title": "1.2.11 Do not use biological tests, genetic tests or neuroimaging for diagnostic purposes",
+    "text": "1.2.11 \nDo not use biological tests, genetic tests or neuroimaging for diagnostic purposes \nroutinely as part of a comprehensive assessment.",
+    "estimated_tokens": 35
+  },
+  {
+    "chunk_id": "chunk_0042",
+    "page_number": 20,
+    "section_title": "1.2.12 During a comprehensive assessment, assess the following risks:",
+    "text": "1.2.12 \nDuring a comprehensive assessment, assess the following risks: \n• self-harm (in particular in people with depression or a moderate or severe \nlearning disability) \n• rapid escalation of problems \n• harm to others \n• self-neglect \n• breakdown of family or residential support \n• exploitation or abuse by others. \nDevelop a risk management plan if needed.",
+    "estimated_tokens": 90
+  },
+  {
+    "chunk_id": "chunk_0043",
+    "page_number": 20,
+    "section_title": "1.2.13 Develop a care plan based on the comprehensive assessment, incorporating the",
+    "text": "1.2.13 \nDevelop a care plan based on the comprehensive assessment, incorporating the \nrisk management plan and including any particular needs (such as adaptations to \nthe social or physical environment), and also taking into account the needs of the \nfamily, partner or carer(s).",
+    "estimated_tokens": 69
+  },
+  {
+    "chunk_id": "chunk_0044",
+    "page_number": 20,
+    "section_title": "1.2.14 Provide a 'health passport' (for example, a laminated card) for autistic adults,",
+    "text": "1.2.14 \nProvide a 'health passport' (for example, a laminated card) for autistic adults, \nwhich includes information for all staff about the person's care and support \nneeds. Advise the person to carry the health passport at all times.",
+    "estimated_tokens": 58
+  },
+  {
+    "chunk_id": "chunk_0045",
+    "page_number": 20,
+    "section_title": "1.2.15 As part of a comprehensive assessment consider developing a 24-hour crisis",
+    "text": "1.2.15 \nAs part of a comprehensive assessment consider developing a 24-hour crisis \nmanagement plan, where necessary in conjunction with specialist mental health \nservices, which should detail: \n• the likely trigger(s) for a crisis \n• the nature and speed of the reaction to any trigger(s), including details about \nthe way in which autism may impact on a person's behaviour leading up to \nand during a crisis",
+    "estimated_tokens": 102
+  },
+  {
+    "chunk_id": "chunk_0046",
+    "page_number": 21,
+    "section_title": "1.2.16 Consider obtaining a second opinion (including referral to another specialist",
+    "text": "1.2.16 \nConsider obtaining a second opinion (including referral to another specialist \nautism team if necessary), if there is uncertainty about the diagnosis or if any of \nthe following apply after diagnostic assessment: \n• disagreement about the diagnosis within the autism team \n• disagreement with the person, their family, partner, carer(s) or advocate \nabout the diagnosis \n• a lack of local expertise in the skills and competencies needed to reach \ndiagnosis in autistic adults \n• the person has a complex coexisting condition, such as a severe learning \ndisability, a severe behavioural, visual, hearing or motor problem, or a severe \nmental disorder.",
+    "estimated_tokens": 164
+  },
+  {
+    "chunk_id": "chunk_0047",
+    "page_number": 21,
+    "section_title": "1.2.17 On an individual basis, and using information from the comprehensive",
+    "text": "1.2.17 \nOn an individual basis, and using information from the comprehensive \nassessment and physical examination, and clinical judgement, consider further \ninvestigations, including: \n• genetic tests, as recommended by the regional genetics centre, if there are \nspecific dysmorphic features, congenital anomalies and/or evidence of a \nlearning disability \n• electroencephalography if there is suspicion of epilepsy \n• hearing or sight tests, if there is suspicion of hearing or visual impairment \n• other medical tests depending on individual signs and symptoms (for \nexample, sudden onset of behaviour that challenges, change in usual",
+    "estimated_tokens": 159
+  },
+  {
+    "chunk_id": "chunk_0048",
+    "page_number": 22,
+    "section_title": "1.2.18 Offer all adults who have received a diagnosis of autism (irrespective of whether",
+    "text": "1.2.18 \nOffer all adults who have received a diagnosis of autism (irrespective of whether \nthey need or have refused further care and support) a follow-up appointment to \ndiscuss the implications of the diagnosis, any concerns they have about the \ndiagnosis, and any future care and support they may require. \nAssessment of behaviour that challenges",
+    "estimated_tokens": 87
+  },
+  {
+    "chunk_id": "chunk_0049",
+    "page_number": 22,
+    "section_title": "1.2.19 Assessment of behaviour that challenges should be integrated into a",
+    "text": "1.2.19 \nAssessment of behaviour that challenges should be integrated into a \ncomprehensive assessment for autistic adults.",
+    "estimated_tokens": 30
+  },
+  {
+    "chunk_id": "chunk_0050",
+    "page_number": 22,
+    "section_title": "1.2.20 When assessing behaviour that challenges carry out a functional analysis (see",
+    "text": "1.2.20 \nWhen assessing behaviour that challenges carry out a functional analysis (see \nrecommendation 1.5.3) including identifying and evaluating any factors that may \ntrigger or maintain the behaviour, such as: \n• physical disorders \n• the social environment (including relationships with family members, \npartners, carers and friends) \n• the physical environment, including sensory factors \n• coexisting mental disorders (including depression, anxiety disorders and \npsychosis) \n• communication problems \n• changes to routines or personal circumstances.",
+    "estimated_tokens": 138
+  },
+  {
+    "chunk_id": "chunk_0051",
+    "page_number": 22,
+    "section_title": "1.3 Identifying the correct interventions and",
+    "text": "1.3 Identifying the correct interventions and \nmonitoring their use",
+    "estimated_tokens": 16
+  },
+  {
+    "chunk_id": "chunk_0052",
+    "page_number": 22,
+    "section_title": "1.3.1 When discussing and deciding on interventions with autistic adults, consider:",
+    "text": "1.3.1 \nWhen discussing and deciding on interventions with autistic adults, consider: \n• their experience of, and response to, previous interventions",
+    "estimated_tokens": 37
+  },
+  {
+    "chunk_id": "chunk_0053",
+    "page_number": 23,
+    "section_title": "1.3.2 When discussing and deciding on care and interventions with autistic adults, take",
+    "text": "1.3.2 \nWhen discussing and deciding on care and interventions with autistic adults, take \ninto account the: \n• increased propensity for elevated anxiety about decision-making in autistic \npeople \n• greater risk of altered sensitivity and unpredictable responses to medication \n• environment, for example whether it is suitably adapted for autistic people, in \nparticular those with hyper- and/or hypo-sensory sensitivities (see \nrecommendation 1.1.8) \n• presence and nature of hyper- and/or hypo-sensory sensitivities and how \nthese might impact on the delivery of the intervention \n• importance of predictability, clarity, structure and routine for autistic people \n• nature of support needed to access interventions.",
+    "estimated_tokens": 179
+  },
+  {
+    "chunk_id": "chunk_0054",
+    "page_number": 23,
+    "section_title": "1.3.3 When discussing and deciding on interventions with autistic adults, provide",
+    "text": "1.3.3 \nWhen discussing and deciding on interventions with autistic adults, provide \ninformation about: \n• the nature, content and duration of any proposed intervention \n• the acceptability and tolerability of any proposed intervention \n• possible interactions with any current interventions and possible side effects \n• the implications for the continuing provision of any current interventions.",
+    "estimated_tokens": 98
+  },
+  {
+    "chunk_id": "chunk_0055",
+    "page_number": 24,
+    "section_title": "1.3.4 When deciding on options for pharmacological interventions for behaviour that",
+    "text": "1.3.4 \nWhen deciding on options for pharmacological interventions for behaviour that \nchallenges or coexisting mental disorders in autistic adults: \n• be aware of the potential for greater sensitivity to side effects and \nidiosyncratic responses in autistic people and \n• consider starting with a low dose.",
+    "estimated_tokens": 76
+  },
+  {
+    "chunk_id": "chunk_0056",
+    "page_number": 24,
+    "section_title": "1.3.5 For any intervention used in autistic adults, there should be a regular review of:",
+    "text": "1.3.5 \nFor any intervention used in autistic adults, there should be a regular review of: \n• the benefits of the intervention, where feasible using a formal rating of the \ntarget behaviour(s) \n• any adverse events \n• specific monitoring requirements of pharmacological interventions as \nhighlighted by the summary of product characteristics \n• adherence to the intervention.",
+    "estimated_tokens": 93
+  },
+  {
+    "chunk_id": "chunk_0057",
+    "page_number": 24,
+    "section_title": "1.4 Interventions for autism",
+    "text": "1.4 Interventions for autism \nPsychosocial interventions for the core features of autism",
+    "estimated_tokens": 22
+  },
+  {
+    "chunk_id": "chunk_0058",
+    "page_number": 24,
+    "section_title": "1.4.1 For autistic adults without a learning disability or with a mild to moderate learning",
+    "text": "1.4.1 \nFor autistic adults without a learning disability or with a mild to moderate learning \ndisability, who have identified problems with social interaction, consider: \n• a group-based social learning programme focused on improving social \ninteraction \n• an individually delivered social learning programme for people who find \ngroup-based activities difficult.",
+    "estimated_tokens": 90
+  },
+  {
+    "chunk_id": "chunk_0059",
+    "page_number": 24,
+    "section_title": "1.4.2 Social learning programmes to improve social interaction should typically include:",
+    "text": "1.4.2 \nSocial learning programmes to improve social interaction should typically include: \n• modelling \n• peer feedback (for group-based programmes) or individual feedback (for \nindividually delivered programmes)",
+    "estimated_tokens": 53
+  },
+  {
+    "chunk_id": "chunk_0060",
+    "page_number": 25,
+    "section_title": "1.4.3 Do not provide facilitated communication for autistic adults.",
+    "text": "1.4.3 \nDo not provide facilitated communication for autistic adults. \nPsychosocial interventions focused on life skills",
+    "estimated_tokens": 29
+  },
+  {
+    "chunk_id": "chunk_0061",
+    "page_number": 25,
+    "section_title": "1.4.4 For autistic adults of all ranges of intellectual ability, who need help with activities",
+    "text": "1.4.4 \nFor autistic adults of all ranges of intellectual ability, who need help with activities \nof daily living, consider a structured and predictable training programme based \non behavioural principles.",
+    "estimated_tokens": 51
+  },
+  {
+    "chunk_id": "chunk_0062",
+    "page_number": 25,
+    "section_title": "1.4.5 For autistic adults without a learning disability or with a mild to moderate learning",
+    "text": "1.4.5 \nFor autistic adults without a learning disability or with a mild to moderate learning \ndisability, who are socially isolated or have restricted social contact, consider: \n• a group-based structured leisure activity programme \n• an individually delivered structured leisure activity programme for people who \nfind group-based activities difficult.",
+    "estimated_tokens": 88
+  },
+  {
+    "chunk_id": "chunk_0063",
+    "page_number": 25,
+    "section_title": "1.4.6 A structured leisure activity programme should typically include:",
+    "text": "1.4.6 \nA structured leisure activity programme should typically include: \n• a focus on the interests and abilities of the participant(s) \n• regular meetings for a valued leisure activity \n• for group-based programmes, a facilitator with a broad understanding of \nautism to help integrate the participants \n• the provision of structure and support.",
+    "estimated_tokens": 86
+  },
+  {
+    "chunk_id": "chunk_0064",
+    "page_number": 25,
+    "section_title": "1.4.7 For autistic adults without a learning disability or with a mild to moderate learning",
+    "text": "1.4.7 \nFor autistic adults without a learning disability or with a mild to moderate learning \ndisability, who have problems with anger and aggression, offer an anger \nmanagement intervention, adjusted to the needs of autistic adults.",
+    "estimated_tokens": 58
+  },
+  {
+    "chunk_id": "chunk_0065",
+    "page_number": 25,
+    "section_title": "1.4.8 Anger management interventions should typically include:",
+    "text": "1.4.8 \nAnger management interventions should typically include:",
+    "estimated_tokens": 15
+  },
+  {
+    "chunk_id": "chunk_0066",
+    "page_number": 26,
+    "section_title": "1.4.9 For autistic adults without a learning disability or with a mild learning disability,",
+    "text": "1.4.9 \nFor autistic adults without a learning disability or with a mild learning disability, \nwho are at risk of victimisation, consider anti-victimisation interventions based on \nteaching decision-making and problem-solving skills.",
+    "estimated_tokens": 58
+  },
+  {
+    "chunk_id": "chunk_0067",
+    "page_number": 26,
+    "section_title": "1.4.10 Anti-victimisation interventions should typically include:",
+    "text": "1.4.10 \nAnti-victimisation interventions should typically include: \n• identifying and, where possible, modifying and developing decision-making \nskills in situations associated with abuse \n• developing personal safety skills.",
+    "estimated_tokens": 56
+  },
+  {
+    "chunk_id": "chunk_0068",
+    "page_number": 26,
+    "section_title": "1.4.11 For autistic adults without a learning disability or with a mild learning disability,",
+    "text": "1.4.11 \nFor autistic adults without a learning disability or with a mild learning disability, \nwho are having difficulty obtaining or maintaining employment, consider an \nindividual supported employment programme.",
+    "estimated_tokens": 53
+  },
+  {
+    "chunk_id": "chunk_0069",
+    "page_number": 26,
+    "section_title": "1.4.12 An individual supported employment programme should typically include:",
+    "text": "1.4.12 \nAn individual supported employment programme should typically include: \n• help with writing CVs and job applications and preparing for interviews \n• training for the identified work role and work-related behaviours \n• carefully matching the autistic person with the job \n• advice to employers about making reasonable adjustments to the workplace \n• continuing support for the person after they start work \n• support for the employer before and after the person starts work, including \nautism awareness training.",
+    "estimated_tokens": 129
+  },
+  {
+    "chunk_id": "chunk_0070",
+    "page_number": 27,
+    "section_title": "1.4.13 Do not use anticonvulsants for the management of core features of autism in",
+    "text": "1.4.13 \nDo not use anticonvulsants for the management of core features of autism in \nadults.",
+    "estimated_tokens": 23
+  },
+  {
+    "chunk_id": "chunk_0071",
+    "page_number": 27,
+    "section_title": "1.4.14 Do not use chelation for the management of core features of autism in adults.",
+    "text": "1.4.14 \nDo not use chelation for the management of core features of autism in adults.",
+    "estimated_tokens": 21
+  },
+  {
+    "chunk_id": "chunk_0072",
+    "page_number": 27,
+    "section_title": "1.4.15 Do not use the following interventions for the management of core features of",
+    "text": "1.4.15 \nDo not use the following interventions for the management of core features of \nautism in adults: \n• exclusion diets (such as gluten- or casein-free and ketogenic diets) \n• vitamins, minerals and dietary supplements (such as vitamin B6 or iron \nsupplementation).",
+    "estimated_tokens": 67
+  },
+  {
+    "chunk_id": "chunk_0073",
+    "page_number": 27,
+    "section_title": "1.4.16 Do not use drugs specifically designed to improve cognitive functioning (for",
+    "text": "1.4.16 \nDo not use drugs specifically designed to improve cognitive functioning (for \nexample, cholinesterase inhibitors) for the management of core features of \nautism or routinely for associated cognitive or behavioural problems in adults.",
+    "estimated_tokens": 60
+  },
+  {
+    "chunk_id": "chunk_0074",
+    "page_number": 27,
+    "section_title": "1.4.17 Do not use oxytocin for the management of core features of autism in adults.",
+    "text": "1.4.17 \nDo not use oxytocin for the management of core features of autism in adults.",
+    "estimated_tokens": 21
+  },
+  {
+    "chunk_id": "chunk_0075",
+    "page_number": 27,
+    "section_title": "1.4.18 Do not use secretin for the management of core features of autism in adults.",
+    "text": "1.4.18 \nDo not use secretin for the management of core features of autism in adults.",
+    "estimated_tokens": 21
+  },
+  {
+    "chunk_id": "chunk_0076",
+    "page_number": 27,
+    "section_title": "1.4.19 Do not use testosterone regulation for the management of core features of",
+    "text": "1.4.19 \nDo not use testosterone regulation for the management of core features of \nautism in adults.",
+    "estimated_tokens": 25
+  },
+  {
+    "chunk_id": "chunk_0077",
+    "page_number": 27,
+    "section_title": "1.4.20 Do not use hyperbaric oxygen therapy for the management of core features of",
+    "text": "1.4.20 \nDo not use hyperbaric oxygen therapy for the management of core features of \nautism in adults.",
+    "estimated_tokens": 25
+  },
+  {
+    "chunk_id": "chunk_0078",
+    "page_number": 27,
+    "section_title": "1.4.21 Do not use antipsychotic medication for the management of core features of",
+    "text": "1.4.21 \nDo not use antipsychotic medication for the management of core features of \nautism in adults.",
+    "estimated_tokens": 25
+  },
+  {
+    "chunk_id": "chunk_0079",
+    "page_number": 27,
+    "section_title": "1.4.22 Do not use antidepressant medication for the routine management of core",
+    "text": "1.4.22 \nDo not use antidepressant medication for the routine management of core \nfeatures of autism in adults.",
+    "estimated_tokens": 27
+  },
+  {
+    "chunk_id": "chunk_0080",
+    "page_number": 28,
+    "section_title": "1.5 Interventions for behaviour that challenges",
+    "text": "1.5 Interventions for behaviour that challenges",
+    "estimated_tokens": 11
+  },
+  {
+    "chunk_id": "chunk_0081",
+    "page_number": 28,
+    "section_title": "1.5.1 Before initiating other interventions for behaviour that challenges, address any",
+    "text": "1.5.1 \nBefore initiating other interventions for behaviour that challenges, address any \nidentified factors that may trigger or maintain the behaviour (see \nrecommendation 1.2.20) by offering: \n• the appropriate care for physical disorders (for example, gastrointestinal \nproblems or chronic pain) \n• treatment for any coexisting mental disorders, including psychological and \npharmacological interventions (for example, anxiolytic, antidepressant or \nantipsychotic medication), informed by existing NICE guidance \n• interventions aimed at changing the physical or social environment (for \nexample, who the person lives with) when problems are identified, such as: \n－ advice to the family, partner or carer(s) \n－ changes or accommodations to the physical environment (see \nrecommendation 1.1.8).",
+    "estimated_tokens": 198
+  },
+  {
+    "chunk_id": "chunk_0082",
+    "page_number": 28,
+    "section_title": "1.5.2 First offer a psychosocial intervention for the behaviour that challenges if no",
+    "text": "1.5.2 \nFirst offer a psychosocial intervention for the behaviour that challenges if no \ncoexisting mental or physical disorder, or problem related to the physical or social \nenvironment, has been identified as triggering or maintaining behaviour that \nchallenges.",
+    "estimated_tokens": 65
+  },
+  {
+    "chunk_id": "chunk_0083",
+    "page_number": 28,
+    "section_title": "1.5.3 When deciding on the nature and content of a psychosocial intervention to",
+    "text": "1.5.3 \nWhen deciding on the nature and content of a psychosocial intervention to \naddress behaviour that challenges, use a functional analysis. The functional \nanalysis should facilitate the targeting of interventions that address the \nfunction(s) of problem behaviour(s) by: \n• providing information, from a range of environments, on: \n－ factors that appear to trigger the behaviour \n－ the consequences of the behaviour (that is, the reinforcement received \nas a result of their behaviour) \n• identifying trends in behaviour occurrence, factors that may be evoking that \nbehaviour, and the needs that the person is attempting to meet by",
+    "estimated_tokens": 159
+  },
+  {
+    "chunk_id": "chunk_0084",
+    "page_number": 29,
+    "section_title": "1.5.4 In addition to the functional analysis, base the choice of intervention(s) on:",
+    "text": "1.5.4 \nIn addition to the functional analysis, base the choice of intervention(s) on: \n• the nature and severity of the behaviour \n• the person's physical needs and capabilities \n• the physical and social environment \n• the capacity of staff and families, partners or carers to provide support \n• the preferences of the autistic person and, where appropriate, their family, \npartner or carer(s) \n• past history of care and support. \nPsychosocial interventions for behaviour that challenges",
+    "estimated_tokens": 122
+  },
+  {
+    "chunk_id": "chunk_0085",
+    "page_number": 29,
+    "section_title": "1.5.5 Psychosocial interventions for behaviour that challenges should be based on",
+    "text": "1.5.5 \nPsychosocial interventions for behaviour that challenges should be based on \nbehavioural principles and informed by a functional analysis of behaviour (see \nrecommendation 1.5.3).",
+    "estimated_tokens": 46
+  },
+  {
+    "chunk_id": "chunk_0086",
+    "page_number": 29,
+    "section_title": "1.5.6 Psychosocial interventions for behaviour that challenges should include:",
+    "text": "1.5.6 \nPsychosocial interventions for behaviour that challenges should include: \n• clearly identified target behaviour(s) \n• a focus on outcomes that are linked to quality of life \n• assessment and modification of environmental factors that may contribute to \ninitiating or maintaining the behaviour \n• a clearly defined intervention strategy \n• a clear schedule of reinforcement, and capacity to offer reinforcement \npromptly and contingently on demonstration of the desired behaviour \n• a specified timescale to meet intervention goals (to promote modification of \nintervention strategies that do not lead to change within a specified time) \n• a systematic measure of the target behaviour(s) taken before and after the",
+    "estimated_tokens": 180
+  },
+  {
+    "chunk_id": "chunk_0087",
+    "page_number": 30,
+    "section_title": "1.5.7 Consider antipsychotic medication in conjunction with a psychosocial",
+    "text": "1.5.7 \nConsider antipsychotic medication in conjunction with a psychosocial \nintervention for behaviour that challenges when there has been no or limited \nresponse to psychosocial or other interventions (such as environmental \nadaptations). Antipsychotic medication should be prescribed by a specialist and \nquality of life outcomes monitored carefully. Review the effects of the medication \nafter 3–4 weeks and discontinue it if there is no indication of a clinically important \nresponse at 6 weeks. \nIn June 2012 this was an off-label use of antipsychotic medication. See NICE's \ninformation on prescribing medicines. \nPharmacological interventions for behaviour that challenges",
+    "estimated_tokens": 170
+  },
+  {
+    "chunk_id": "chunk_0088",
+    "page_number": 30,
+    "section_title": "1.5.8 Consider antipsychotic medication alone for behaviour that challenges when",
+    "text": "1.5.8 \nConsider antipsychotic medication alone for behaviour that challenges when \npsychosocial or other interventions could not be delivered because of the \nseverity of the behaviour that challenges. Antipsychotic medication should be \nprescribed by a specialist and quality of life outcomes monitored carefully. \nReview the effects of the medication after 3–4 weeks and discontinue it if there is \nno indication of a clinically important response at 6 weeks. \nIn June 2012 this was an off-label use of antipsychotic medication. See NICE's \ninformation on prescribing medicines.",
+    "estimated_tokens": 144
+  },
+  {
+    "chunk_id": "chunk_0089",
+    "page_number": 30,
+    "section_title": "1.5.9 Do not routinely use anticonvulsants for the management of behaviour that",
+    "text": "1.5.9 \nDo not routinely use anticonvulsants for the management of behaviour that \nchallenges in autistic adults.",
+    "estimated_tokens": 28
+  },
+  {
+    "chunk_id": "chunk_0090",
+    "page_number": 30,
+    "section_title": "1.6 Interventions for coexisting mental disorders",
+    "text": "1.6 Interventions for coexisting mental disorders",
+    "estimated_tokens": 12
+  },
+  {
+    "chunk_id": "chunk_0091",
+    "page_number": 30,
+    "section_title": "1.6.1 Staff delivering interventions for coexisting mental disorders to autistic adults",
+    "text": "1.6.1 \nStaff delivering interventions for coexisting mental disorders to autistic adults \nshould:",
+    "estimated_tokens": 24
+  },
+  {
+    "chunk_id": "chunk_0092",
+    "page_number": 31,
+    "section_title": "1.6.2 For autistic adults and coexisting mental disorders, offer psychosocial",
+    "text": "1.6.2 \nFor autistic adults and coexisting mental disorders, offer psychosocial \ninterventions informed by existing NICE guidance for the specific disorder.",
+    "estimated_tokens": 38
+  },
+  {
+    "chunk_id": "chunk_0093",
+    "page_number": 31,
+    "section_title": "1.6.3 Adaptations to the method of delivery of cognitive and behavioural interventions",
+    "text": "1.6.3 \nAdaptations to the method of delivery of cognitive and behavioural interventions \nfor autistic adults and coexisting common mental disorders should include: \n• a more concrete and structured approach with a greater use of written and \nvisual information (which may include worksheets, thought bubbles, images \nand 'tool boxes') \n• placing greater emphasis on changing behaviour, rather than cognitions, and \nusing the behaviour as the starting point for intervention \n• making rules explicit and explaining their context \n• using plain English and avoiding excessive use of metaphor, ambiguity and \nhypothetical situations \n• involving a family member, partner, carer or professional (if the autistic \nperson agrees) to support the implementation of an intervention \n• maintaining the person's attention by offering regular breaks and \nincorporating their special interests into therapy if possible (such as using \ncomputers to present information). \nPharmacological interventions for coexisting mental disorders",
+    "estimated_tokens": 254
+  },
+  {
+    "chunk_id": "chunk_0094",
+    "page_number": 31,
+    "section_title": "1.6.4 For autistic adults and coexisting mental disorders, offer pharmacological",
+    "text": "1.6.4 \nFor autistic adults and coexisting mental disorders, offer pharmacological \ninterventions informed by existing NICE guidance for the specific disorder.",
+    "estimated_tokens": 39
+  },
+  {
+    "chunk_id": "chunk_0095",
+    "page_number": 32,
+    "section_title": "1.7 Assessment and interventions for families,",
+    "text": "1.7 Assessment and interventions for families, \npartners and carers",
+    "estimated_tokens": 16
+  },
+  {
+    "chunk_id": "chunk_0096",
+    "page_number": 32,
+    "section_title": "1.7.1 Offer families, partners and carers of autistic adults an assessment of their own",
+    "text": "1.7.1 \nOffer families, partners and carers of autistic adults an assessment of their own \nneeds (see the NICE guideline on supporting adult carers for recommendations \non identifying, assessing and meeting the caring, physical and mental health \nneeds of families, partners and carers).",
+    "estimated_tokens": 71
+  },
+  {
+    "chunk_id": "chunk_0097",
+    "page_number": 32,
+    "section_title": "1.7.2 When the needs of families, partners and carers have been identified, provide",
+    "text": "1.7.2 \nWhen the needs of families, partners and carers have been identified, provide \ninformation about, and facilitate contact with, a range of support groups including \nthose specifically designed to address the needs of families, partners and carers \nof autistic people. See the NICE guideline on supporting adult carers.",
+    "estimated_tokens": 81
+  },
+  {
+    "chunk_id": "chunk_0098",
+    "page_number": 32,
+    "section_title": "1.7.3 Offer information, advice, training and support to families, partners and carers if",
+    "text": "1.7.3 \nOffer information, advice, training and support to families, partners and carers if \nthey: \n• need help with the personal, social or emotional care of the family member, \npartner or friend or \n• are involved in supporting the delivery of an intervention for their family \nmember, partner or friend (in collaboration with professionals).",
+    "estimated_tokens": 85
+  },
+  {
+    "chunk_id": "chunk_0099",
+    "page_number": 32,
+    "section_title": "1.8 Organisation and delivery of care",
+    "text": "1.8 Organisation and delivery of care \nDeveloping local care pathways",
+    "estimated_tokens": 17
+  },
+  {
+    "chunk_id": "chunk_0100",
+    "page_number": 32,
+    "section_title": "1.8.1 Local care pathways should be developed to promote implementation of key",
+    "text": "1.8.1 \nLocal care pathways should be developed to promote implementation of key \nprinciples of good care. Pathways should be: \n• negotiable, workable and understandable for autistic adults, their families, \npartners and carers, and professionals \n• accessible and acceptable to all people in need of the services served by the \npathway \n• responsive to the needs of autistic adults and their families, partners and",
+    "estimated_tokens": 103
+  },
+  {
+    "chunk_id": "chunk_0101",
+    "page_number": 33,
+    "section_title": "1.8.2 Autism strategy groups should be responsible for developing, managing and",
+    "text": "1.8.2 \nAutism strategy groups should be responsible for developing, managing and \nevaluating local care pathways. The group should appoint a lead professional \nresponsible for the local autism care pathway. The aims of the strategy group \nshould include: \n• developing clear policy and protocols for the operation of the pathway \n• ensuring the provision of multi-agency training about features of autism, and \ntraining and support on the operation of the pathway \n• making sure the relevant professionals (health, social care, housing, \neducational and employment services and the third sector) are aware of the \nlocal autism pathway and how to access services \n• supporting the integrated delivery of services across all care settings \n• supporting the smooth transition to adult services for young people going \nthrough the pathway \n• auditing and reviewing the performance of the pathway.",
+    "estimated_tokens": 223
+  },
+  {
+    "chunk_id": "chunk_0102",
+    "page_number": 33,
+    "section_title": "1.8.3 The autism strategy group should develop local care pathways that promote",
+    "text": "1.8.3 \nThe autism strategy group should develop local care pathways that promote \naccess to services for all autistic adults, including: \n• people with coexisting physical and mental disorders (including substance \nmisuse) \n• women \n• people with learning disabilities \n• older people \n• people from black and minority ethnic groups",
+    "estimated_tokens": 83
+  },
+  {
+    "chunk_id": "chunk_0103",
+    "page_number": 34,
+    "section_title": "1.8.4 When providing information about local care pathways to autistic adults and their",
+    "text": "1.8.4 \nWhen providing information about local care pathways to autistic adults and their \nfamilies, partners and carers, all professionals should: \n• take into account the person's knowledge and understanding of autism and \nits care and management \n• ensure that such information is appropriate to the communities using the \npathway.",
+    "estimated_tokens": 83
+  },
+  {
+    "chunk_id": "chunk_0104",
+    "page_number": 34,
+    "section_title": "1.8.5 The autism strategy group should design local care pathways that promote a",
+    "text": "1.8.5 \nThe autism strategy group should design local care pathways that promote a \nrange of evidence-based interventions at each step in the pathway and support \nautistic adults in their choice of interventions.",
+    "estimated_tokens": 52
+  },
+  {
+    "chunk_id": "chunk_0105",
+    "page_number": 34,
+    "section_title": "1.8.6 The autism strategy group should design local care pathways that respond",
+    "text": "1.8.6 \nThe autism strategy group should design local care pathways that respond \npromptly and effectively to the changing needs of all populations served by the \npathways. Pathways should have in place: \n• clear and agreed goals for the services offered to autistic adults \n• robust and effective means for measuring and evaluating the outcomes \nassociated with the agreed goals \n• clear and agreed mechanisms for responding promptly to identified changes \nto people's needs.",
+    "estimated_tokens": 118
+  },
+  {
+    "chunk_id": "chunk_0106",
+    "page_number": 34,
+    "section_title": "1.8.7 The autism strategy group should design local care pathways that provide an",
+    "text": "1.8.7 \nThe autism strategy group should design local care pathways that provide an \nintegrated programme of care across all care settings. Pathways should: \n• minimise the need for transition between different services or providers \n• allow services to be built around the pathway and not the pathway around",
+    "estimated_tokens": 76
+  },
+  {
+    "chunk_id": "chunk_0107",
+    "page_number": 35,
+    "section_title": "1.8.8 There should be a single point of referral (including self-referral) to specialist",
+    "text": "1.8.8 \nThere should be a single point of referral (including self-referral) to specialist \nservices for autistic adults.",
+    "estimated_tokens": 30
+  },
+  {
+    "chunk_id": "chunk_0108",
+    "page_number": 35,
+    "section_title": "1.8.9 Support access to services and increase the uptake of interventions by:",
+    "text": "1.8.9 \nSupport access to services and increase the uptake of interventions by: \n• delivering assessment and interventions in a physical environment that is \nappropriate for people with hyper- and/or hypo-sensory sensitivities (see \nrecommendation 1.1.8) \n• changing the professional responsible for the person's care if a supportive \nand caring relationship cannot be established.",
+    "estimated_tokens": 95
+  },
+  {
+    "chunk_id": "chunk_0109",
+    "page_number": 35,
+    "section_title": "1.8.10 Support access to services and increase the uptake of interventions by:",
+    "text": "1.8.10 \nSupport access to services and increase the uptake of interventions by: \n• ensuring systems (for example, care coordination or case management) are \nin place to provide for the overall coordination and continuity of care for \nautistic adults \n• designating a professional to oversee the whole period of care (usually a \nmember of the primary healthcare team for those not in the care of a \nspecialist autism team or mental health or learning disability service). \nResidential care",
+    "estimated_tokens": 122
+  },
+  {
+    "chunk_id": "chunk_0110",
+    "page_number": 35,
+    "section_title": "1.8.11 If residential care is needed for autistic adults it should usually be provided in",
+    "text": "1.8.11 \nIf residential care is needed for autistic adults it should usually be provided in \nsmall, local community-based units (of no more than six people and with well-\nsupported single person accommodation). The environment should be structured",
+    "estimated_tokens": 61
+  },
+  {
+    "chunk_id": "chunk_0111",
+    "page_number": 36,
+    "section_title": "1.8.12 Residential care environments should include activities that are:",
+    "text": "1.8.12 \nResidential care environments should include activities that are: \n• structured and purposeful \n• designed to promote integration with the local community and use of local \namenities \n• clearly timetabled with daily, weekly and sequential programmes that \npromote choice and autonomy.",
+    "estimated_tokens": 73
+  },
+  {
+    "chunk_id": "chunk_0112",
+    "page_number": 36,
+    "section_title": "1.8.13 Residential care environments should have:",
+    "text": "1.8.13 \nResidential care environments should have: \n• designated areas for different activities that provide visual cues about \nexpected behaviour \n• adaptations to the physical environment for people with hyper- and/or hypo-\nsensory sensitivities (see recommendation 1.1.8) \n• inside and outside spaces where the autistic person can be alone (for \nexample, if they are over-stimulated).",
+    "estimated_tokens": 96
+  },
+  {
+    "chunk_id": "chunk_0113",
+    "page_number": 36,
+    "section_title": "1.8.14 Residential care staff should:",
+    "text": "1.8.14 \nResidential care staff should: \n• understand the principles and attitudes underpinning the effective delivery of \nresidential care for autistic adults \n• work in collaboration with health and community care staff from a range of \nspecialist services to support the delivery of a comprehensive care plan \n• be trained in assessing and supporting the needs of autistic adults \n• be consistent and predictable, but with some flexibility to allow change and \nchoice \n• be committed to involving families, partners and carers.",
+    "estimated_tokens": 132
+  },
+  {
+    "chunk_id": "chunk_0114",
+    "page_number": 37,
+    "section_title": "General",
+    "text": "Terms used in this guideline \nThis section defines terms that have been used in a particular way for this guideline. \nAugmentative communication \nAn alternative way of helping people with communication difficulties by using assistive \ntechnology such as computers or other devices, such as a speech output device. \nBehavioural principles \nIdeas, such as reinforcement and function of behaviour, that underlie behavioural \ntherapies and underpin many interventions teaching adaptive skills for community living \nfor autistic people, including those with behaviour that challenges. \nBehaviour that challenges \nA term used to describe behaviour that is a result of the interaction between individual and \nenvironmental factors, and includes stereotypic behaviour (such as rocking or hand \nflapping), anger, aggression, self-injury, and disruptive or destructive behaviour. Such \nbehaviour is seen as challenging when it affects the person's or other people's quality of \nlife and or jeopardises their safety. \nCare pathway \nA system designed to improve the overall quality of healthcare by standardising the care \nprocess and promoting organised efficient service user care based on best evidence to \noptimise service user outcomes. \nChelation \nA procedure that involves using one or more substances (chelating agents) to remove \nmaterials that are toxic, including heavy metals such as mercury, from the body. \nEasy read \nAn accessible format for written communication designed for people with a learning",
+    "estimated_tokens": 375
+  },
+  {
+    "chunk_id": "chunk_0115",
+    "page_number": 38,
+    "section_title": "General",
+    "text": "disability. It uses simple jargon-free language, short sentences and illustrations. \nFacilitated communication \nA therapeutic intervention whereby a facilitator supports the hand or arm of an autistic \nperson while using a keyboard or other devices with the aim of helping the person to \ndevelop pointing skills and to communicate. \nFunctional analysis \nA method for understanding the causes and consequences of behaviour and its \nrelationship to particular stimuli, and the function of the behaviour. The function of a \nparticular behaviour can be analysed by typically identifying (1) the precursor or trigger of \nthe behaviour, (2) the behaviour itself, and (3) the consequence of the behaviour. \nHyper- and hypo-sensory sensitivities \nBeing over-sensitive (hyper-sensitive) or under-sensitive (hypo-sensitive) to sound, light, \ncolour, smell or taste, which can cause anxiety or even pain in an autistic person. \nInformant \nA family member, partner, carer or other third party known to the autistic person who is \nable to provide information about the person's features and behaviour so that \nprofessionals can have a fuller picture of the person's developmental history. Some \nassessment tools for autism require information from informants. \nLearning disability \nLower intellectual ability (usually defined as an IQ of less than 70) that leads to problems in \nlearning, developing new skills, communication and carrying out daily activities. Learning \ndisability severities are defined by the following IQ scores: mild=50–69, moderate=35–49 \nand severe=20–34. A person with a mild to moderate learning disability may only need \nsupport in certain areas. However, a person with a moderate to severe learning disability \nmay have no speech or limited communication, a significantly reduced ability to learn new \nskills and require support with daily activities such as dressing and eating. Learning \ndisabilities are different from 'learning difficulties', like dyslexia, which do not affect",
+    "estimated_tokens": 498
+  },
+  {
+    "chunk_id": "chunk_0116",
+    "page_number": 39,
+    "section_title": "General",
+    "text": "intellect. Learning disability is sometimes also called 'intellectual disability'. \nModelling \nA technique used in behavioural therapy that utilises video and other media. The service \nuser observes target behaviour on the video or computer screen, and repeats it. \nReinforcement \nA technique used in behavioural therapy to teach 'rules' of social engagement through \nproviding prompts for behaviour. Reinforcement may be by the autistic person or those \nworking with or caring for them.",
+    "estimated_tokens": 121
+  },
+  {
+    "chunk_id": "chunk_0117",
+    "page_number": 40,
+    "section_title": "General",
+    "text": "Recommendations for research \nThe Guideline Development Group has made the following recommendations for research, \nbased on its review of evidence, to improve NICE guidance and patient care in the future. \nThe Guideline Development Group's full set of recommendations for research is detailed in \nthe full guideline. \n1 Facilitated self-help for anxiety and depression in \nautistic adults \nWhat is the clinical and cost effectiveness of facilitated self-help for the treatment of mild \nanxiety and depressive disorders in autistic adults? \nWhy this is important \nAnxiety and depressive disorders commonly coexist in autistic people and are associated \nwith poorer health outcomes and quality of life. This may occur because of the direct \nimpact of the anxiety or depression but also because of a negative interaction with the \ncore features of autism. There is limited access and poor uptake of facilitated self-help by \nautistic people, largely due to limited availability but also because current systems for the \ndelivery of such interventions are not adapted for use by autistic people. In adults without \nautism, facilitated self-help is an effective intervention for mild to moderate depression \nand anxiety. The development of novel methods for the delivery of facilitated self-help \ncould make effective interventions available to a wider group of people. \nThe suggested programme of research would need to: (a) develop current methods for the \ndelivery of self-help measures to take into account the impact of autism and possibly \ninclude developments in the nature of the materials, the methods for their delivery and the \nnature, duration and extent of their facilitation; (b) test the feasibility of the novel methods \nin a series of pilot studies; and (c) formally evaluate the outcomes (including symptoms, \nsatisfaction and quality of life) in a large-scale randomised trial.",
+    "estimated_tokens": 473
+  },
+  {
+    "chunk_id": "chunk_0118",
+    "page_number": 41,
+    "section_title": "General",
+    "text": "2 The structure and organisation of specialist \nteams \nWhat structure and organisation of specialist autism teams are associated with \nimprovements in care for autistic people? \nWhy this is important \nThe Department of Health's autism strategy (2010) proposes the introduction of a range of \nspecialist services for autistic people; these will usually be built around specialist autism \nteams. However, there is little evidence to guide the establishment and development of \nthese teams. There is uncertainty about the precise nature of the population to be served \n(all autistic people or only those who have an IQ of 70 or above), the composition of the \nteam, the extent of the team's role (for example, diagnosis and assessment only, a \nprimarily advisory role or a substantial care coordination role), the interventions provided \nby the team, and the team's role and relationship with regard to non-statutory care \nproviders. Therefore it is likely that in the near future a number of different models will be \ndeveloped, which are likely to have varying degrees of success in meeting the needs of \nautistic people. Given the significant expansion of services, this presents an opportunity \nfor a large-scale observational study, which should provide important information on the \ncharacteristics of teams associated with positive outcomes for autistic people in terms of \naccess to services and effective coordination of care. \n3 Augmentative communication devices for autistic \nadults \nWhat is the clinical and cost effectiveness of augmentative communication devices for \nautistic adults? \nWhy this is important \nMany autistic people experience significant communication problems (for example, the \nabsence of any spoken language or significant deficits in interpersonal skills), which have \na profound effect on their ability to lead a full and rewarding life. It is probable that these \nproblems are related to the core features of autism and are likely to persist for most \npeople given the life-long course of autism and the lack of effective interventions for these",
+    "estimated_tokens": 519
+  },
+  {
+    "chunk_id": "chunk_0119",
+    "page_number": 42,
+    "section_title": "General",
+    "text": "core features. A number of communication devices have been developed for autism but \nfew, if any, have been subjected to a proper evaluation in adults. Despite this lack of formal \nevaluation, individual services have made considerable investments in augmentative \ncommunication devices. Research that provides high-quality evidence on the acceptability \nand the clinical and cost effectiveness of augmentative communication devices could \nbring about significant improvements in the lives of autistic adults. \nThe suggested programme of research would need to identify current devices for which \nthere is: (a) some evidence of benefit (for example, case series and small-scale pilot \nstudies); (b) some evidence that it meets a key communication need for autistic people \n(based on reviews of people's need in this area); and (c) indication that the device is \nfeasible for routine use. The identified device(s) should then be formally evaluated in a \nlarge-scale randomised trial.",
+    "estimated_tokens": 245
+  },
+  {
+    "chunk_id": "chunk_0120",
+    "page_number": 43,
+    "section_title": "General",
+    "text": "Finding more information and committee \ndetails \nTo find NICE guidance on related topics, including guidance in development, see the NICE \ntopic page on autism. \nFor full details of the evidence and the guideline committee's discussions, see the full \nguideline. You can also find information about how the guideline was developed, including \ndetails of the committee. \nNICE has produced tools and resources to help you put this guideline into practice. For \ngeneral help and advice on putting NICE guidelines into practice, see resources to help \nyou put guidance into practice.",
+    "estimated_tokens": 144
+  },
+  {
+    "chunk_id": "chunk_0121",
+    "page_number": 44,
+    "section_title": "General",
+    "text": "Update information \nJune 2021: We amended recommendation 1.2.3 to clarify that when the Autism-Spectrum \nQuotient – 10 items (AQ-10) is used to assess for possible autism, the score at which the \nperson should be offered a comprehensive assessment is 6 or above. Throughout the \nguideline we changed 'people with autism' to 'autistic people', 'challenging behaviour' to \n'behaviour that challenges', and 'symptoms' to 'features' to align with current terminology. \nAugust 2016: The following recommendations for research have been removed: \n• What is the clinical and cost effectiveness of CBT for the treatment of moderate and \nsevere anxiety disorders in autistic adults? \n• What is the clinical and cost effectiveness of selective serotonin reuptake inhibitors \n(SSRIs) for the treatment of moderate and severe depression in autistic adults? \nMinor changes since publication \nJanuary 2023: We have updated the link to the Autism-Spectrum Quotient – 10 items \n(AQ-10) tool. \nMarch 2022: We have changed the description of psychologists in recommendation 1.1.13, \nin line with current practice and the British Psychological Society's best practice in \npsychology recruitment. \nJuly 2020: We linked to the NICE guideline on supporting adult carers in recommendations \n1.1.17, 1.7.1 and 1.7.2. \nOctober 2015: Title changed from 'Autism: recognition, referral, diagnosis and \nmanagement of adults on the autism spectrum' to 'Autism spectrum disorder in adults: \ndiagnosis and management', for clarity and consistency with other guidance on this topic. \nISBN: 978-1-4731-2039-6",
+    "estimated_tokens": 393
+  }
+]
