@@ -8,6 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from step8_full_pipeline import full_pipeline
+from routine_generator import generate_routine
 
 app = FastAPI(title="Autism Clinical RAG API")
 
@@ -54,3 +55,11 @@ def ask_question(request: QuestionRequest):
     """
     result = full_pipeline(request.question, top_k=request.top_k)
     return result
+
+
+class RoutineRequest(BaseModel):
+    situation: str
+
+@app.post("/routine")
+def routine(request: RoutineRequest):
+    return generate_routine(request.situation)
