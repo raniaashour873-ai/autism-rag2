@@ -251,6 +251,7 @@ a { color: inherit; text-decoration: none; }
 .relevance-fill { height: 100%; border-radius: inherit; background: var(--sage-muted); transition: width 400ms var(--ease); }
 .evidence-item-active .relevance-fill { background: var(--amber); }
 .evidence-meta { display: flex; justify-content: space-between; margin-top: 10px; color: var(--text-muted); font-family: var(--font-mono); font-size: 7px; }
+.evidence-excerpt { margin-top: 10px; color: var(--text); font-family: var(--font-serif); font-size: 12px; line-height: 1.55; white-space: pre-wrap; max-height: 160px; overflow: auto; }
 
 /* ---------- Utility modals (Evidence / Guidelines / History / Safety) ---------- */
 .utility-overlay {
@@ -397,7 +398,7 @@ a { color: inherit; text-decoration: none; }
     <div class="workspace-brand">
       <span class="workspace-brand-mark">∞</span>
       <strong>THREADLINE</strong>
-      <span>Clinical Evidence Intelligence</span>
+      <span>Autism Evidence Assistant</span>
     </div>
     <div class="workspace-nav">
       <button class="workspace-nav-active">Clinical AI</button>
@@ -449,16 +450,16 @@ a { color: inherit; text-decoration: none; }
             <div class="chat-header-meta">
               <span>CLINICAL AI</span><span class="chat-header-divider">/</span><span>AUTISM SPECTRUM DISORDER</span>
             </div>
-            <h1>Clinical evidence assistant</h1>
-            <p>Ask a clinical question and trace every answer back to its supporting evidence.</p>
+            <h1>Autism Evidence Assistant</h1>
+            <p>Ask a question and trace the answer back to the supporting guideline evidence</p>
           </div>
 
           <div class="chat-scroll" id="chatScroll">
             <div id="emptyState" class="empty-chat">
               <div class="empty-thread-symbol">∞</div>
-              <div class="empty-kicker">NICE CG142 &amp; CG170</div>
+              <div class="empty-kicker" id="emptyIndexKicker">INDEXED NICE GUIDELINES</div>
               <h2>One thread,<br>traced end to end.</h2>
-              <p>Every answer here is grounded in official NICE guidance for autism — covering both adults and children &amp; young people — with the exact page and section behind it.</p>
+              <p>Every answer here is grounded in official certified guidance for autism — covering both adults and children &amp; young people — with the exact page and section behind it.</p>
               <div class="suggestion-grid">
                 <button class="suggestion-card" data-q="Should chelation be used for adults with autism?">
                   <span class="suggestion-icon">⚕</span>
@@ -499,7 +500,7 @@ a { color: inherit; text-decoration: none; }
                 <button class="composer-send" id="askBtn" title="Ask">↑</button>
               </div>
             </div>
-            <p class="composer-disclaimer">Threadline supports clinical judgement — it does not replace it. Answers are grounded in NICE CG142 &amp; CG170 only.</p>
+            <p class="composer-disclaimer">Threadline supports clinical judgement — it does not replace it. Answers are grounded only in the currently indexed guideline excerpts.</p>
           </div>
 
         </section>
@@ -551,11 +552,30 @@ const sidebarStatus = document.getElementById('sidebarStatus');
 const recentList = document.getElementById('recentList');
 
 let recentQuestions = [];
+let indexStats = { chunk_count: 0, documents: [] };
+
+function escapeHtml(value){
+  return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  }[char]));
+}
 
 async function checkStatus(){
   try{
     const res = await fetch(API_URL + "/", { method:"GET" });
     if(res.ok){
+      const payload = await res.json();
+      if(payload.index){
+        indexStats = payload.index;
+        const kicker = document.getElementById('emptyIndexKicker');
+        if(kicker && indexStats.chunk_count){
+          kicker.textContent = `${indexStats.chunk_count} INDEXED EXCERPTS`;
+        }
+      }
       apiStatus.classList.add('online'); apiStatus.classList.remove('offline');
       apiStatusText.textContent = "OPERATIONAL";
       sidebarStatus.innerHTML = '<span class="workspace-status-dot" style="background:#4C8067"></span> Operational';
@@ -586,34 +606,54 @@ function parseAnswer(raw){
   };
 }
 
-function safetyBlock(label){
+function safetyBlock(label, refuseReason){
+  const reason = (refuseReason || "").toUpperCase();
   const map = {
     ALLOWED: ["safety-allowed", "✓", "Evidence grounded", "ALLOWED"],
     NEEDS_CAUTION: ["safety-caution", "⚠", "Needs caution", "PERSONAL CONTEXT"],
-    REFUSE: ["safety-refuse", "✕", "Refused", "OUT OF SCOPE / EMERGENCY"]
+    REFUSE: ["safety-refuse", "✕", "Refused", reason || "REFUSED"]
   };
   const [cls, icon, title, sub] = map[label] || map.ALLOWED;
   return `<div class="safety-status ${cls}">
     <div class="safety-status-icon">${icon}</div>
     <div class="safety-status-content">
       <div class="safety-status-title">${title}</div>
-      <div class="safety-status-label">${sub}</div>
+      <div class="safety-status-label">${escapeHtml(sub)}</div>
     </div>
   </div>`;
+}
+
+function refusalTitle(reason){
+  if(reason === "emergency") return "Emergency — not for crisis care";
+  if(reason === "out_of_scope") return "Out of scope";
+  if(reason === "unsupported_claim") return "Unsupported claim withheld";
+  if(reason === "insufficient_evidence") return "Insufficient retrieved evidence";
+  return "Safe refusal";
+}
+
+function citationLabel(source){
+  const doc = source.document || "Indexed guideline";
+  const section = (source.section || "Section").slice(0, 70);
+  return `${escapeHtml(doc)} <span class="citation-separator">·</span> ${escapeHtml(section)} <span class="citation-separator">·</span> p.${escapeHtml(source.page)}`;
 }
 
 function renderTurn(question, data){
   const parsed = parseAnswer(data.answer || "");
   const isRefused = data.status === "refused";
   const isCaution = data.safety_label === "NEEDS_CAUTION";
+  const recommendation = data.recommendation || parsed.recommendation;
+  const evidence = data.evidence || parsed.evidence;
+  const citationSources = (data.citations && data.citations.length)
+    ? data.citations
+    : [];
 
   let answerHtml;
   if(isRefused){
     answerHtml = `<div class="clinical-boundary">
       <div class="clinical-boundary-mark">∞</div>
       <div>
-        <h3>Outside safe scope</h3>
-        <p>${data.answer.replace(/\n/g,'<br>')}</p>
+        <h3>${escapeHtml(refusalTitle(data.refuse_reason))}</h3>
+        <p>${escapeHtml(data.answer || "").replace(/\n/g,'<br>')}</p>
       </div>
     </div>`;
   } else {
@@ -623,25 +663,29 @@ function renderTurn(question, data){
         <p>This reflects general guideline content, not an assessment of a specific person. Please consult a healthcare professional.</p></div>
       </div>` : '';
 
-    if(parsed.recommendation){
+    const citationText = citationSources.map((s) =>
+      `${s.document || ""}, ${s.section || ""}, p.${s.page} (${s.chunk_id || ""})`
+    ).join("\n");
+
+    if(recommendation){
       answerHtml = `
         ${cautionHtml}
         <div class="answer-heading">
           <span class="answer-label">CLINICAL RESPONSE</span>
           <button class="copy-answer-button" onclick="navigator.clipboard.writeText(this.closest('.assistant-message').querySelector('.answer-text').innerText)">⧉ Copy</button>
         </div>
-        <div class="answer-text"><strong>RECOMMENDATION:</strong>\n${parsed.recommendation}\n\n<strong>EVIDENCE:</strong>\n${parsed.evidence || '—'}\n\n<strong>CITATION:</strong>\n${parsed.citation || '—'}\n\n<strong>CONFIDENCE:</strong> ${parsed.confidence || '—'}</div>
+        <div class="answer-text"><strong>RECOMMENDATION:</strong>\n${escapeHtml(recommendation)}\n\n<strong>EVIDENCE:</strong>\n${escapeHtml(evidence || '—')}\n\n<strong>CITATION:</strong>\n${escapeHtml(citationText || '—')}</div>
       `;
     }else{
-      answerHtml = `${cautionHtml}<div class="answer-text">${data.answer.replace(/\n/g,'<br>')}</div>`;
+      answerHtml = `${cautionHtml}<div class="answer-text">${escapeHtml(data.answer || "").replace(/\n/g,'<br>')}</div>`;
     }
   }
 
-  const citationsHtml = (data.sources && data.sources.length) ? `
+  const citationsHtml = citationSources.length ? `
     <div class="answer-citations">
       <span class="citation-heading">EVIDENCE THREADS</span>
       <div class="citation-list">
-        ${data.sources.map((s,i) => `<span class="citation" data-idx="${i}"><span class="citation-mark">↗</span> Clinical Evidence <span class="citation-separator">·</span> ${s.section.slice(0,60)} <span class="citation-separator">·</span> p.${s.page}</span>`).join('')}
+        ${citationSources.map((s,i) => `<span class="citation" data-idx="${i}"><span class="citation-mark">↗</span> ${citationLabel(s)}</span>`).join('')}
       </div>
     </div>` : '';
 
@@ -650,7 +694,7 @@ function renderTurn(question, data){
   turn.innerHTML = `
     <div class="message user-message">
       <span class="message-label">YOUR QUESTION</span>
-      <div class="user-question-content">${question}</div>
+      <div class="user-question-content">${escapeHtml(question)}</div>
     </div>
     <div class="message assistant-message ${isCaution ? 'assistant-caution' : ''} ${isRefused ? 'assistant-refused' : ''}">
       <div class="assistant-header">
@@ -658,7 +702,7 @@ function renderTurn(question, data){
           <div class="assistant-mark">∞</div>
           <div><strong>Threadline AI</strong><span>Clinical evidence synthesis</span></div>
         </div>
-        ${safetyBlock(data.safety_label)}
+        ${safetyBlock(data.safety_label, data.refuse_reason)}
       </div>
       <div class="assistant-answer">
         ${answerHtml}
@@ -679,27 +723,29 @@ function renderEvidencePanel(sources){
     evidenceBody.innerHTML = `<div class="evidence-panel-empty">
       <div class="evidence-panel-symbol">∞</div>
       <h3>No source retrieved</h3>
-      <p>This question was refused before search — there is no evidence to trace.</p>
+      <p>This question was refused before search, or no guideline chunks were returned.</p>
     </div>`;
     return;
   }
   const items = sources.map((s, i) => {
     const strength = Math.max(8, Math.round((1 - Math.min(s.distance || 0.9, 1)) * 100));
+    const excerpt = s.text ? escapeHtml(s.text) : "Excerpt text was not returned by the API.";
     return `
       <div class="evidence-item" data-idx="${i}">
         <div class="evidence-item-top">
-          <span class="evidence-number">0${i+1}</span>
-          <span class="evidence-type">RETRIEVED</span>
+          <span class="evidence-number">${String(i+1).padStart(2,"0")}</span>
+          <span class="evidence-type">${escapeHtml(s.chunk_id || "RETRIEVED")}</span>
         </div>
         <div class="evidence-title-row">
           <div class="evidence-file-icon">📄</div>
-          <h3>${s.section}</h3>
+          <h3>${escapeHtml(s.section || "Section")}</h3>
         </div>
-        <div class="evidence-document">Clinical Evidence</div>
+        <div class="evidence-document">${escapeHtml(s.document || "Indexed guideline")}</div>
         <div class="evidence-relevance">
           <div class="relevance-track"><div class="relevance-fill" style="width:${strength}%"></div></div>
         </div>
-        <div class="evidence-meta"><span>Page ${s.page}</span><span>distance ${(s.distance||0).toFixed(3)}</span></div>
+        <div class="evidence-meta"><span>Page ${escapeHtml(s.page)}</span><span>distance ${(s.distance||0).toFixed(3)}</span></div>
+        <div class="evidence-excerpt">${excerpt}</div>
       </div>`;
   }).join('');
   evidenceBody.innerHTML = `
@@ -752,7 +798,7 @@ async function ask(question){
     const data = await res.json();
     document.getElementById('loadingRow')?.remove();
     renderTurn(question, data);
-    fullHistory.push({ question, safety_label: data.safety_label });
+    fullHistory.push({ question, safety_label: data.safety_label, refuse_reason: data.refuse_reason || null });
     checkStatus();
   }catch(e){
     document.getElementById('loadingRow')?.remove();
@@ -761,13 +807,13 @@ async function ask(question){
     turn.innerHTML = `
       <div class="message user-message">
         <span class="message-label">YOUR QUESTION</span>
-        <div class="user-question-content">${question}</div>
+        <div class="user-question-content">${escapeHtml(question)}</div>
       </div>
       <div class="clinical-boundary">
         <div class="clinical-boundary-mark">!</div>
         <div>
-          <h3>Could not reach the API</h3>
-          <p>Make sure the backend is running: <code>uvicorn api:app --reload --port 8000</code>, then try again.</p>
+          <h3>We ar</h3>
+          <p>Unable to connect to the clinical evidence service. Please try again in a moment.</code>, then try again.</p>
         </div>
       </div>`;
     conversation.appendChild(turn);
@@ -821,36 +867,30 @@ utilityOverlay.addEventListener('click', (e) => { if(e.target === utilityOverlay
 document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeUtility(); });
 
 document.getElementById('btnEvidence').addEventListener('click', () => {
+  const docs = (indexStats.documents || []).map((doc) => `
+    <div class="utility-guideline-card">
+      <div><strong>${escapeHtml(doc.name)}</strong><span>${doc.chunks} excerpts</span></div>
+    </div>
+  `).join('') || `<p>Index stats are unavailable until the API is online.</p>`;
   openUtility('KNOWLEDGE BASE', 'Indexed evidence', `
     <div class="utility-icon">📖</div>
-    <h3>206 guideline excerpts, fully traceable</h3>
-    <p>Every answer Threadline gives is retrieved from this indexed set — nothing is generated outside of it. Each excerpt carries its exact page number and section heading.</p>
-    <div class="utility-guideline-card">
-      <div><strong>NICE CG142</strong><span>121 excerpts · Adults</span></div>
-    </div>
-    <div class="utility-guideline-card">
-      <div><strong>NICE CG170</strong><span>85 excerpts · Children &amp; young people</span></div>
-    </div>
-    <div class="utility-note">
-      <strong>Retrieval precision</strong>
-      <span>Precision@5 = 92.9% on a 14-question evaluation set, measured during development.</span>
-    </div>
+    <h3>${indexStats.chunk_count || 0} guideline excerpts currently indexed</h3>
+    <p>Counts come from the live Chroma collection via the API health endpoint. Run <code>python step5_evaluate.py</code> for Precision@k; this panel does not hardcode scores.</p>
+    ${docs}
   `);
 });
 
 document.getElementById('btnGuidelines').addEventListener('click', () => {
+  const docs = (indexStats.documents || []).map((doc) => `
+    <div class="utility-guideline-card">
+      <div><strong>${escapeHtml(doc.name)}</strong><span>${doc.chunks} indexed excerpts</span></div>
+    </div>
+  `).join('') || `<p>Connect the API to list the documents actually in the index.</p>`;
   openUtility('SOURCES', 'Official guidelines used', `
     <div class="utility-icon">📚</div>
-    <h3>Only official NICE guidance</h3>
-    <p>Threadline never answers from general knowledge — only from the two documents below.</p>
-    <div class="utility-guideline-card">
-      <div><strong>NICE CG142</strong><span>Autism spectrum disorder in adults: diagnosis and management</span></div>
-      <a href="https://www.nice.org.uk/guidance/cg142" target="_blank" rel="noopener">Open ↗</a>
-    </div>
-    <div class="utility-guideline-card">
-      <div><strong>NICE CG170</strong><span>Autism: recognition, referral, diagnosis and management in under 19s</span></div>
-      <a href="https://www.nice.org.uk/guidance/cg170" target="_blank" rel="noopener">Open ↗</a>
-    </div>
+    <h3>Only indexed guideline text</h3>
+    <p>Answers are generated from retrieved excerpts in the current index, not from general model knowledge.</p>
+    ${docs}
   `);
 });
 
@@ -896,8 +936,16 @@ document.getElementById('btnSafety').addEventListener('click', () => {
         <span>Questions about a specific individual's situation — answered with a clear disclaimer that this is not a personal diagnosis.</span>
       </div>
       <div>
-        <strong>✕ REFUSE</strong>
-        <span>Emergencies, self-harm risk, or topics entirely outside autism guidance — refused immediately, before any search happens.</span>
+        <strong>✕ REFUSE — emergency</strong>
+        <span>Crisis or immediate-danger questions are refused before retrieval. The emergency message is shown, not an evidence-gap message.</span>
+      </div>
+      <div>
+        <strong>✕ REFUSE — out of scope</strong>
+        <span>Topics unrelated to the indexed autism guidelines are refused without using general knowledge.</span>
+      </div>
+      <div>
+        <strong>✕ REFUSE — insufficient evidence</strong>
+        <span>If retrieval scores are too weak, or the excerpts cannot support the question, generation is skipped or the answer is withheld.</span>
       </div>
     </div>
   `);

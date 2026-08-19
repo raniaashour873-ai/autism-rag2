@@ -1,112 +1,765 @@
 {
-  "precision_at_k": 0.9285714285714286,
-  "k": 5,
-  "hits": 13,
-  "total": 14,
-  "details": [
-    {
-      "question": "Should biological or genetic tests be used for autism diagnosis?",
-      "expected": "chunk_0041",
-      "retrieved_top1": "chunk_0030",
-      "hit": false,
-      "rank": null
+  "precision_at_3": {
+    "precision_at_k": 0.9285714285714286,
+    "k": 3,
+    "hits": 13,
+    "total": 14,
+    "details": [
+      {
+        "question": "Should biological or genetic tests be used for autism diagnosis?",
+        "type": "direct",
+        "expected": "chunk_0041",
+        "expected_contains": "Do not use biological tests, genetic tests or neuroimaging",
+        "retrieved_ids": [
+          "chunk_0023",
+          "chunk_0022",
+          "chunk_0024"
+        ],
+        "retrieved_top1": "chunk_0023",
+        "top_distance": 0.5014363527297974,
+        "hit": false,
+        "rank": null,
+        "matched_id": "chunk_0023"
+      },
+      {
+        "question": "Is chelation recommended for managing autism symptoms?",
+        "type": "direct",
+        "expected": "chunk_0071",
+        "expected_contains": "Do not use chelation",
+        "retrieved_ids": [
+          "chunk_0039",
+          "chunk_0063",
+          "chunk_0034"
+        ],
+        "retrieved_top1": "chunk_0039",
+        "top_distance": 0.37612223625183105,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0039"
+      },
+      {
+        "question": "Should facilitated communication be used for autistic adults?",
+        "type": "direct",
+        "expected": "chunk_0060",
+        "expected_contains": "Do not provide facilitated communication",
+        "retrieved_ids": [
+          "chunk_0061",
+          "chunk_0020",
+          "chunk_0036"
+        ],
+        "retrieved_top1": "chunk_0061",
+        "top_distance": 0.3152903914451599,
+        "hit": true,
+        "rank": 3,
+        "matched_id": "chunk_0036"
+      },
+      {
+        "question": "Is oxytocin recommended for treating core features of autism?",
+        "type": "direct",
+        "expected": "chunk_0074",
+        "expected_contains": "Do not use oxytocin",
+        "retrieved_ids": [
+          "chunk_0039",
+          "chunk_0063",
+          "chunk_0007"
+        ],
+        "retrieved_top1": "chunk_0039",
+        "top_distance": 0.3120952248573303,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0039"
+      },
+      {
+        "question": "What is a health passport for autistic adults?",
+        "type": "direct",
+        "expected": "chunk_0044",
+        "expected_contains": "health passport",
+        "retrieved_ids": [
+          "chunk_0029",
+          "chunk_0053",
+          "chunk_0012"
+        ],
+        "retrieved_top1": "chunk_0029",
+        "top_distance": 0.3065330982208252,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0029"
+      },
+      {
+        "question": "Should secretin be used to manage autism symptoms?",
+        "type": "direct",
+        "expected": "chunk_0075",
+        "expected_contains": "Do not use secretin",
+        "retrieved_ids": [
+          "chunk_0039",
+          "chunk_0063",
+          "chunk_0046"
+        ],
+        "retrieved_top1": "chunk_0039",
+        "top_distance": 0.40823423862457275,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0039"
+      },
+      {
+        "question": "Is hyperbaric oxygen therapy effective for autism management?",
+        "type": "direct",
+        "expected": "chunk_0077",
+        "expected_contains": "hyperbaric oxygen therapy",
+        "retrieved_ids": [
+          "chunk_0039",
+          "chunk_0034",
+          "chunk_0063"
+        ],
+        "retrieved_top1": "chunk_0039",
+        "top_distance": 0.41612470149993896,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0039"
+      },
+      {
+        "question": "Should anticonvulsants be used for the core features of autism?",
+        "type": "direct",
+        "expected": "chunk_0070",
+        "expected_contains": "Do not use anticonvulsants for the management of core features",
+        "retrieved_ids": [
+          "chunk_0039",
+          "chunk_0046",
+          "chunk_0063"
+        ],
+        "retrieved_top1": "chunk_0039",
+        "top_distance": 0.3597062826156616,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0039"
+      },
+      {
+        "question": "Are anticonvulsants recommended for behaviour that challenges in autistic adults?",
+        "type": "direct",
+        "expected": "chunk_0089",
+        "expected_contains": "Do not routinely use anticonvulsants for the management of behaviour that",
+        "retrieved_ids": [
+          "chunk_0046",
+          "chunk_0048",
+          "chunk_0039"
+        ],
+        "retrieved_top1": "chunk_0046",
+        "top_distance": 0.3170958161354065,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0046"
+      },
+      {
+        "question": "Is testosterone regulation recommended for managing autism?",
+        "type": "direct",
+        "expected": "chunk_0076",
+        "expected_contains": "Do not use testosterone regulation",
+        "retrieved_ids": [
+          "chunk_0039",
+          "chunk_0016",
+          "chunk_0063"
+        ],
+        "retrieved_top1": "chunk_0039",
+        "top_distance": 0.45650577545166016,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0039"
+      },
+      {
+        "question": "When should a second opinion be considered in autism diagnosis?",
+        "type": "direct",
+        "expected": "chunk_0046",
+        "expected_contains": "Consider obtaining a second opinion",
+        "retrieved_ids": [
+          "chunk_0030",
+          "chunk_0022",
+          "chunk_0024"
+        ],
+        "retrieved_top1": "chunk_0030",
+        "top_distance": 0.16419100761413574,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0030"
+      },
+      {
+        "question": "What should an individual supported employment programme include?",
+        "type": "direct",
+        "expected": "chunk_0069",
+        "expected_contains": "individual supported employment programme should typically include",
+        "retrieved_ids": [
+          "chunk_0038",
+          "chunk_0050",
+          "chunk_0017"
+        ],
+        "retrieved_top1": "chunk_0038",
+        "top_distance": 0.3185935616493225,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0038"
+      },
+      {
+        "question": "What should anger management interventions typically include?",
+        "type": "direct",
+        "expected": "chunk_0065",
+        "expected_contains": "Anger management interventions should typically include",
+        "retrieved_ids": [
+          "chunk_0040",
+          "chunk_0041",
+          "chunk_0036"
+        ],
+        "retrieved_top1": "chunk_0040",
+        "top_distance": 0.4975723624229431,
+        "hit": true,
+        "rank": 3,
+        "matched_id": "chunk_0036"
+      },
+      {
+        "question": "Should autistic adults be encouraged to join self-help or support groups?",
+        "type": "direct",
+        "expected": "chunk_0018",
+        "expected_contains": "Encourage autistic adults to participate in self-help or support groups",
+        "retrieved_ids": [
+          "chunk_0014",
+          "chunk_0017",
+          "chunk_0018"
+        ],
+        "retrieved_top1": "chunk_0014",
+        "top_distance": 0.23392164707183838,
+        "hit": true,
+        "rank": 3,
+        "matched_id": "chunk_0018"
+      },
+      {
+        "question": "What is the best overall treatment for autism?",
+        "type": "ambiguous",
+        "retrieved_ids": [
+          "chunk_0063",
+          "chunk_0035",
+          "chunk_0008"
+        ],
+        "top_distance": 0.38001149892807007,
+        "note": "Too broad; system should refuse or answer only what retrieved excerpts actually support."
+      },
+      {
+        "question": "Should medication always be used first for autistic adults?",
+        "type": "ambiguous",
+        "retrieved_ids": [
+          "chunk_0046",
+          "chunk_0007",
+          "chunk_0035"
+        ],
+        "top_distance": 0.3882615566253662,
+        "note": "Not a single-recommendation question; expect caution, partial grounded answer, or insufficient-evidence refusal."
+      },
+      {
+        "question": "What is the recommended treatment protocol for autism in cats?",
+        "type": "out_of_scope",
+        "retrieved_ids": [
+          "chunk_0048",
+          "chunk_0063",
+          "chunk_0035"
+        ],
+        "top_distance": 0.47659236192703247,
+        "note": "Out-of-scope queries should not produce a grounded clinical recommendation."
+      },
+      {
+        "question": "What is the best pizza topping?",
+        "type": "out_of_scope",
+        "retrieved_ids": [
+          "chunk_0003",
+          "chunk_0040",
+          "chunk_0039"
+        ],
+        "top_distance": 0.9246784448623657,
+        "note": "Out-of-scope queries should not produce a grounded clinical recommendation."
+      }
+    ]
+  },
+  "precision_at_5": {
+    "precision_at_k": 0.9285714285714286,
+    "k": 5,
+    "hits": 13,
+    "total": 14,
+    "details": [
+      {
+        "question": "Should biological or genetic tests be used for autism diagnosis?",
+        "type": "direct",
+        "expected": "chunk_0041",
+        "expected_contains": "Do not use biological tests, genetic tests or neuroimaging",
+        "retrieved_ids": [
+          "chunk_0023",
+          "chunk_0022",
+          "chunk_0024",
+          "chunk_0063",
+          "chunk_0030"
+        ],
+        "retrieved_top1": "chunk_0023",
+        "top_distance": 0.5014363527297974,
+        "hit": false,
+        "rank": null,
+        "matched_id": "chunk_0023"
+      },
+      {
+        "question": "Is chelation recommended for managing autism symptoms?",
+        "type": "direct",
+        "expected": "chunk_0071",
+        "expected_contains": "Do not use chelation",
+        "retrieved_ids": [
+          "chunk_0039",
+          "chunk_0063",
+          "chunk_0034",
+          "chunk_0035",
+          "chunk_0007"
+        ],
+        "retrieved_top1": "chunk_0039",
+        "top_distance": 0.37612223625183105,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0039"
+      },
+      {
+        "question": "Should facilitated communication be used for autistic adults?",
+        "type": "direct",
+        "expected": "chunk_0060",
+        "expected_contains": "Do not provide facilitated communication",
+        "retrieved_ids": [
+          "chunk_0061",
+          "chunk_0020",
+          "chunk_0036",
+          "chunk_0016",
+          "chunk_0034"
+        ],
+        "retrieved_top1": "chunk_0061",
+        "top_distance": 0.3152903914451599,
+        "hit": true,
+        "rank": 3,
+        "matched_id": "chunk_0036"
+      },
+      {
+        "question": "Is oxytocin recommended for treating core features of autism?",
+        "type": "direct",
+        "expected": "chunk_0074",
+        "expected_contains": "Do not use oxytocin",
+        "retrieved_ids": [
+          "chunk_0039",
+          "chunk_0063",
+          "chunk_0007",
+          "chunk_0035",
+          "chunk_0048"
+        ],
+        "retrieved_top1": "chunk_0039",
+        "top_distance": 0.3120952248573303,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0039"
+      },
+      {
+        "question": "What is a health passport for autistic adults?",
+        "type": "direct",
+        "expected": "chunk_0044",
+        "expected_contains": "health passport",
+        "retrieved_ids": [
+          "chunk_0029",
+          "chunk_0053",
+          "chunk_0012",
+          "chunk_0013",
+          "chunk_0008"
+        ],
+        "retrieved_top1": "chunk_0029",
+        "top_distance": 0.3065330982208252,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0029"
+      },
+      {
+        "question": "Should secretin be used to manage autism symptoms?",
+        "type": "direct",
+        "expected": "chunk_0075",
+        "expected_contains": "Do not use secretin",
+        "retrieved_ids": [
+          "chunk_0039",
+          "chunk_0063",
+          "chunk_0046",
+          "chunk_0007",
+          "chunk_0035"
+        ],
+        "retrieved_top1": "chunk_0039",
+        "top_distance": 0.40823423862457275,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0039"
+      },
+      {
+        "question": "Is hyperbaric oxygen therapy effective for autism management?",
+        "type": "direct",
+        "expected": "chunk_0077",
+        "expected_contains": "hyperbaric oxygen therapy",
+        "retrieved_ids": [
+          "chunk_0039",
+          "chunk_0034",
+          "chunk_0063",
+          "chunk_0001",
+          "chunk_0048"
+        ],
+        "retrieved_top1": "chunk_0039",
+        "top_distance": 0.41612470149993896,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0039"
+      },
+      {
+        "question": "Should anticonvulsants be used for the core features of autism?",
+        "type": "direct",
+        "expected": "chunk_0070",
+        "expected_contains": "Do not use anticonvulsants for the management of core features",
+        "retrieved_ids": [
+          "chunk_0039",
+          "chunk_0046",
+          "chunk_0063",
+          "chunk_0034",
+          "chunk_0035"
+        ],
+        "retrieved_top1": "chunk_0039",
+        "top_distance": 0.3597062826156616,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0039"
+      },
+      {
+        "question": "Are anticonvulsants recommended for behaviour that challenges in autistic adults?",
+        "type": "direct",
+        "expected": "chunk_0089",
+        "expected_contains": "Do not routinely use anticonvulsants for the management of behaviour that",
+        "retrieved_ids": [
+          "chunk_0046",
+          "chunk_0048",
+          "chunk_0039",
+          "chunk_0063",
+          "chunk_0034"
+        ],
+        "retrieved_top1": "chunk_0046",
+        "top_distance": 0.3170958161354065,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0046"
+      },
+      {
+        "question": "Is testosterone regulation recommended for managing autism?",
+        "type": "direct",
+        "expected": "chunk_0076",
+        "expected_contains": "Do not use testosterone regulation",
+        "retrieved_ids": [
+          "chunk_0039",
+          "chunk_0016",
+          "chunk_0063",
+          "chunk_0019",
+          "chunk_0036"
+        ],
+        "retrieved_top1": "chunk_0039",
+        "top_distance": 0.45650577545166016,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0039"
+      },
+      {
+        "question": "When should a second opinion be considered in autism diagnosis?",
+        "type": "direct",
+        "expected": "chunk_0046",
+        "expected_contains": "Consider obtaining a second opinion",
+        "retrieved_ids": [
+          "chunk_0030",
+          "chunk_0022",
+          "chunk_0024",
+          "chunk_0032",
+          "chunk_0008"
+        ],
+        "retrieved_top1": "chunk_0030",
+        "top_distance": 0.16419100761413574,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0030"
+      },
+      {
+        "question": "What should an individual supported employment programme include?",
+        "type": "direct",
+        "expected": "chunk_0069",
+        "expected_contains": "individual supported employment programme should typically include",
+        "retrieved_ids": [
+          "chunk_0038",
+          "chunk_0050",
+          "chunk_0017",
+          "chunk_0053",
+          "chunk_0013"
+        ],
+        "retrieved_top1": "chunk_0038",
+        "top_distance": 0.3185935616493225,
+        "hit": true,
+        "rank": 1,
+        "matched_id": "chunk_0038"
+      },
+      {
+        "question": "What should anger management interventions typically include?",
+        "type": "direct",
+        "expected": "chunk_0065",
+        "expected_contains": "Anger management interventions should typically include",
+        "retrieved_ids": [
+          "chunk_0040",
+          "chunk_0041",
+          "chunk_0036",
+          "chunk_0044",
+          "chunk_0042"
+        ],
+        "retrieved_top1": "chunk_0040",
+        "top_distance": 0.4975723624229431,
+        "hit": true,
+        "rank": 3,
+        "matched_id": "chunk_0036"
+      },
+      {
+        "question": "Should autistic adults be encouraged to join self-help or support groups?",
+        "type": "direct",
+        "expected": "chunk_0018",
+        "expected_contains": "Encourage autistic adults to participate in self-help or support groups",
+        "retrieved_ids": [
+          "chunk_0014",
+          "chunk_0017",
+          "chunk_0018",
+          "chunk_0020",
+          "chunk_0052"
+        ],
+        "retrieved_top1": "chunk_0014",
+        "top_distance": 0.23392164707183838,
+        "hit": true,
+        "rank": 3,
+        "matched_id": "chunk_0018"
+      },
+      {
+        "question": "What is the best overall treatment for autism?",
+        "type": "ambiguous",
+        "retrieved_ids": [
+          "chunk_0063",
+          "chunk_0035",
+          "chunk_0008",
+          "chunk_0048",
+          "chunk_0046"
+        ],
+        "top_distance": 0.38001149892807007,
+        "note": "Too broad; system should refuse or answer only what retrieved excerpts actually support."
+      },
+      {
+        "question": "Should medication always be used first for autistic adults?",
+        "type": "ambiguous",
+        "retrieved_ids": [
+          "chunk_0046",
+          "chunk_0007",
+          "chunk_0035",
+          "chunk_0048",
+          "chunk_0034"
+        ],
+        "top_distance": 0.3882615566253662,
+        "note": "Not a single-recommendation question; expect caution, partial grounded answer, or insufficient-evidence refusal."
+      },
+      {
+        "question": "What is the recommended treatment protocol for autism in cats?",
+        "type": "out_of_scope",
+        "retrieved_ids": [
+          "chunk_0048",
+          "chunk_0063",
+          "chunk_0035",
+          "chunk_0034",
+          "chunk_0043"
+        ],
+        "top_distance": 0.47659236192703247,
+        "note": "Out-of-scope queries should not produce a grounded clinical recommendation."
+      },
+      {
+        "question": "What is the best pizza topping?",
+        "type": "out_of_scope",
+        "retrieved_ids": [
+          "chunk_0003",
+          "chunk_0040",
+          "chunk_0039",
+          "chunk_0044",
+          "chunk_0004"
+        ],
+        "top_distance": 0.9246784448623657,
+        "note": "Out-of-scope queries should not produce a grounded clinical recommendation."
+      }
+    ]
+  },
+  "retrieval_comparison": {
+    "k": 5,
+    "current": {
+      "precision_at_k": 0.9285714285714286,
+      "recall_at_k": 0.9285714285714286,
+      "mrr": 0.7857142857142857,
+      "hits": 13,
+      "total": 14,
+      "k": 5
     },
-    {
-      "question": "Is chelation recommended for managing autism symptoms?",
-      "expected": "chunk_0071",
-      "retrieved_top1": "chunk_0071",
-      "hit": true,
-      "rank": 1
+    "improved": {
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "mrr": 0.9428571428571428,
+      "hits": 14,
+      "total": 14,
+      "k": 5
     },
-    {
-      "question": "Should facilitated communication be used for autistic adults?",
-      "expected": "chunk_0060",
-      "retrieved_top1": "chunk_0060",
-      "hit": true,
-      "rank": 1
-    },
-    {
-      "question": "Is oxytocin recommended for treating core features of autism?",
-      "expected": "chunk_0074",
-      "retrieved_top1": "chunk_0074",
-      "hit": true,
-      "rank": 1
-    },
-    {
-      "question": "What is a health passport for autistic adults?",
-      "expected": "chunk_0044",
-      "retrieved_top1": "chunk_0044",
-      "hit": true,
-      "rank": 1
-    },
-    {
-      "question": "Should secretin be used to manage autism symptoms?",
-      "expected": "chunk_0075",
-      "retrieved_top1": "chunk_0075",
-      "hit": true,
-      "rank": 1
-    },
-    {
-      "question": "Is hyperbaric oxygen therapy effective for autism management?",
-      "expected": "chunk_0077",
-      "retrieved_top1": "chunk_0077",
-      "hit": true,
-      "rank": 1
-    },
-    {
-      "question": "Should anticonvulsants be used for the core features of autism?",
-      "expected": "chunk_0070",
-      "retrieved_top1": "chunk_0070",
-      "hit": true,
-      "rank": 1
-    },
-    {
-      "question": "Are anticonvulsants recommended for behaviour that challenges in autistic adults?",
-      "expected": "chunk_0089",
-      "retrieved_top1": "chunk_0089",
-      "hit": true,
-      "rank": 1
-    },
-    {
-      "question": "Is testosterone regulation recommended for managing autism?",
-      "expected": "chunk_0076",
-      "retrieved_top1": "chunk_0076",
-      "hit": true,
-      "rank": 1
-    },
-    {
-      "question": "When should a second opinion be considered in autism diagnosis?",
-      "expected": "chunk_0046",
-      "retrieved_top1": "chunk_0046",
-      "hit": true,
-      "rank": 1
-    },
-    {
-      "question": "What should an individual supported employment programme include?",
-      "expected": "chunk_0069",
-      "retrieved_top1": "chunk_0069",
-      "hit": true,
-      "rank": 1
-    },
-    {
-      "question": "What should anger management interventions typically include?",
-      "expected": "chunk_0065",
-      "retrieved_top1": "chunk_0065",
-      "hit": true,
-      "rank": 1
-    },
-    {
-      "question": "Should autistic adults be encouraged to join self-help or support groups?",
-      "expected": "chunk_0018",
-      "retrieved_top1": "chunk_0018",
-      "hit": true,
-      "rank": 1
-    },
-    {
-      "question": "What is the recommended treatment protocol for autism in cats?",
-      "type": "out_of_scope",
-      "top_distance": 0.8364534378051758,
-      "note": "لازم النظام يرفض الإجابة هنا حتى لو رجع chunks، لأن مفيش إجابة حقيقية"
-    }
-  ]
+    "rows": [
+      {
+        "question": "Should biological or genetic tests be used for autism diagnosis?",
+        "expected_recommendation_id": "1.2.11",
+        "current_rank": null,
+        "improved_rank": 1,
+        "current_hit": false,
+        "improved_hit": true,
+        "current_top1": "chunk_0023",
+        "improved_top1": "chunk_0029"
+      },
+      {
+        "question": "Is chelation recommended for managing autism symptoms?",
+        "expected_recommendation_id": "1.4.14",
+        "current_rank": 1,
+        "improved_rank": 1,
+        "current_hit": true,
+        "improved_hit": true,
+        "current_top1": "chunk_0039",
+        "improved_top1": "chunk_0039"
+      },
+      {
+        "question": "Should facilitated communication be used for autistic adults?",
+        "expected_recommendation_id": "1.4.3",
+        "current_rank": 3,
+        "improved_rank": 1,
+        "current_hit": true,
+        "improved_hit": true,
+        "current_top1": "chunk_0061",
+        "improved_top1": "chunk_0036"
+      },
+      {
+        "question": "Is oxytocin recommended for treating core features of autism?",
+        "expected_recommendation_id": "1.4.17",
+        "current_rank": 1,
+        "improved_rank": 1,
+        "current_hit": true,
+        "improved_hit": true,
+        "current_top1": "chunk_0039",
+        "improved_top1": "chunk_0039"
+      },
+      {
+        "question": "What is a health passport for autistic adults?",
+        "expected_recommendation_id": "1.2.14",
+        "current_rank": 1,
+        "improved_rank": 1,
+        "current_hit": true,
+        "improved_hit": true,
+        "current_top1": "chunk_0029",
+        "improved_top1": "chunk_0029"
+      },
+      {
+        "question": "Should secretin be used to manage autism symptoms?",
+        "expected_recommendation_id": "1.4.18",
+        "current_rank": 1,
+        "improved_rank": 1,
+        "current_hit": true,
+        "improved_hit": true,
+        "current_top1": "chunk_0039",
+        "improved_top1": "chunk_0039"
+      },
+      {
+        "question": "Is hyperbaric oxygen therapy effective for autism management?",
+        "expected_recommendation_id": "1.4.20",
+        "current_rank": 1,
+        "improved_rank": 1,
+        "current_hit": true,
+        "improved_hit": true,
+        "current_top1": "chunk_0039",
+        "improved_top1": "chunk_0039"
+      },
+      {
+        "question": "Should anticonvulsants be used for the core features of autism?",
+        "expected_recommendation_id": "1.4.13",
+        "current_rank": 1,
+        "improved_rank": 1,
+        "current_hit": true,
+        "improved_hit": true,
+        "current_top1": "chunk_0039",
+        "improved_top1": "chunk_0039"
+      },
+      {
+        "question": "Are anticonvulsants recommended for behaviour that challenges in autistic adults?",
+        "expected_recommendation_id": "1.5.9",
+        "current_rank": 1,
+        "improved_rank": 1,
+        "current_hit": true,
+        "improved_hit": true,
+        "current_top1": "chunk_0046",
+        "improved_top1": "chunk_0046"
+      },
+      {
+        "question": "Is testosterone regulation recommended for managing autism?",
+        "expected_recommendation_id": "1.4.19",
+        "current_rank": 1,
+        "improved_rank": 1,
+        "current_hit": true,
+        "improved_hit": true,
+        "current_top1": "chunk_0039",
+        "improved_top1": "chunk_0039"
+      },
+      {
+        "question": "When should a second opinion be considered in autism diagnosis?",
+        "expected_recommendation_id": "1.2.16",
+        "current_rank": 1,
+        "improved_rank": 1,
+        "current_hit": true,
+        "improved_hit": true,
+        "current_top1": "chunk_0030",
+        "improved_top1": "chunk_0030"
+      },
+      {
+        "question": "What should an individual supported employment programme include?",
+        "expected_recommendation_id": "1.4.12",
+        "current_rank": 1,
+        "improved_rank": 1,
+        "current_hit": true,
+        "improved_hit": true,
+        "current_top1": "chunk_0038",
+        "improved_top1": "chunk_0038"
+      },
+      {
+        "question": "What should anger management interventions typically include?",
+        "expected_recommendation_id": "1.4.8",
+        "current_rank": 3,
+        "improved_rank": 1,
+        "current_hit": true,
+        "improved_hit": true,
+        "current_top1": "chunk_0040",
+        "improved_top1": "chunk_0036"
+      },
+      {
+        "question": "Should autistic adults be encouraged to join self-help or support groups?",
+        "expected_recommendation_id": "1.1.7",
+        "current_rank": 3,
+        "improved_rank": 5,
+        "current_hit": true,
+        "improved_hit": true,
+        "current_top1": "chunk_0014",
+        "improved_top1": "chunk_0014"
+      }
+    ],
+    "note": "Recall@k equals Precision@k here because each labeled question has one relevant recommendation identity. Rerank comparison uses score_threshold=-inf so ranking is measured even if the serving abstention threshold would drop a chunk."
+  },
+  "citation_accuracy": {
+    "skipped": true,
+    "reason": "pass --full to run"
+  },
+  "faithfulness": {
+    "skipped": true,
+    "reason": "pass --full to run"
+  },
+  "embedding_comparison": {
+    "skipped": true,
+    "default_model": "all-MiniLM-L6-v2",
+    "note": "Optional: set EVAL_ALT_EMBEDDING_MODEL then re-run this function."
+  }
 }

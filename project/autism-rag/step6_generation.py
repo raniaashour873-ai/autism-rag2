@@ -1,108 +1,236 @@
 """
 Step 6: Grounded Generation & Citation
-=========================================
-الهدف: ناخد الـ chunks اللي رجعت من البحث (Step 4) ونخلي الـ LLM يرد
-على السؤال بناءً على النص ده بس - من غير ما يضيف أي معلومة من "معرفته
-العامة" (اللي ممكن تكون غلط أو مش من مصدر موثوق).
-
-المبدأ الأساسي: النص المسترجع = مصدر الحقيقة الوحيد. الـ LLM دوره
-إنه "يلخص ويرتب" مش إنه "يفكر ويجاوب من عنده".
 """
 
+import json
 import os
+import re
+
 from dotenv import load_dotenv
-from groq import Groq
 
-from step4_retrieval import load_collection, retrieve
-from sentence_transformers import SentenceTransformer
+from config import EMBEDDING_MODEL, GROQ_API_KEY, GROQ_MODEL, GROUNDING_TOKEN_COVERAGE
 
-load_dotenv()  # بيقرأ ملف .env ويحمّل المفتاح في متغيرات البيئة
+load_dotenv()
 
-client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+_client = None
 
 
-# الـ system prompt ده أهم جزء في الملف كله - هو اللي بيمنع الـ "هلوسة"
+def _groq_client():
+    from groq import Groq
+
+    global _client
+    if _client is None:
+        _client = Groq(api_key=GROQ_API_KEY or os.environ.get("GROQ_API_KEY"))
+    return _client
+
 SYSTEM_PROMPT = """You are a clinical evidence assistant. You answer questions
-ONLY using the provided guideline excerpts below. You must NEVER use any
+ONLY using the provided guideline excerpts. You must NEVER use any
 external medical knowledge, even if you are confident it is correct.
 
 STRICT RULES:
-1. If the provided excerpts contain a clear answer, summarize it concisely
-   and cite the exact page number and section for every claim you make.
-2. If the excerpts do NOT contain enough information to answer the question,
-   you MUST respond with: "INSUFFICIENT_EVIDENCE" followed by a brief
-   explanation of what is missing. Do NOT guess or fill gaps with your own
-   knowledge.
-3. Never provide a diagnosis or medical advice for a specific individual.
-   You only summarize what the guideline says in general.
-4. Format your answer as:
-   RECOMMENDATION: <concise summary>
-   EVIDENCE: <short supporting excerpt(s), quoted from the provided text>
-   CITATION: <document name, section, page number for each claim>
-   CONFIDENCE: <High / Medium / Low / Insufficient Evidence>
+1. Use ONLY the excerpt text. Do not add facts that are not written there.
+2. If the excerpts do not contain enough information to answer, set
+   status to "insufficient_evidence". Do not guess.
+3. Never diagnose or advise a specific individual. Only summarize the guideline.
+4. Cite evidence using chunk_id values from the excerpts (e.g. "chunk_0042").
+   NEVER invent page numbers, document names, or section titles.
+5. evidence must be a short quote copied from the provided excerpts.
+6. recommendation may only restate what the excerpts say.
+
+Return ONLY valid JSON with this schema:
+{
+  "status": "answered" | "insufficient_evidence",
+  "recommendation": "string",
+  "evidence": "string",
+  "citation_ids": ["chunk_xxxx"]
+}
 """
+
+_STOPWORDS = {
+    "the", "and", "for", "that", "with", "this", "from", "should", "would",
+    "could", "about", "into", "their", "there", "have", "been", "were",
+    "will", "also", "only", "than", "then", "them", "they", "what", "when",
+    "which", "while", "using", "used", "does", "not", "are", "was", "but",
+}
 
 
 def build_context(retrieved_chunks: list[dict]) -> str:
-    """
-    بنحوّل الـ chunks المسترجعة لنص واحد منظم، كل جزء معاه مصدره بوضوح،
-    عشان الموديل يقدر يستشهد بيه بدقة.
-    """
     context_parts = []
-    for i, chunk in enumerate(retrieved_chunks, 1):
+    for chunk in retrieved_chunks:
         context_parts.append(
-            f"[Excerpt {i}] (Page {chunk['page_number']}, Section: {chunk['section_title']})\n"
+            f"[chunk_id={chunk['chunk_id']}]\n"
             f"{chunk['text']}\n"
         )
     return "\n---\n".join(context_parts)
 
 
-def generate_answer(question: str, retrieved_chunks: list[dict]) -> str:
+def _strip_json_fence(text: str) -> str:
+    stripped = text.strip()
+    if stripped.startswith("```"):
+        stripped = re.sub(r"^```(?:json)?\s*", "", stripped)
+        stripped = re.sub(r"\s*```$", "", stripped)
+    return stripped.strip()
+
+
+def parse_generation_output(raw: str) -> dict:
+    """Parse model output into a structured dict. Fail closed to insufficient_evidence."""
+    insufficient = {
+        "status": "insufficient_evidence",
+        "recommendation": "",
+        "evidence": "",
+        "citation_ids": [],
+        "raw": raw,
+    }
+    if not raw:
+        return insufficient
+
+    stripped = _strip_json_fence(raw)
+
+    parsed = None
+    try:
+        parsed = json.loads(stripped)
+    except json.JSONDecodeError:
+        match = re.search(r"\{[\s\S]*\}", stripped)
+        if match:
+            try:
+                parsed = json.loads(match.group(0))
+            except json.JSONDecodeError:
+                parsed = None
+
+    if not isinstance(parsed, dict):
+        if "INSUFFICIENT_EVIDENCE" in stripped.upper():
+            return insufficient
+        return insufficient
+
+    status = str(parsed.get("status", "")).strip().lower()
+    if status in {"insufficient_evidence", "insufficient", "refuse"}:
+        status = "insufficient_evidence"
+    elif status != "answered":
+        status = "insufficient_evidence"
+
+    citation_ids = parsed.get("citation_ids") or parsed.get("citations") or []
+    if isinstance(citation_ids, str):
+        citation_ids = re.findall(r"chunk_[0-9A-Za-z_]+", citation_ids)
+    elif not isinstance(citation_ids, list):
+        citation_ids = []
+    citation_ids = [str(cid).strip() for cid in citation_ids if str(cid).strip()]
+
+    return {
+        "status": status,
+        "recommendation": str(parsed.get("recommendation") or "").strip(),
+        "evidence": str(parsed.get("evidence") or "").strip(),
+        "citation_ids": citation_ids,
+        "raw": raw,
+    }
+
+
+def resolve_citations(citation_ids: list[str], retrieved_chunks: list[dict]) -> list[dict]:
+    by_id = {c["chunk_id"]: c for c in retrieved_chunks if c.get("chunk_id")}
+    resolved = []
+    seen = set()
+    for cid in citation_ids:
+        if cid in seen:
+            continue
+        chunk = by_id.get(cid)
+        if not chunk:
+            continue
+        seen.add(cid)
+        resolved.append(chunk)
+    return resolved
+
+
+def _content_tokens(text: str) -> set[str]:
+    tokens = re.findall(r"[a-zA-Z][a-zA-Z\-]{3,}", text.lower())
+    return {t for t in tokens if t not in _STOPWORDS}
+
+
+def grounding_check(
+    recommendation: str,
+    evidence_quote: str,
+    retrieved_chunks: list[dict],
+    min_coverage: float | None = None,
+) -> dict:
+    """
+    Lightweight lexical check: content words in the recommendation (and quote)
+    should appear in retrieved excerpt text. This is not an NLI model.
+    """
+    limit = GROUNDING_TOKEN_COVERAGE if min_coverage is None else min_coverage
+    context = "\n".join(c.get("text") or "" for c in retrieved_chunks)
+    context_tokens = _content_tokens(context)
+    claim_tokens = _content_tokens(recommendation) | _content_tokens(evidence_quote)
+
+    if not claim_tokens:
+        return {"passed": False, "coverage": 0.0, "unsupported_tokens": [], "reason": "empty_claim"}
+
+    if not context_tokens:
+        return {"passed": False, "coverage": 0.0, "unsupported_tokens": sorted(claim_tokens), "reason": "empty_context"}
+
+    missing = sorted(t for t in claim_tokens if t not in context_tokens)
+    coverage = 1.0 - (len(missing) / len(claim_tokens))
+    passed = coverage >= limit
+    return {
+        "passed": passed,
+        "coverage": coverage,
+        "unsupported_tokens": missing[:20],
+        "reason": "ok" if passed else "low_coverage",
+    }
+
+
+def generate_answer(question: str, retrieved_chunks: list[dict]) -> dict:
     context = build_context(retrieved_chunks)
+    ids = ", ".join(c["chunk_id"] for c in retrieved_chunks)
 
     user_message = f"""Question: {question}
+
+Allowed chunk_id values: {ids}
 
 Provided guideline excerpts:
 {context}
 
-Answer the question using ONLY the excerpts above, following the strict
-rules and format given in your instructions."""
+Return JSON only."""
 
-    response = client.chat.completions.create(
-        model="openai/gpt-oss-20b",  # موديل سريع ومجاني مناسب لضغط وقت الهاكاثون
+    response = _groq_client().chat.completions.create(
+        model=GROQ_MODEL,
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": user_message},
         ],
-        temperature=0.1,  # قيمة منخفضة جدًا عشان الرد يكون ثابت ومحافظ، مش "مبدع"
+        temperature=0.1,
     )
-    return response.choices[0].message.content
+    raw = response.choices[0].message.content or ""
+    return parse_generation_output(raw)
+
+
+def format_display_answer(recommendation: str, evidence: str, citations: list[dict]) -> str:
+    citation_lines = []
+    for c in citations:
+        citation_lines.append(
+            f"{c.get('document_name') or c.get('document')}, "
+            f"{c.get('section_title') or c.get('section')}, "
+            f"p.{c.get('page_number') or c.get('page')} "
+            f"({c.get('chunk_id')})"
+        )
+    citation_block = "\n".join(citation_lines) if citation_lines else "None (unresolved)"
+    return (
+        f"RECOMMENDATION: {recommendation}\n\n"
+        f"EVIDENCE: {evidence}\n\n"
+        f"CITATION:\n{citation_block}"
+    )
 
 
 def ask(question: str, top_k: int = 5):
-    """
-    الدالة الكاملة end-to-end: سؤال -> بحث -> توليد إجابة مبنية على الأدلة
-    """
+    from sentence_transformers import SentenceTransformer
+
+    from step4_retrieval import load_collection, retrieve
+
     collection = load_collection()
-    model = SentenceTransformer("all-MiniLM-L6-v2")
-
+    model = SentenceTransformer(EMBEDDING_MODEL)
     retrieved = retrieve(question, collection, model, top_k=top_k)
-    answer = generate_answer(question, retrieved)
-
-    print(f"\n{'='*70}")
-    print(f"❓ السؤال: {question}")
-    print(f"{'='*70}")
-    print(answer)
-    print(f"\n📚 المصادر المستخدمة في البحث:")
-    for r in retrieved:
-        print(f"   - صفحة {r['page_number']} | {r['section_title']} | distance={r['distance']:.4f}")
-
-    return answer
+    parsed = generate_answer(question, retrieved)
+    print(parsed)
+    return parsed
 
 
 if __name__ == "__main__":
-    # جرب سؤال له إجابة واضحة في المصدر
     ask("Should chelation be used for managing autism symptoms?")
-
-    # جرب سؤال خارج نطاق المستند تمامًا - المفروض يرفض بأمانة
     ask("What is the recommended treatment protocol for autism in cats?")

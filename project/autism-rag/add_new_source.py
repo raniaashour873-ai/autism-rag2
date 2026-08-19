@@ -5,18 +5,29 @@ Add New Source: يضيف أي مستند PDF جديد لنفس قاعدة الب
 مختلفين عشان نقدر نفرق بين مصادر متعددة (بالغين/أطفال) في نفس الـ DB.
 """
 
-import json
 import chromadb
 from sentence_transformers import SentenceTransformer
 
+from config import (
+    CHROMA_COLLECTION,
+    CHROMA_DB_PATH,
+    CHUNK_MAX_TOKENS,
+    CHUNK_MIN_TOKENS,
+    CHUNK_OVERLAP_TOKENS,
+    EMBEDDING_MODEL,
+)
 from step1_extract_pdf import extract_pdf_pages, clean_text, find_boilerplate_lines
 from step2_chunking import split_into_sections, chunk_section, estimate_tokens
 
 
 def process_new_pdf(pdf_path: str, document_name: str, source_url: str,
-                     db_path: str = "./chroma_db",
-                     collection_name: str = "autism_nice_cg142",
-                     min_tokens: int = 400, max_tokens: int = 800):
+                     db_path: str | None = None,
+                     collection_name: str | None = None,
+                     min_tokens: int = CHUNK_MIN_TOKENS,
+                     max_tokens: int = CHUNK_MAX_TOKENS,
+                     overlap_tokens: int = CHUNK_OVERLAP_TOKENS):
+    db_path = db_path or CHROMA_DB_PATH
+    collection_name = collection_name or CHROMA_COLLECTION
 
     print(f"[1/4] بنستخرج النص من: {pdf_path}")
     pages = extract_pdf_pages(pdf_path)
@@ -34,7 +45,12 @@ def process_new_pdf(pdf_path: str, document_name: str, source_url: str,
     for page in cleaned_pages:
         sections = split_into_sections(page["text"])
         for section in sections:
-            sub_chunks = chunk_section(section["text"], min_tokens, max_tokens)
+            sub_chunks = chunk_section(
+                section["text"],
+                min_tokens=min_tokens,
+                max_tokens=max_tokens,
+                overlap_tokens=overlap_tokens,
+            )
             for text_chunk in sub_chunks:
                 chunk_counter += 1
                 # بادئة مختلفة في الـ chunk_id عشان منتصدمش مع chunk_ids المصدر الأول
@@ -47,13 +63,16 @@ def process_new_pdf(pdf_path: str, document_name: str, source_url: str,
     print(f"    عدد الـ chunks الجديدة: {len(all_chunks)}")
 
     print("[3/4] بنولّد الـ embeddings...")
-    model = SentenceTransformer("all-MiniLM-L6-v2")
+    model = SentenceTransformer(EMBEDDING_MODEL)
     texts = [c["text"] for c in all_chunks]
     embeddings = model.encode(texts, show_progress_bar=True).tolist()
 
     print("[4/4] بنضيف لقاعدة البيانات الموجودة...")
     client = chromadb.PersistentClient(path=db_path)
-    collection = client.get_or_create_collection(name=collection_name)
+    collection = client.get_or_create_collection(
+        name=collection_name,
+        metadata={"hnsw:space": "cosine"},
+    )
 
     metadatas = [
         {
