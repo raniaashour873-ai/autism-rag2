@@ -570,12 +570,29 @@ const API_URL = (function () {
   const params = new URLSearchParams(location.search);
   const fromQuery = (params.get("api") || "").replace(/\/$/, "");
   if (fromQuery) return fromQuery;
+
+  const protocol = location.protocol;
   const host = location.hostname;
-  if (!host || host === "localhost" || host === "127.0.0.1") {
+  const port = location.port;
+
+  // Opened as a file, or no host: talk to local FastAPI.
+  if (protocol === "file:" || !host) {
     return "http://localhost:8000";
   }
+
+  // Local preview on another port (Live Server, etc.) still uses FastAPI :8000.
+  if ((host === "localhost" || host === "127.0.0.1") && port && port !== "8000") {
+    return "http://localhost:8000";
+  }
+
+  // Same origin: http://localhost:8000/ui and https://autism-rag.onrender.com/ui
   return "";
 })();
+
+function apiPath(path) {
+  const suffix = path.startsWith("/") ? path : "/" + path;
+  return API_URL ? API_URL + suffix : suffix;
+}
 const chatScroll = document.getElementById('chatScroll');
 const emptyState = document.getElementById('emptyState');
 const conversation = document.getElementById('conversation');
@@ -602,7 +619,7 @@ function escapeHtml(value){
 
 async function checkStatus(){
   try{
-    const res = await fetch(API_URL + "/", { method:"GET" });
+    const res = await fetch(apiPath("/health"), { method:"GET" });
     if(res.ok){
       const payload = await res.json();
       if(payload.index){
@@ -825,7 +842,7 @@ async function ask(question){
   renderLoading();
 
   try{
-    const res = await fetch(API_URL + "/ask", {
+    const res = await fetch(apiPath("/ask"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ question, top_k: 5 })
@@ -1028,7 +1045,7 @@ function openRoutineSupport(){
     submit.textContent = 'Adapting…';
     result.innerHTML = '';
     try{
-      const res = await fetch(API_URL + "/routine", {
+      const res = await fetch(apiPath("/routine"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
