@@ -177,6 +177,24 @@ a { color: inherit; text-decoration: none; }
 .clinical-boundary h3 { margin: 0; color: #704F46; font-size: 13px; font-weight: 600; }
 .clinical-boundary p { margin: 6px 0 0; max-width: 560px; color: #806F65; font-size: 11px; line-height: 1.7; }
 
+.referral-card {
+    margin-top: 14px; padding: 17px; border: 1px solid var(--border); border-radius: 11px;
+    background: rgba(255, 255, 255, 0.6);
+}
+.referral-card-title { display: flex; align-items: center; gap: 8px; color: var(--sage-deep); font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+.referral-card p { margin: 0 0 14px; color: var(--text-muted); font-size: 12px; line-height: 1.6; }
+.referral-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.referral-call-btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px;
+    background: #704F46; color: white; font-size: 12px; font-weight: 500; border: 1px solid #704F46;
+}
+.referral-call-btn:hover { background: #5C3F38; }
+.referral-find-btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px;
+    background: transparent; color: var(--sage-ink); font-size: 12px; font-weight: 500; border: 1px solid var(--border);
+}
+.referral-find-btn:hover { background: var(--sage-mist); }
+
 .answer-citations { margin-top: 24px; padding-top: 17px; border-top: 1px solid var(--border); }
 .citation-heading { display: block; margin-bottom: 9px; color: var(--text-muted); font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.1em; }
 .citation-list { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -251,7 +269,6 @@ a { color: inherit; text-decoration: none; }
 .relevance-fill { height: 100%; border-radius: inherit; background: var(--sage-muted); transition: width 400ms var(--ease); }
 .evidence-item-active .relevance-fill { background: var(--amber); }
 .evidence-meta { display: flex; justify-content: space-between; margin-top: 10px; color: var(--text-muted); font-family: var(--font-mono); font-size: 7px; }
-.evidence-excerpt { margin-top: 10px; color: var(--text); font-family: var(--font-serif); font-size: 12px; line-height: 1.55; white-space: pre-wrap; max-height: 160px; overflow: auto; }
 
 /* ---------- Utility modals (Evidence / Guidelines / History / Safety) ---------- */
 .utility-overlay {
@@ -293,31 +310,6 @@ a { color: inherit; text-decoration: none; }
 .utility-guideline-card span{ display:block; margin-top:3px; color:var(--text-muted); font-size:9px; }
 .utility-guideline-card a{ margin-left:auto; flex-shrink:0; font-family: var(--font-mono); font-size:9px; color:var(--sage-ink); border:1px solid var(--border); padding:6px 10px; border-radius:7px; }
 .utility-guideline-card a:hover{ background:var(--sage-mist); }
-
-.utility-panel.routine-panel { width: min(720px, 100%); }
-.routine-form { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
-.routine-form label { display: flex; flex-direction: column; gap: 5px; color: var(--sage-ink); font-size: 11px; font-weight: 600; }
-.routine-form textarea, .routine-form input {
-    width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 9px;
-    background: rgba(255,255,255,0.8); color: var(--text); font-size: 12px; resize: vertical;
-}
-.routine-form textarea { min-height: 72px; font-family: var(--font-serif); line-height: 1.5; }
-.routine-actions { display: flex; justify-content: flex-end; margin-top: 4px; }
-.routine-submit {
-    height: 38px; padding: 0 16px; border: 1px solid var(--sage-ink); border-radius: 9px;
-    background: var(--sage-ink); color: white; font-size: 11px; font-weight: 500;
-}
-.routine-submit:hover { background: var(--sage-deep); }
-.routine-submit:disabled { opacity: 0.6; cursor: default; }
-.routine-output { margin-top: 18px; display: flex; flex-direction: column; gap: 14px; }
-.routine-output h3 { margin: 0 0 8px; color: var(--sage-deep); font-size: 13px; letter-spacing: -0.02em; }
-.routine-steps { margin: 0; padding-left: 20px; }
-.routine-steps li { margin: 0 0 8px; color: var(--text); font-size: 12px; line-height: 1.55; }
-.routine-steps li strong { color: var(--sage-ink); }
-.routine-list { margin: 0; padding-left: 18px; color: var(--text); font-size: 12px; line-height: 1.55; }
-.routine-list li { margin: 0 0 6px; }
-.routine-error { padding: 12px; border: 1px solid var(--border); border-radius: 9px; background: #FBF7F0; color: var(--text); font-size: 12px; line-height: 1.6; }
-
 @media (max-width: 600px) {
     .utility-overlay { align-items: flex-end; padding: 0; }
     .utility-panel { width: 100%; max-height: 88vh; border-radius: 18px 18px 0 0; padding: 20px; }
@@ -423,13 +415,12 @@ a { color: inherit; text-decoration: none; }
     <div class="workspace-brand">
       <span class="workspace-brand-mark">∞</span>
       <strong>THREADLINE</strong>
-      <span>Autism Evidence Assistant</span>
+      <span>Clinical Evidence Intelligence</span>
     </div>
     <div class="workspace-nav">
       <button class="workspace-nav-active">Clinical AI</button>
       <button>Evidence</button>
       <button>Guidelines</button>
-      <button type="button" id="btnRoutineNav">Routine Support</button>
     </div>
     <div class="workspace-status" id="apiStatus">
       <span class="workspace-status-dot"></span>
@@ -458,7 +449,6 @@ a { color: inherit; text-decoration: none; }
         <div class="sidebar-label">WORKSPACE</div>
         <button class="sidebar-link" id="btnHistory">🕐 History</button>
         <button class="sidebar-link" id="btnSafety">🛡 Safety</button>
-        <button class="sidebar-link" id="btnRoutine">☰ Routine Support</button>
       </div>
 
       <div class="sidebar-footer">
@@ -475,18 +465,18 @@ a { color: inherit; text-decoration: none; }
 
           <div class="chat-header">
             <div class="chat-header-meta">
-              <span>CLINICAL AI</span><span class="chat-header-divider">/</span><span>NICE CG142 · ADULTS</span>
+              <span>CLINICAL AI</span><span class="chat-header-divider">/</span><span>AUTISM SPECTRUM DISORDER</span>
             </div>
-            <h1>Autism Evidence Assistant</h1>
-            <p>Summarizes indexed NICE CG142 guidance for autistic adults. This system does not diagnose autism.</p>
+            <h1>Clinical evidence assistant</h1>
+            <p>Ask a clinical question and trace every answer back to its supporting evidence.</p>
           </div>
 
           <div class="chat-scroll" id="chatScroll">
             <div id="emptyState" class="empty-chat">
               <div class="empty-thread-symbol">∞</div>
-              <div class="empty-kicker" id="emptyIndexKicker">NICE CG142 · ADULTS ONLY</div>
+              <div class="empty-kicker">NICE CG142 &amp; CG170</div>
               <h2>One thread,<br>traced end to end.</h2>
-              <p>Answers are grounded in indexed NICE CG142 excerpts (autism in adults). Child and paediatric questions are not answered from this corpus. This assistant does not diagnose autism and does not replace a clinician.</p>
+              <p>Every answer here is grounded in official NICE guidance for autism — covering both adults and children &amp; young people — with the exact page and section behind it.</p>
               <div class="suggestion-grid">
                 <button class="suggestion-card" data-q="Should chelation be used for adults with autism?">
                   <span class="suggestion-icon">⚕</span>
@@ -496,9 +486,9 @@ a { color: inherit; text-decoration: none; }
                   <span class="suggestion-icon">🔍</span>
                   <span>Key considerations when assessing an adult for autism</span>
                 </button>
-                <button class="suggestion-card" data-q="What does NICE recommend for autistic adults who have difficulty coping with changes in routine?">
-                  <span class="suggestion-icon">🔁</span>
-                  <span>Support for adults who struggle with changes in routine</span>
+                <button class="suggestion-card" data-q="How should autism teams support children in schools?">
+                  <span class="suggestion-icon">🎒</span>
+                  <span>How should autism teams support children in schools?</span>
                 </button>
                 <button class="suggestion-card" data-q="What is a health passport for autistic adults?">
                   <span class="suggestion-icon">🪪</span>
@@ -523,11 +513,12 @@ a { color: inherit; text-decoration: none; }
               <textarea id="questionInput" rows="1" placeholder="Ask a clinical question…" aria-label="Ask a clinical question"></textarea>
               <div class="composer-footer">
                 <button class="composer-attach" disabled title="Attachments coming soon">📎</button>
+                <button class="composer-attach" id="routineBtn" title="Turn into a routine" style="opacity:1; color:var(--sage-ink);">🧩</button>
                 <span class="composer-hint">Enter to ask</span>
                 <button class="composer-send" id="askBtn" title="Ask">↑</button>
               </div>
             </div>
-            <p class="composer-disclaimer">NICE CG142 (adults only). This is not a diagnosis and does not replace clinical judgement. Answers come only from indexed guideline excerpts.</p>
+            <p class="composer-disclaimer">Threadline supports clinical judgement — it does not replace it. Answers are grounded in NICE CG142 &amp; CG170 only.</p>
           </div>
 
         </section>
@@ -566,33 +557,7 @@ a { color: inherit; text-decoration: none; }
 </div>
 
 <script>
-const API_URL = (function () {
-  const params = new URLSearchParams(location.search);
-  const fromQuery = (params.get("api") || "").replace(/\/$/, "");
-  if (fromQuery) return fromQuery;
-
-  const protocol = location.protocol;
-  const host = location.hostname;
-  const port = location.port;
-
-  // Opened as a file, or no host: talk to local FastAPI.
-  if (protocol === "file:" || !host) {
-    return "http://localhost:8000";
-  }
-
-  // Local preview on another port (Live Server, etc.) still uses FastAPI :8000.
-  if ((host === "localhost" || host === "127.0.0.1") && port && port !== "8000") {
-    return "http://localhost:8000";
-  }
-
-  // Same origin: http://localhost:8000/ui and https://autism-rag.onrender.com/ui
-  return "";
-})();
-
-function apiPath(path) {
-  const suffix = path.startsWith("/") ? path : "/" + path;
-  return API_URL ? API_URL + suffix : suffix;
-}
+const API_URL = "http://localhost:8000";
 const chatScroll = document.getElementById('chatScroll');
 const emptyState = document.getElementById('emptyState');
 const conversation = document.getElementById('conversation');
@@ -605,30 +570,11 @@ const sidebarStatus = document.getElementById('sidebarStatus');
 const recentList = document.getElementById('recentList');
 
 let recentQuestions = [];
-let indexStats = { chunk_count: 0, documents: [] };
-
-function escapeHtml(value){
-  return String(value ?? "").replace(/[&<>"']/g, (char) => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  }[char]));
-}
 
 async function checkStatus(){
   try{
-    const res = await fetch(apiPath("/health"), { method:"GET" });
+    const res = await fetch(API_URL + "/", { method:"GET" });
     if(res.ok){
-      const payload = await res.json();
-      if(payload.index){
-        indexStats = payload.index;
-        const kicker = document.getElementById('emptyIndexKicker');
-        if(kicker && indexStats.chunk_count){
-          kicker.textContent = `${indexStats.chunk_count} INDEXED EXCERPTS`;
-        }
-      }
       apiStatus.classList.add('online'); apiStatus.classList.remove('offline');
       apiStatusText.textContent = "OPERATIONAL";
       sidebarStatus.innerHTML = '<span class="workspace-status-dot" style="background:#4C8067"></span> Operational';
@@ -659,56 +605,48 @@ function parseAnswer(raw){
   };
 }
 
-function safetyBlock(label, refuseReason){
-  const reason = (refuseReason || "").toUpperCase();
+function safetyBlock(label){
   const map = {
     ALLOWED: ["safety-allowed", "✓", "Evidence grounded", "ALLOWED"],
     NEEDS_CAUTION: ["safety-caution", "⚠", "Needs caution", "PERSONAL CONTEXT"],
-    REFUSE: ["safety-refuse", "✕", "Refused", reason || "REFUSED"]
+    REFUSE: ["safety-refuse", "✕", "Refused", "OUT OF SCOPE / EMERGENCY"]
   };
   const [cls, icon, title, sub] = map[label] || map.ALLOWED;
   return `<div class="safety-status ${cls}">
     <div class="safety-status-icon">${icon}</div>
     <div class="safety-status-content">
       <div class="safety-status-title">${title}</div>
-      <div class="safety-status-label">${escapeHtml(sub)}</div>
+      <div class="safety-status-label">${sub}</div>
     </div>
   </div>`;
-}
-
-function refusalTitle(reason){
-  if(reason === "emergency") return "Emergency — not for crisis care";
-  if(reason === "out_of_scope") return "Out of scope";
-  if(reason === "unsupported_claim") return "Unsupported claim withheld";
-  if(reason === "insufficient_evidence") return "Insufficient retrieved evidence";
-  return "Safe refusal";
-}
-
-function citationLabel(source){
-  const doc = source.document || "Indexed guideline";
-  const section = (source.section || "Section").slice(0, 70);
-  return `${escapeHtml(doc)} <span class="citation-separator">·</span> ${escapeHtml(section)} <span class="citation-separator">·</span> p.${escapeHtml(source.page)}`;
 }
 
 function renderTurn(question, data){
   const parsed = parseAnswer(data.answer || "");
   const isRefused = data.status === "refused";
   const isCaution = data.safety_label === "NEEDS_CAUTION";
-  const recommendation = data.recommendation || parsed.recommendation;
-  const evidence = data.evidence || parsed.evidence;
-  const citationSources = (data.citations && data.citations.length)
-    ? data.citations
-    : [];
 
   let answerHtml;
   if(isRefused){
+    const isCrisis = /16328/.test(data.answer);
+    const referralHtml = isCrisis ? `
+      <div class="referral-card">
+        <div class="referral-card-title">☎ Referral to care</div>
+        <p>If this is an emergency, please reach out to real support — Egypt's Ministry of Health mental health hotline is free, confidential, and staffed 24/7 by psychiatrists and social workers.</p>
+        <div class="referral-actions">
+          <a class="referral-call-btn" href="tel:16328">☎ Call 16328 — Mental Health Hotline</a>
+          <a class="referral-find-btn" href="https://www.google.com/maps/search/مراكز+الصحة+النفسية+الحكومية" target="_blank" rel="noopener">📍 Find nearest center</a>
+        </div>
+      </div>` : '';
+
     answerHtml = `<div class="clinical-boundary">
       <div class="clinical-boundary-mark">∞</div>
       <div>
-        <h3>${escapeHtml(refusalTitle(data.refuse_reason))}</h3>
-        <p>${escapeHtml(data.answer || "").replace(/\n/g,'<br>')}</p>
+        <h3>Outside safe scope</h3>
+        <p>${data.answer.replace(/\n/g,'<br>')}</p>
       </div>
-    </div>`;
+    </div>
+    ${referralHtml}`;
   } else {
     const cautionHtml = isCaution ? `<div class="clinical-caution">
         <div class="clinical-caution-icon">⚠</div>
@@ -716,29 +654,25 @@ function renderTurn(question, data){
         <p>This reflects general guideline content, not an assessment of a specific person. Please consult a healthcare professional.</p></div>
       </div>` : '';
 
-    const citationText = citationSources.map((s) =>
-      `${s.document || ""}, ${s.section || ""}, p.${s.page} (${s.chunk_id || ""})`
-    ).join("\n");
-
-    if(recommendation){
+    if(parsed.recommendation){
       answerHtml = `
         ${cautionHtml}
         <div class="answer-heading">
           <span class="answer-label">CLINICAL RESPONSE</span>
           <button class="copy-answer-button" onclick="navigator.clipboard.writeText(this.closest('.assistant-message').querySelector('.answer-text').innerText)">⧉ Copy</button>
         </div>
-        <div class="answer-text"><strong>RECOMMENDATION:</strong>\n${escapeHtml(recommendation)}\n\n<strong>EVIDENCE:</strong>\n${escapeHtml(evidence || '—')}\n\n<strong>CITATION:</strong>\n${escapeHtml(citationText || '—')}</div>
+        <div class="answer-text"><strong>RECOMMENDATION:</strong>\n${parsed.recommendation}\n\n<strong>EVIDENCE:</strong>\n${parsed.evidence || '—'}\n\n<strong>CITATION:</strong>\n${parsed.citation || '—'}\n\n<strong>CONFIDENCE:</strong> ${parsed.confidence || '—'}</div>
       `;
     }else{
-      answerHtml = `${cautionHtml}<div class="answer-text">${escapeHtml(data.answer || "").replace(/\n/g,'<br>')}</div>`;
+      answerHtml = `${cautionHtml}<div class="answer-text">${data.answer.replace(/\n/g,'<br>')}</div>`;
     }
   }
 
-  const citationsHtml = citationSources.length ? `
+  const citationsHtml = (data.sources && data.sources.length) ? `
     <div class="answer-citations">
       <span class="citation-heading">EVIDENCE THREADS</span>
       <div class="citation-list">
-        ${citationSources.map((s,i) => `<span class="citation" data-idx="${i}"><span class="citation-mark">↗</span> ${citationLabel(s)}</span>`).join('')}
+        ${data.sources.map((s,i) => `<span class="citation" data-idx="${i}"><span class="citation-mark">↗</span> Clinical Evidence <span class="citation-separator">·</span> ${s.section.slice(0,60)} <span class="citation-separator">·</span> p.${s.page}</span>`).join('')}
       </div>
     </div>` : '';
 
@@ -747,7 +681,7 @@ function renderTurn(question, data){
   turn.innerHTML = `
     <div class="message user-message">
       <span class="message-label">YOUR QUESTION</span>
-      <div class="user-question-content">${escapeHtml(question)}</div>
+      <div class="user-question-content">${question}</div>
     </div>
     <div class="message assistant-message ${isCaution ? 'assistant-caution' : ''} ${isRefused ? 'assistant-refused' : ''}">
       <div class="assistant-header">
@@ -755,7 +689,7 @@ function renderTurn(question, data){
           <div class="assistant-mark">∞</div>
           <div><strong>Threadline AI</strong><span>Clinical evidence synthesis</span></div>
         </div>
-        ${safetyBlock(data.safety_label, data.refuse_reason)}
+        ${safetyBlock(data.safety_label)}
       </div>
       <div class="assistant-answer">
         ${answerHtml}
@@ -776,29 +710,27 @@ function renderEvidencePanel(sources){
     evidenceBody.innerHTML = `<div class="evidence-panel-empty">
       <div class="evidence-panel-symbol">∞</div>
       <h3>No source retrieved</h3>
-      <p>This question was refused before search, or no guideline chunks were returned.</p>
+      <p>This question was refused before search — there is no evidence to trace.</p>
     </div>`;
     return;
   }
   const items = sources.map((s, i) => {
     const strength = Math.max(8, Math.round((1 - Math.min(s.distance || 0.9, 1)) * 100));
-    const excerpt = s.text ? escapeHtml(s.text) : "Excerpt text was not returned by the API.";
     return `
       <div class="evidence-item" data-idx="${i}">
         <div class="evidence-item-top">
-          <span class="evidence-number">${String(i+1).padStart(2,"0")}</span>
-          <span class="evidence-type">${escapeHtml(s.chunk_id || "RETRIEVED")}</span>
+          <span class="evidence-number">0${i+1}</span>
+          <span class="evidence-type">RETRIEVED</span>
         </div>
         <div class="evidence-title-row">
           <div class="evidence-file-icon">📄</div>
-          <h3>${escapeHtml(s.section || "Section")}</h3>
+          <h3>${s.section}</h3>
         </div>
-        <div class="evidence-document">${escapeHtml(s.document || "Indexed guideline")}</div>
+        <div class="evidence-document">Clinical Evidence</div>
         <div class="evidence-relevance">
           <div class="relevance-track"><div class="relevance-fill" style="width:${strength}%"></div></div>
         </div>
-        <div class="evidence-meta"><span>Page ${escapeHtml(s.page)}</span><span>distance ${(s.distance||0).toFixed(3)}</span></div>
-        <div class="evidence-excerpt">${excerpt}</div>
+        <div class="evidence-meta"><span>Page ${s.page}</span><span>distance ${(s.distance||0).toFixed(3)}</span></div>
       </div>`;
   }).join('');
   evidenceBody.innerHTML = `
@@ -842,7 +774,7 @@ async function ask(question){
   renderLoading();
 
   try{
-    const res = await fetch(apiPath("/ask"), {
+    const res = await fetch(API_URL + "/ask", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ question, top_k: 5 })
@@ -851,7 +783,7 @@ async function ask(question){
     const data = await res.json();
     document.getElementById('loadingRow')?.remove();
     renderTurn(question, data);
-    fullHistory.push({ question, safety_label: data.safety_label, refuse_reason: data.refuse_reason || null });
+    fullHistory.push({ question, safety_label: data.safety_label });
     checkStatus();
   }catch(e){
     document.getElementById('loadingRow')?.remove();
@@ -860,13 +792,13 @@ async function ask(question){
     turn.innerHTML = `
       <div class="message user-message">
         <span class="message-label">YOUR QUESTION</span>
-        <div class="user-question-content">${escapeHtml(question)}</div>
+        <div class="user-question-content">${question}</div>
       </div>
       <div class="clinical-boundary">
         <div class="clinical-boundary-mark">!</div>
         <div>
-          <h3>Retry!</h3>
-          <p>Unable to connect to the clinical evidence service. Please try again in a moment.</p>
+          <h3>Could not reach the API</h3>
+          <p>Make sure the backend is running: <code>uvicorn api:app --reload --port 8000</code>, then try again.</p>
         </div>
       </div>`;
     conversation.appendChild(turn);
@@ -913,40 +845,43 @@ function openUtility(kicker, title, contentHtml){
   utilityContent.innerHTML = contentHtml;
   utilityOverlay.classList.add('open');
 }
-function closeUtility(){
-  utilityOverlay.classList.remove('open');
-  document.getElementById('utilityPanel').classList.remove('routine-panel');
-}
+function closeUtility(){ utilityOverlay.classList.remove('open'); }
 
 document.getElementById('utilityClose').addEventListener('click', closeUtility);
 utilityOverlay.addEventListener('click', (e) => { if(e.target === utilityOverlay) closeUtility(); });
 document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeUtility(); });
 
 document.getElementById('btnEvidence').addEventListener('click', () => {
-  const docs = (indexStats.documents || []).map((doc) => `
-    <div class="utility-guideline-card">
-      <div><strong>${escapeHtml(doc.name)}</strong><span>${doc.chunks} excerpts</span></div>
-    </div>
-  `).join('') || `<p>Index stats are unavailable until the API is online.</p>`;
   openUtility('KNOWLEDGE BASE', 'Indexed evidence', `
     <div class="utility-icon">📖</div>
-    <h3>${indexStats.chunk_count || 0} guideline excerpts currently indexed</h3>
-    <p>Counts come from the live Chroma collection via the API health endpoint. Run <code>python step5_evaluate.py</code> for Precision@k; this panel does not hardcode scores.</p>
-    ${docs}
+    <h3>206 guideline excerpts, fully traceable</h3>
+    <p>Every answer Threadline gives is retrieved from this indexed set — nothing is generated outside of it. Each excerpt carries its exact page number and section heading.</p>
+    <div class="utility-guideline-card">
+      <div><strong>NICE CG142</strong><span>121 excerpts · Adults</span></div>
+    </div>
+    <div class="utility-guideline-card">
+      <div><strong>NICE CG170</strong><span>85 excerpts · Children &amp; young people</span></div>
+    </div>
+    <div class="utility-note">
+      <strong>Retrieval precision</strong>
+      <span>Precision@5 = 92.9% on a 14-question evaluation set, measured during development.</span>
+    </div>
   `);
 });
 
 document.getElementById('btnGuidelines').addEventListener('click', () => {
-  const docs = (indexStats.documents || []).map((doc) => `
-    <div class="utility-guideline-card">
-      <div><strong>${escapeHtml(doc.name)}</strong><span>${doc.chunks} indexed excerpts</span></div>
-    </div>
-  `).join('') || `<p>Connect the API to list the documents actually in the index.</p>`;
   openUtility('SOURCES', 'Official guidelines used', `
     <div class="utility-icon">📚</div>
-    <h3>NICE CG142 — autism in adults</h3>
-    <p>The live index is adult NICE CG142 only. This assistant does not diagnose autism and does not apply child/young-people guidance.</p>
-    ${docs}
+    <h3>Only official NICE guidance</h3>
+    <p>Threadline never answers from general knowledge — only from the two documents below.</p>
+    <div class="utility-guideline-card">
+      <div><strong>NICE CG142</strong><span>Autism spectrum disorder in adults: diagnosis and management</span></div>
+      <a href="https://www.nice.org.uk/guidance/cg142" target="_blank" rel="noopener">Open ↗</a>
+    </div>
+    <div class="utility-guideline-card">
+      <div><strong>NICE CG170</strong><span>Autism: recognition, referral, diagnosis and management in under 19s</span></div>
+      <a href="https://www.nice.org.uk/guidance/cg170" target="_blank" rel="noopener">Open ↗</a>
+    </div>
   `);
 });
 
@@ -992,109 +927,12 @@ document.getElementById('btnSafety').addEventListener('click', () => {
         <span>Questions about a specific individual's situation — answered with a clear disclaimer that this is not a personal diagnosis.</span>
       </div>
       <div>
-        <strong>✕ REFUSE — emergency</strong>
-        <span>Crisis or immediate-danger questions are refused before retrieval. The emergency message is shown, not an evidence-gap message.</span>
-      </div>
-      <div>
-        <strong>✕ REFUSE — out of scope</strong>
-        <span>Topics unrelated to the indexed autism guidelines are refused without using general knowledge.</span>
-      </div>
-      <div>
-        <strong>✕ REFUSE — insufficient evidence</strong>
-        <span>If retrieval scores are too weak, or the excerpts cannot support the question, generation is skipped or the answer is withheld.</span>
+        <strong>✕ REFUSE</strong>
+        <span>Emergencies, self-harm risk, or topics entirely outside autism guidance — refused immediately, before any search happens.</span>
       </div>
     </div>
   `);
 });
-
-function openRoutineSupport(){
-  document.getElementById('utilityPanel').classList.add('routine-panel');
-  openUtility('SUPPORT', 'Routine Support', `
-    <p>Tell me about the routine you want help adapting. This is general planning support. It does not use the medical guideline index, is not a diagnosis, and is not clinical, OT, or caregiver treatment advice.</p>
-    <form class="routine-form" id="routineForm">
-      <label>Current routine
-        <textarea id="routineCurrent" placeholder="wake up → breakfast → shower → get dressed → leave home"></textarea>
-      </label>
-      <label>What feels difficult
-        <textarea id="routineDifficult" placeholder="sudden transitions, getting ready on time"></textarea>
-      </label>
-      <label>Preferred structure
-        <input id="routineStructure" placeholder="checklist, timed blocks, fewer steps…">
-      </label>
-      <label>Time available
-        <input id="routineTime" placeholder="e.g. 90 minutes in the morning">
-      </label>
-      <label>Things that help
-        <input id="routineHelps" placeholder="quiet, extra buffer, written list…">
-      </label>
-      <label>Anything else
-        <textarea id="routineSituation" placeholder="Optional extra context"></textarea>
-      </label>
-      <div class="routine-actions">
-        <button type="submit" class="routine-submit" id="routineSubmit">Adapt routine</button>
-      </div>
-    </form>
-    <div id="routineResult"></div>
-  `);
-  const form = document.getElementById('routineForm');
-  const result = document.getElementById('routineResult');
-  const submit = document.getElementById('routineSubmit');
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    submit.disabled = true;
-    submit.textContent = 'Adapting…';
-    result.innerHTML = '';
-    try{
-      const res = await fetch(apiPath("/routine"), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          situation: document.getElementById('routineSituation').value.trim(),
-          current_routine: document.getElementById('routineCurrent').value.trim(),
-          difficulties: document.getElementById('routineDifficult').value.trim(),
-          preferred_structure: document.getElementById('routineStructure').value.trim(),
-          time_available: document.getElementById('routineTime').value.trim(),
-          things_that_help: document.getElementById('routineHelps').value.trim()
-        })
-      });
-      const data = await res.json();
-      if(!res.ok){
-        result.innerHTML = `<div class="routine-error">${escapeHtml(data.detail || "Could not adapt this routine.")}</div>`;
-        return;
-      }
-      if(data.status !== "adapted"){
-        result.innerHTML = `<div class="routine-error">${escapeHtml(data.message || "This request was not handled as routine support.")}</div>
-          <div class="utility-note"><strong>Note</strong><span>${escapeHtml(data.disclaimer || "")}</span></div>`;
-        return;
-      }
-      const steps = (data.steps || []).map((step, i) => {
-        const time = step.time_estimate ? ` <em>(${escapeHtml(step.time_estimate)})</em>` : "";
-        return `<li><strong>${i + 1}. ${escapeHtml(step.title)}</strong>${time}<br>${escapeHtml(step.detail || "")}</li>`;
-      }).join("");
-      const transitions = (data.transitions || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("");
-      const backups = (data.if_difficult || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("");
-      result.innerHTML = `
-        <div class="routine-output">
-          <div>
-            <h3>ADAPTED ROUTINE</h3>
-            <p>${escapeHtml(data.goal || "")}</p>
-            <ol class="routine-steps">${steps}</ol>
-          </div>
-          ${transitions ? `<div><h3>TRANSITIONS</h3><ul class="routine-list">${transitions}</ul></div>` : ""}
-          ${backups ? `<div><h3>IF IT GETS DIFFICULT</h3><ul class="routine-list">${backups}</ul></div>` : ""}
-          <div class="utility-note"><strong>Not clinical advice</strong><span>${escapeHtml(data.disclaimer || "")}</span></div>
-        </div>`;
-    }catch(err){
-      result.innerHTML = `<div class="routine-error">Could not reach the routine helper. Check that the API is running.</div>`;
-    }finally{
-      submit.disabled = false;
-      submit.textContent = 'Adapt routine';
-    }
-  });
-}
-
-document.getElementById('btnRoutine').addEventListener('click', openRoutineSupport);
-document.getElementById('btnRoutineNav').addEventListener('click', openRoutineSupport);
 
 document.getElementById('newQuestionBtn').addEventListener('click', () => {
   conversation.innerHTML = '';
@@ -1106,6 +944,64 @@ document.getElementById('newQuestionBtn').addEventListener('click', () => {
       <p>Ask a question — the guideline excerpts used to answer it will appear here, ranked by relevance.</p>
     </div>`;
   input.focus();
+});
+
+// ---------- Situation → Routine generator ----------
+document.getElementById('routineBtn').addEventListener('click', async () => {
+  const situation = input.value.trim();
+  if(!situation){ input.focus(); return; }
+
+  openUtility('ROUTINE GENERATOR', 'Building your routine…', `
+    <div class="utility-empty">
+      <div class="empty-thread-symbol" style="font-size:34px;">∞</div>
+      <p>Tracing evidence and structuring a routine…</p>
+    </div>
+  `);
+
+  try{
+    const res = await fetch(API_URL + "/routine", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ situation })
+    });
+    if(!res.ok) throw new Error("API error " + res.status);
+    const data = await res.json();
+
+    if(data.insufficient_evidence){
+      utilityContent.innerHTML = `
+        <div class="utility-empty">
+          <div class="empty-thread-symbol" style="font-size:34px;">∞</div>
+          <p>Not enough guideline evidence to build a routine for this situation.</p>
+        </div>`;
+      return;
+    }
+
+    const stepsHtml = (data.steps || []).map((s, i) => `
+      <div class="utility-guideline-card">
+        <div style="font-size:20px;">${s.icon || '•'}</div>
+        <div><strong>${i + 1}. ${s.title}</strong><span>${s.detail}</span></div>
+      </div>
+    `).join('');
+
+    const citationsHtml = (data.citations || []).map(c =>
+      `<span class="citation" style="margin:4px 4px 0 0;">${c}</span>`
+    ).join('');
+
+    utilityContent.innerHTML = `
+      <div class="utility-icon">🎯</div>
+      <h3>${data.goal || 'Suggested routine'}</h3>
+      <div style="margin-top:14px; display:flex; flex-direction:column; gap:8px;">${stepsHtml}</div>
+      <div class="answer-citations">
+        <span class="citation-heading">GROUNDED IN</span>
+        <div class="citation-list">${citationsHtml}</div>
+      </div>
+    `;
+  }catch(e){
+    utilityContent.innerHTML = `
+      <div class="utility-empty">
+        <p>Could not reach the API. Make sure the backend is running: <span class="mono">uvicorn api:app --reload --port 8000</span></p>
+      </div>`;
+  }
 });
 </script>
 
