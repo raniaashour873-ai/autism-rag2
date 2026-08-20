@@ -9,9 +9,18 @@ Typical MiniLM ranges: in-scope hits ~0.20–0.70, weak/OOD often ~0.75+.
 import os
 from pathlib import Path
 
+# Must be set before torch / sentence-transformers are imported.
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+os.environ.setdefault("MKL_NUM_THREADS", "1")
+
 from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).resolve().parent / ".env")
+
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+os.environ.setdefault("MKL_NUM_THREADS", "1")
 
 # Optional Hugging Face auth (never required). sentence-transformers reads these.
 if os.getenv("HF_TOKEN") and not os.getenv("HUGGING_FACE_HUB_TOKEN"):
@@ -93,6 +102,10 @@ GROUNDING_TOKEN_COVERAGE = _float("GROUNDING_TOKEN_COVERAGE", 0.45)
 
 # Hybrid retrieval (dense Chroma + BM25 + RRF + cross-encoder).
 USE_HYBRID_RETRIEVAL = os.getenv("USE_HYBRID_RETRIEVAL", "true").strip().lower() in {
+    "1", "true", "yes", "on",
+}
+# CrossEncoder uses a second MiniLM and OOMs low-memory Render. Off by default.
+USE_RERANKER = os.getenv("USE_RERANKER", "false").strip().lower() in {
     "1", "true", "yes", "on",
 }
 HYBRID_CANDIDATE_COUNT = _int("HYBRID_CANDIDATE_COUNT", 20)

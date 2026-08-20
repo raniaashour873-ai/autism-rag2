@@ -31,10 +31,10 @@ def get_embedding_model(model_name: str | None = None):
         if _model is not None and getattr(_model, "_rag_model_name", None) == name:
             return _model
         configure_inference_runtime()
-        logger.info("Loading embedding model: %s (rss_mb=%s)", name, process_rss_mb())
+        logger.info("[MEM] embedding model loading: %s (rss_mb=%s)", name, process_rss_mb())
         _model = SentenceTransformer(name, device="cpu")
         _model._rag_model_name = name
-        logger.info("Embedding model loaded successfully (rss_mb=%s)", process_rss_mb())
+        logger.info("[MEM] embedding model loaded (rss_mb=%s)", process_rss_mb())
         return _model
 
 

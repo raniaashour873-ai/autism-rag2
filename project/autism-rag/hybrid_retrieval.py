@@ -22,10 +22,11 @@ from config import (
     RERANKER_MODEL,
     RETRIEVAL_DEBUG,
     RRF_K,
+    USE_RERANKER,
     configure_inference_runtime,
     process_rss_mb,
 )
-from step4_retrieval import retrieve
+from step4_retrieval import retrieve, retrieval_quality_gate
 
 logger = logging.getLogger("autism_rag.retrieval")
 if RETRIEVAL_DEBUG:
@@ -38,6 +39,7 @@ _bm25_chunks: list[dict] = []
 _bm25_ids: list[str] = []
 _reranker = None
 _reranker_lock = threading.Lock()
+_logged_rerank_off = False
 
 DOCUMENT_NAME = "NICE CG142 - Autism spectrum disorder in adults: diagnosis and management"
 SOURCE_URL = "https://www.nice.org.uk/guidance/cg142"
@@ -190,9 +192,9 @@ def get_reranker():
         from sentence_transformers import CrossEncoder
 
         configure_inference_runtime()
-        logger.info("Loading reranker: %s (rss_mb=%s)", RERANKER_MODEL, process_rss_mb())
+        logger.info("[MEM] reranker loading: %s (rss_mb=%s)", RERANKER_MODEL, process_rss_mb())
         _reranker = CrossEncoder(RERANKER_MODEL, device="cpu")
-        logger.info("Reranker loaded successfully (rss_mb=%s)", process_rss_mb())
+        logger.info("[MEM] reranker loaded (rss_mb=%s)", process_rss_mb())
         return _reranker
 
 
@@ -212,6 +214,9 @@ def rerank_chunks(
 
     if not candidates:
         return {"all_scored": [], "passed": [], "selected": [], "abstain": True, "reason": "no_candidates"}
+
+    if reranker is None and not USE_RERANKER:
+        return _pack_fused_without_rerank(candidates, final_k)
 
     model = reranker if reranker is not None else get_reranker()
     pairs = [[query_text, c.get("text") or ""] for c in candidates]
@@ -246,6 +251,39 @@ def rerank_chunks(
     }
 
 
+def _pack_fused_without_rerank(fused: list[dict], final_k: int | None) -> dict:
+    global _logged_rerank_off
+    keep = RERANK_FINAL_COUNT if final_k is None else final_k
+    if not _logged_rerank_off:
+        logger.info("[MEM] reranker disabled")
+        _logged_rerank_off = True
+    selected = fused[:keep]
+    scored = []
+    for chunk in selected:
+        item = dict(chunk)
+        item["rerank_score"] = None
+        scored.append(item)
+    if not selected:
+        return {
+            "all_scored": [],
+            "passed": [],
+            "selected": [],
+            "abstain": True,
+            "reason": "no_candidates",
+            "threshold": None,
+        }
+    gate = retrieval_quality_gate(selected)
+    abstain = not gate["passed"]
+    return {
+        "all_scored": scored,
+        "passed": [] if abstain else selected,
+        "selected": [] if abstain else selected,
+        "abstain": abstain,
+        "reason": gate["reason"] if abstain else "ok",
+        "threshold": gate["threshold"],
+    }
+
+
 def hybrid_retrieve_and_rerank(
     query_text: str,
     collection,
@@ -261,14 +299,17 @@ def hybrid_retrieve_and_rerank(
         model,
         candidate_count=candidate_count,
     )
-    reranked = rerank_chunks(
-        query_text,
-        fused,
-        final_k=final_k,
-        score_threshold=score_threshold,
-        reranker=reranker,
-    )
-    reranked["fused"] = fused
-    reranked["dense_count"] = sum(1 for c in fused if c.get("dense_rank"))
-    reranked["bm25_count"] = sum(1 for c in fused if c.get("bm25_rank"))
-    return reranked
+    if reranker is None and not USE_RERANKER:
+        packed = _pack_fused_without_rerank(fused, final_k)
+    else:
+        packed = rerank_chunks(
+            query_text,
+            fused,
+            final_k=final_k,
+            score_threshold=score_threshold,
+            reranker=reranker,
+        )
+    packed["fused"] = fused
+    packed["dense_count"] = sum(1 for c in fused if c.get("dense_rank"))
+    packed["bm25_count"] = sum(1 for c in fused if c.get("bm25_rank"))
+    return packed
