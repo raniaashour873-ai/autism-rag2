@@ -37,12 +37,14 @@ def configure_inference_runtime() -> None:
     os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
     os.environ.setdefault("OMP_NUM_THREADS", "1")
     os.environ.setdefault("MKL_NUM_THREADS", "1")
-    try:
-        import torch
+    # Never import torch on the ONNX production path.
+    if os.getenv("EMBEDDING_BACKEND", "onnx").strip().lower() == "pytorch":
+        try:
+            import torch
 
-        torch.set_num_threads(1)
-    except Exception:
-        pass
+            torch.set_num_threads(1)
+        except Exception:
+            pass
     _threads_configured = True
 
 
@@ -119,6 +121,17 @@ RETRIEVAL_DEBUG = os.getenv("RETRIEVAL_DEBUG", "false").strip().lower() in {
     "1", "true", "yes", "on",
 }
 CHUNKS_JSON_PATH = os.getenv("CHUNKS_JSON_PATH", "step2_chunks.json")
+
+# Query encoder: onnx (production) or pytorch (local only; never a silent fallback).
+EMBEDDING_BACKEND = os.getenv("EMBEDDING_BACKEND", "onnx").strip().lower() or "onnx"
+ONNX_REPO = os.getenv("ONNX_REPO", "Xenova/all-MiniLM-L6-v2")
+ONNX_FILENAME = os.getenv("ONNX_FILENAME", "onnx/model.onnx")
+ONNX_TOKENIZER = os.getenv("ONNX_TOKENIZER", "sentence-transformers/all-MiniLM-L6-v2")
+ONNX_MAX_LENGTH = _int("ONNX_MAX_LENGTH", 256)
+ONNX_LOCAL_PATH = os.getenv("ONNX_LOCAL_PATH", "").strip()
+ONNX_CACHE_DIR = os.getenv("ONNX_CACHE_DIR", "").strip() or str(
+    Path(__file__).resolve().parent / "onnx_cache"
+)
 
 # Comma-separated browser origins for CORS. Use * for local hackathon only.
 FRONTEND_URL = os.getenv("FRONTEND_URL", "*").strip() or "*"

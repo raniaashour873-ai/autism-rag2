@@ -12,5 +12,6 @@ __pycache__/
 *.pem
 credentials.json
 retrieval_logs.jsonl
+onnx_cache/
 *.sqlite3-journal
 *.wal

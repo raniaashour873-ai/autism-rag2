@@ -12,6 +12,7 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
 from config import TOP_K_DEFAULT, cors_allow_origins, process_rss_mb
+from onnx_encoder import OnnxEncoderError
 from routine_generator import generate_routine
 from step8_full_pipeline import full_pipeline
 
@@ -107,6 +108,12 @@ def ask_question(request: QuestionRequest):
         return result
     except HTTPException:
         raise
+    except OnnxEncoderError as exc:
+        logger.exception("/ask ONNX encoder failed")
+        raise HTTPException(
+            status_code=503,
+            detail=f"Query encoder unavailable: {exc}",
+        )
     except Exception:
         logger.exception("/ask failed")
         raise HTTPException(

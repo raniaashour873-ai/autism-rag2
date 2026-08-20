@@ -204,6 +204,30 @@ def test_chunk_ids_survive_hybrid_pipeline():
         assert chunk.get("section_title") is not None
 
 
+def test_onnx_encoder_existing_chroma_unchanged():
+    import numpy as np
+
+    from onnx_encoder import get_onnx_encoder
+    from step4_retrieval import load_collection, retrieve
+
+    encoder = get_onnx_encoder()
+    query = "What medication should not be used for core features of autism?"
+    vec = encoder.encode([query], convert_to_numpy=True)[0]
+    assert len(vec) == 384
+    assert bool(np.isfinite(vec).all())
+
+    collection = load_collection()
+    if collection.count() == 0:
+        print("SKIP test_onnx_encoder_existing_chroma_unchanged (empty index)")
+        return
+    before = collection.count()
+    hits = retrieve(query, collection, encoder, top_k=5)
+    assert hits
+    assert len(hits[0].get("text") or "") > 0
+    assert collection.count() == before
+    assert collection.name == "autism_nice_cg142"
+
+
 def test_health_and_ask_schema():
     from fastapi.testclient import TestClient
     from api import app, AnswerResponse
@@ -276,6 +300,7 @@ if __name__ == "__main__":
         test_bm25_and_dense_and_hybrid,
         test_rerank_reduces_and_abstains,
         test_chunk_ids_survive_hybrid_pipeline,
+        test_onnx_encoder_existing_chroma_unchanged,
         test_health_and_ask_schema,
         test_routine_endpoint_isolated_from_retrieval,
     ]

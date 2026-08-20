@@ -4,6 +4,7 @@ import threading
 from config import (
     CHROMA_COLLECTION,
     CHROMA_DB_PATH,
+    EMBEDDING_BACKEND,
     EMBEDDING_MODEL,
     RETRIEVAL_DISTANCE_THRESHOLD,
     configure_inference_runtime,
@@ -20,22 +21,45 @@ _collection_lock = threading.Lock()
 _stats_cache = None
 
 
-def get_embedding_model(model_name: str | None = None):
-    from sentence_transformers import SentenceTransformer
+_MINILM_NAMES = {
+    "sentence-transformers/all-MiniLM-L6-v2",
+    "all-MiniLM-L6-v2",
+}
 
+
+def get_embedding_model(model_name: str | None = None):
+    """Production query encoder is ONNX MiniLM. PyTorch is local-only and never a fallback."""
     global _model
     name = model_name or EMBEDDING_MODEL
+    backend = (EMBEDDING_BACKEND or "onnx").strip().lower()
     if _model is not None and getattr(_model, "_rag_model_name", None) == name:
         return _model
     with _model_lock:
         if _model is not None and getattr(_model, "_rag_model_name", None) == name:
             return _model
         configure_inference_runtime()
-        logger.info("[MEM] embedding model loading: %s (rss_mb=%s)", name, process_rss_mb())
-        _model = SentenceTransformer(name, device="cpu")
-        _model._rag_model_name = name
-        logger.info("[MEM] embedding model loaded (rss_mb=%s)", process_rss_mb())
-        return _model
+        if backend == "onnx":
+            if name not in _MINILM_NAMES:
+                raise RuntimeError(
+                    f"ONNX encoder only supports all-MiniLM-L6-v2, got {name!r}. "
+                    "Set EMBEDDING_BACKEND=pytorch for local indexing/eval only."
+                )
+            from onnx_encoder import get_onnx_encoder
+
+            _model = get_onnx_encoder()
+            _model._rag_model_name = name
+            return _model
+        if backend == "pytorch":
+            from sentence_transformers import SentenceTransformer
+
+            logger.info("[MEM] before embedding initialization model=%s (rss_mb=%s)", name, process_rss_mb())
+            _model = SentenceTransformer(name, device="cpu")
+            _model._rag_model_name = name
+            logger.info("[MEM] after embedding initialization (rss_mb=%s)", process_rss_mb())
+            return _model
+        raise RuntimeError(
+            f"Unknown EMBEDDING_BACKEND={backend!r}. Use onnx (production) or pytorch (local only)."
+        )
 
 
 def load_collection(db_path: str | None = None, collection_name: str | None = None):
@@ -59,10 +83,8 @@ def load_collection(db_path: str | None = None, collection_name: str | None = No
             return _collection
         logger.info("Opening Chroma PersistentClient path=%s (rss_mb=%s)", path, process_rss_mb())
         _chroma_client = chromadb.PersistentClient(path=path)
-        _collection = _chroma_client.get_or_create_collection(
-            name=name,
-            metadata={"hnsw:space": "cosine"},
-        )
+        # Never create/rebuild the index from the query path.
+        _collection = _chroma_client.get_collection(name=name)
         return _collection
 
 
@@ -81,16 +103,20 @@ def retrieve(query_text: str, collection, model, top_k: int = 5):
         return []
 
     n_results = min(top_k, total)
+    logger.info("[MEM] before query encoding (rss_mb=%s)", process_rss_mb())
     query_embedding = model.encode(
         [query_text],
         convert_to_numpy=True,
         show_progress_bar=False,
     ).tolist()
+    logger.info("[MEM] after query encoding dim=%s (rss_mb=%s)", len(query_embedding[0]), process_rss_mb())
+    logger.info("[MEM] before Chroma query n_results=%s (rss_mb=%s)", n_results, process_rss_mb())
     results = collection.query(
         query_embeddings=query_embedding,
         n_results=n_results,
         include=["documents", "metadatas", "distances"],
     )
+    logger.info("[MEM] after Chroma query (rss_mb=%s)", process_rss_mb())
 
     documents = (results.get("documents") or [[]])[0] or []
     metadatas = (results.get("metadatas") or [[]])[0] or []

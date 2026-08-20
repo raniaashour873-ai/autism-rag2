@@ -219,12 +219,10 @@ def format_display_answer(recommendation: str, evidence: str, citations: list[di
 
 
 def ask(question: str, top_k: int = 5):
-    from sentence_transformers import SentenceTransformer
-
-    from step4_retrieval import load_collection, retrieve
+    from step4_retrieval import get_embedding_model, load_collection, retrieve
 
     collection = load_collection()
-    model = SentenceTransformer(EMBEDDING_MODEL)
+    model = get_embedding_model()
     retrieved = retrieve(question, collection, model, top_k=top_k)
     parsed = generate_answer(question, retrieved)
     print(parsed)
