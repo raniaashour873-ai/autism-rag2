@@ -3,6 +3,7 @@ API Layer: wraps full_pipeline for the frontend.
 Routine support is a separate endpoint and does not use medical retrieval.
 """
 
+import logging
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
@@ -10,10 +11,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
-from config import TOP_K_DEFAULT, cors_allow_origins
+from config import TOP_K_DEFAULT, cors_allow_origins, process_rss_mb
 from routine_generator import generate_routine
-from step4_retrieval import get_index_stats
 from step8_full_pipeline import full_pipeline
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(levelname)s %(name)s: %(message)s",
+)
+logger = logging.getLogger("autism_rag.api")
 
 app = FastAPI(title="Autism Clinical RAG API")
 
@@ -65,17 +71,16 @@ class RoutineRequest(BaseModel):
 
 @app.get("/")
 def health_check():
-    stats = get_index_stats()
     return {
         "status": "ok",
         "message": "Autism Clinical RAG API is running",
-        "index": stats,
+        "index": {"chunk_count": None, "documents": []},
     }
 
 
 @app.get("/health")
 def health_alias():
-    return health_check()
+    return {"status": "ok"}
 
 
 @app.get("/ui")
@@ -89,7 +94,25 @@ def serve_ui():
 def ask_question(request: QuestionRequest):
     if not request.question or not request.question.strip():
         raise HTTPException(status_code=400, detail="question must not be empty")
-    return full_pipeline(request.question, top_k=request.top_k)
+    try:
+        logger.info("/ask start (rss_mb=%s)", process_rss_mb())
+        result = full_pipeline(request.question, top_k=request.top_k)
+        logger.info(
+            "/ask done status=%s refuse=%s gen=%s (rss_mb=%s)",
+            result.get("status"),
+            result.get("refuse_reason"),
+            result.get("generation_called"),
+            process_rss_mb(),
+        )
+        return result
+    except HTTPException:
+        raise
+    except Exception:
+        logger.exception("/ask failed")
+        raise HTTPException(
+            status_code=503,
+            detail="The assistant could not complete this request. Please retry.",
+        )
 
 
 @app.post("/routine")
@@ -106,11 +129,20 @@ def routine(request: RoutineRequest):
     )
     if not blob.strip():
         raise HTTPException(status_code=400, detail="routine description must not be empty")
-    return generate_routine(
-        situation=request.situation,
-        current_routine=request.current_routine,
-        difficulties=request.difficulties,
-        preferred_structure=request.preferred_structure,
-        time_available=request.time_available,
-        things_that_help=request.things_that_help,
-    )
+    try:
+        return generate_routine(
+            situation=request.situation,
+            current_routine=request.current_routine,
+            difficulties=request.difficulties,
+            preferred_structure=request.preferred_structure,
+            time_available=request.time_available,
+            things_that_help=request.things_that_help,
+        )
+    except HTTPException:
+        raise
+    except Exception:
+        logger.exception("/routine failed")
+        raise HTTPException(
+            status_code=503,
+            detail="The routine helper could not complete this request. Please retry.",
+        )

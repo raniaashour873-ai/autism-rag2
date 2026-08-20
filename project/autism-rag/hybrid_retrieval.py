@@ -12,6 +12,8 @@ import logging
 import re
 from pathlib import Path
 
+import threading
+
 from config import (
     CHUNKS_JSON_PATH,
     HYBRID_CANDIDATE_COUNT,
@@ -20,6 +22,8 @@ from config import (
     RERANKER_MODEL,
     RETRIEVAL_DEBUG,
     RRF_K,
+    configure_inference_runtime,
+    process_rss_mb,
 )
 from step4_retrieval import retrieve
 
@@ -33,6 +37,7 @@ _bm25 = None
 _bm25_chunks: list[dict] = []
 _bm25_ids: list[str] = []
 _reranker = None
+_reranker_lock = threading.Lock()
 
 DOCUMENT_NAME = "NICE CG142 - Autism spectrum disorder in adults: diagnosis and management"
 SOURCE_URL = "https://www.nice.org.uk/guidance/cg142"
@@ -177,12 +182,18 @@ def hybrid_retrieve(
 
 def get_reranker():
     global _reranker
-    if _reranker is None:
+    if _reranker is not None:
+        return _reranker
+    with _reranker_lock:
+        if _reranker is not None:
+            return _reranker
         from sentence_transformers import CrossEncoder
 
-        _reranker = CrossEncoder(RERANKER_MODEL)
-        logger.debug("Loaded reranker %s", RERANKER_MODEL)
-    return _reranker
+        configure_inference_runtime()
+        logger.info("Loading reranker: %s (rss_mb=%s)", RERANKER_MODEL, process_rss_mb())
+        _reranker = CrossEncoder(RERANKER_MODEL, device="cpu")
+        logger.info("Reranker loaded successfully (rss_mb=%s)", process_rss_mb())
+        return _reranker
 
 
 def rerank_chunks(

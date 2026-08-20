@@ -13,6 +13,44 @@ from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).resolve().parent / ".env")
 
+# Optional Hugging Face auth (never required). sentence-transformers reads these.
+if os.getenv("HF_TOKEN") and not os.getenv("HUGGING_FACE_HUB_TOKEN"):
+    os.environ["HUGGING_FACE_HUB_TOKEN"] = os.getenv("HF_TOKEN")
+
+_threads_configured = False
+
+
+def configure_inference_runtime() -> None:
+    """Limit BLAS/tokenizer threads. Call only when a model is about to load."""
+    global _threads_configured
+    if _threads_configured:
+        return
+    os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+    os.environ.setdefault("OMP_NUM_THREADS", "1")
+    os.environ.setdefault("MKL_NUM_THREADS", "1")
+    try:
+        import torch
+
+        torch.set_num_threads(1)
+    except Exception:
+        pass
+    _threads_configured = True
+
+
+def process_rss_mb() -> float | None:
+    try:
+        import resource
+
+        rss = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        if rss <= 0:
+            return None
+        # Linux ru_maxrss is KB; macOS is bytes.
+        if rss > 10_000_000:
+            return round(rss / (1024 * 1024), 1)
+        return round(rss / 1024, 1)
+    except Exception:
+        return None
+
 
 def _float(name: str, default: float) -> float:
     raw = os.getenv(name)
@@ -28,7 +66,7 @@ def _int(name: str, default: int) -> int:
     return int(raw)
 
 
-EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
+EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
 EVAL_ALT_EMBEDDING_MODEL = os.getenv("EVAL_ALT_EMBEDDING_MODEL", "").strip()
 GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-20b")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")

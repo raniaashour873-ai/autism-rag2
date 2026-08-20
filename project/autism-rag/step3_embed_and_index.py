@@ -53,7 +53,7 @@ def run_step3(
     metadatas = [build_metadata(c) for c in chunks]
     ids = [c["chunk_id"] for c in chunks]
 
-    print("بنولّد الـ embeddings...")
+    print("Generating embeddings with EMBEDDING_MODEL (must match query model)...")
     embeddings = model.encode(texts, show_progress_bar=True).tolist()
 
     collection.add(ids=ids, embeddings=embeddings, documents=texts, metadatas=metadatas)

@@ -1,6 +1,23 @@
-from config import CHROMA_COLLECTION, CHROMA_DB_PATH, EMBEDDING_MODEL, RETRIEVAL_DISTANCE_THRESHOLD
+import logging
+import threading
+
+from config import (
+    CHROMA_COLLECTION,
+    CHROMA_DB_PATH,
+    EMBEDDING_MODEL,
+    RETRIEVAL_DISTANCE_THRESHOLD,
+    configure_inference_runtime,
+    process_rss_mb,
+)
+
+logger = logging.getLogger("autism_rag.retrieval")
 
 _model = None
+_model_lock = threading.Lock()
+_chroma_client = None
+_collection = None
+_collection_lock = threading.Lock()
+_stats_cache = None
 
 
 def get_embedding_model(model_name: str | None = None):
@@ -8,21 +25,45 @@ def get_embedding_model(model_name: str | None = None):
 
     global _model
     name = model_name or EMBEDDING_MODEL
-    if _model is None or getattr(_model, "_rag_model_name", None) != name:
-        _model = SentenceTransformer(name)
+    if _model is not None and getattr(_model, "_rag_model_name", None) == name:
+        return _model
+    with _model_lock:
+        if _model is not None and getattr(_model, "_rag_model_name", None) == name:
+            return _model
+        configure_inference_runtime()
+        logger.info("Loading embedding model: %s (rss_mb=%s)", name, process_rss_mb())
+        _model = SentenceTransformer(name, device="cpu")
         _model._rag_model_name = name
-    return _model
+        logger.info("Embedding model loaded successfully (rss_mb=%s)", process_rss_mb())
+        return _model
 
 
 def load_collection(db_path: str | None = None, collection_name: str | None = None):
     import chromadb
 
-    client = chromadb.PersistentClient(path=db_path or CHROMA_DB_PATH)
-    collection = client.get_or_create_collection(
-        name=collection_name or CHROMA_COLLECTION,
-        metadata={"hnsw:space": "cosine"},
-    )
-    return collection
+    global _chroma_client, _collection
+    path = db_path or CHROMA_DB_PATH
+    name = collection_name or CHROMA_COLLECTION
+    if (
+        _collection is not None
+        and db_path is None
+        and collection_name is None
+    ):
+        return _collection
+    with _collection_lock:
+        if (
+            _collection is not None
+            and db_path is None
+            and collection_name is None
+        ):
+            return _collection
+        logger.info("Opening Chroma PersistentClient path=%s (rss_mb=%s)", path, process_rss_mb())
+        _chroma_client = chromadb.PersistentClient(path=path)
+        _collection = _chroma_client.get_or_create_collection(
+            name=name,
+            metadata={"hnsw:space": "cosine"},
+        )
+        return _collection
 
 
 def _meta_str(meta: dict, key: str, default: str = "") -> str:
@@ -35,12 +76,21 @@ def retrieve(query_text: str, collection, model, top_k: int = 5):
     Return the closest top_k chunks with full metadata and Chroma distance.
     Lower distance = closer semantic match.
     """
-    if collection.count() == 0:
+    total = collection.count()
+    if total == 0:
         return []
 
-    n_results = min(top_k, collection.count())
-    query_embedding = model.encode([query_text]).tolist()
-    results = collection.query(query_embeddings=query_embedding, n_results=n_results)
+    n_results = min(top_k, total)
+    query_embedding = model.encode(
+        [query_text],
+        convert_to_numpy=True,
+        show_progress_bar=False,
+    ).tolist()
+    results = collection.query(
+        query_embeddings=query_embedding,
+        n_results=n_results,
+        include=["documents", "metadatas", "distances"],
+    )
 
     documents = (results.get("documents") or [[]])[0] or []
     metadatas = (results.get("metadatas") or [[]])[0] or []
@@ -122,6 +172,13 @@ def serialize_source(chunk: dict) -> dict:
 
 
 def get_index_stats(collection=None) -> dict:
+    """
+    Optional stats helper. Not used on /health. Avoids embedding model load.
+    Caches one metadata scan so callers do not reload the full collection.
+    """
+    global _stats_cache
+    if collection is None and _stats_cache is not None:
+        return _stats_cache
     collection = collection or load_collection()
     count = collection.count()
     documents = {}
@@ -130,13 +187,16 @@ def get_index_stats(collection=None) -> dict:
         for meta in data.get("metadatas") or []:
             name = (meta or {}).get("document_name") or "Unknown"
             documents[name] = documents.get(name, 0) + 1
-    return {
+    stats = {
         "chunk_count": count,
         "documents": [
             {"name": name, "chunks": n}
             for name, n in sorted(documents.items())
         ],
     }
+    if collection is _collection:
+        _stats_cache = stats
+    return stats
 
 
 def print_results(query_text: str, results: list[dict]):
