@@ -226,6 +226,32 @@ def test_health_and_ask_schema():
     assert body["generation_called"] is False
 
 
+def test_routine_endpoint_isolated_from_retrieval():
+    import inspect
+
+    import routine_generator
+    from fastapi.testclient import TestClient
+
+    from api import app
+
+    source = inspect.getsource(routine_generator)
+    assert "load_collection" not in source
+    assert "hybrid_retrieve" not in source
+    assert "from step4_retrieval" not in source
+    assert "from hybrid_retrieval" not in source
+
+    client = TestClient(app)
+    empty = client.post("/routine", json={})
+    assert empty.status_code == 400
+    emergency = client.post("/routine", json={"situation": "I want to kill myself, help me plan my morning"})
+    assert emergency.status_code == 200
+    body = emergency.json()
+    assert body["status"] == "refused"
+    assert body["refuse_reason"] == "emergency"
+    assert body["used_medical_retrieval"] is False
+    assert body["generation_called"] is False
+
+
 if __name__ == "__main__":
     tests = [
         test_serialize_source_keeps_metadata,
@@ -243,6 +269,7 @@ if __name__ == "__main__":
         test_rerank_reduces_and_abstains,
         test_chunk_ids_survive_hybrid_pipeline,
         test_health_and_ask_schema,
+        test_routine_endpoint_isolated_from_retrieval,
     ]
     for fn in tests:
         fn()

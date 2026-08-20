@@ -293,6 +293,31 @@ a { color: inherit; text-decoration: none; }
 .utility-guideline-card span{ display:block; margin-top:3px; color:var(--text-muted); font-size:9px; }
 .utility-guideline-card a{ margin-left:auto; flex-shrink:0; font-family: var(--font-mono); font-size:9px; color:var(--sage-ink); border:1px solid var(--border); padding:6px 10px; border-radius:7px; }
 .utility-guideline-card a:hover{ background:var(--sage-mist); }
+
+.utility-panel.routine-panel { width: min(720px, 100%); }
+.routine-form { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+.routine-form label { display: flex; flex-direction: column; gap: 5px; color: var(--sage-ink); font-size: 11px; font-weight: 600; }
+.routine-form textarea, .routine-form input {
+    width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 9px;
+    background: rgba(255,255,255,0.8); color: var(--text); font-size: 12px; resize: vertical;
+}
+.routine-form textarea { min-height: 72px; font-family: var(--font-serif); line-height: 1.5; }
+.routine-actions { display: flex; justify-content: flex-end; margin-top: 4px; }
+.routine-submit {
+    height: 38px; padding: 0 16px; border: 1px solid var(--sage-ink); border-radius: 9px;
+    background: var(--sage-ink); color: white; font-size: 11px; font-weight: 500;
+}
+.routine-submit:hover { background: var(--sage-deep); }
+.routine-submit:disabled { opacity: 0.6; cursor: default; }
+.routine-output { margin-top: 18px; display: flex; flex-direction: column; gap: 14px; }
+.routine-output h3 { margin: 0 0 8px; color: var(--sage-deep); font-size: 13px; letter-spacing: -0.02em; }
+.routine-steps { margin: 0; padding-left: 20px; }
+.routine-steps li { margin: 0 0 8px; color: var(--text); font-size: 12px; line-height: 1.55; }
+.routine-steps li strong { color: var(--sage-ink); }
+.routine-list { margin: 0; padding-left: 18px; color: var(--text); font-size: 12px; line-height: 1.55; }
+.routine-list li { margin: 0 0 6px; }
+.routine-error { padding: 12px; border: 1px solid var(--border); border-radius: 9px; background: #FBF7F0; color: var(--text); font-size: 12px; line-height: 1.6; }
+
 @media (max-width: 600px) {
     .utility-overlay { align-items: flex-end; padding: 0; }
     .utility-panel { width: 100%; max-height: 88vh; border-radius: 18px 18px 0 0; padding: 20px; }
@@ -404,6 +429,7 @@ a { color: inherit; text-decoration: none; }
       <button class="workspace-nav-active">Clinical AI</button>
       <button>Evidence</button>
       <button>Guidelines</button>
+      <button type="button" id="btnRoutineNav">Routine Support</button>
     </div>
     <div class="workspace-status" id="apiStatus">
       <span class="workspace-status-dot"></span>
@@ -432,6 +458,7 @@ a { color: inherit; text-decoration: none; }
         <div class="sidebar-label">WORKSPACE</div>
         <button class="sidebar-link" id="btnHistory">🕐 History</button>
         <button class="sidebar-link" id="btnSafety">🛡 Safety</button>
+        <button class="sidebar-link" id="btnRoutine">☰ Routine Support</button>
       </div>
 
       <div class="sidebar-footer">
@@ -860,7 +887,10 @@ function openUtility(kicker, title, contentHtml){
   utilityContent.innerHTML = contentHtml;
   utilityOverlay.classList.add('open');
 }
-function closeUtility(){ utilityOverlay.classList.remove('open'); }
+function closeUtility(){
+  utilityOverlay.classList.remove('open');
+  document.getElementById('utilityPanel').classList.remove('routine-panel');
+}
 
 document.getElementById('utilityClose').addEventListener('click', closeUtility);
 utilityOverlay.addEventListener('click', (e) => { if(e.target === utilityOverlay) closeUtility(); });
@@ -950,6 +980,95 @@ document.getElementById('btnSafety').addEventListener('click', () => {
     </div>
   `);
 });
+
+function openRoutineSupport(){
+  document.getElementById('utilityPanel').classList.add('routine-panel');
+  openUtility('SUPPORT', 'Routine Support', `
+    <p>Tell me about the routine you want help adapting. This is general planning support, not medical advice and not a diagnosis.</p>
+    <form class="routine-form" id="routineForm">
+      <label>Current routine
+        <textarea id="routineCurrent" placeholder="wake up → breakfast → shower → get dressed → leave home"></textarea>
+      </label>
+      <label>What feels difficult
+        <textarea id="routineDifficult" placeholder="sudden transitions, getting ready on time"></textarea>
+      </label>
+      <label>Preferred structure
+        <input id="routineStructure" placeholder="checklist, timed blocks, fewer steps…">
+      </label>
+      <label>Time available
+        <input id="routineTime" placeholder="e.g. 90 minutes in the morning">
+      </label>
+      <label>Things that help
+        <input id="routineHelps" placeholder="quiet, extra buffer, written list…">
+      </label>
+      <label>Anything else
+        <textarea id="routineSituation" placeholder="Optional extra context"></textarea>
+      </label>
+      <div class="routine-actions">
+        <button type="submit" class="routine-submit" id="routineSubmit">Adapt routine</button>
+      </div>
+    </form>
+    <div id="routineResult"></div>
+  `);
+  const form = document.getElementById('routineForm');
+  const result = document.getElementById('routineResult');
+  const submit = document.getElementById('routineSubmit');
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    submit.disabled = true;
+    submit.textContent = 'Adapting…';
+    result.innerHTML = '';
+    try{
+      const res = await fetch(API_URL + "/routine", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          situation: document.getElementById('routineSituation').value.trim(),
+          current_routine: document.getElementById('routineCurrent').value.trim(),
+          difficulties: document.getElementById('routineDifficult').value.trim(),
+          preferred_structure: document.getElementById('routineStructure').value.trim(),
+          time_available: document.getElementById('routineTime').value.trim(),
+          things_that_help: document.getElementById('routineHelps').value.trim()
+        })
+      });
+      const data = await res.json();
+      if(!res.ok){
+        result.innerHTML = `<div class="routine-error">${escapeHtml(data.detail || "Could not adapt this routine.")}</div>`;
+        return;
+      }
+      if(data.status !== "adapted"){
+        result.innerHTML = `<div class="routine-error">${escapeHtml(data.message || "This request was not handled as routine support.")}</div>
+          <div class="utility-note"><strong>Note</strong><span>${escapeHtml(data.disclaimer || "")}</span></div>`;
+        return;
+      }
+      const steps = (data.steps || []).map((step, i) => {
+        const time = step.time_estimate ? ` <em>(${escapeHtml(step.time_estimate)})</em>` : "";
+        return `<li><strong>${i + 1}. ${escapeHtml(step.title)}</strong>${time}<br>${escapeHtml(step.detail || "")}</li>`;
+      }).join("");
+      const transitions = (data.transitions || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+      const backups = (data.if_difficult || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+      result.innerHTML = `
+        <div class="routine-output">
+          <div>
+            <h3>ADAPTED ROUTINE</h3>
+            <p>${escapeHtml(data.goal || "")}</p>
+            <ol class="routine-steps">${steps}</ol>
+          </div>
+          ${transitions ? `<div><h3>TRANSITIONS</h3><ul class="routine-list">${transitions}</ul></div>` : ""}
+          ${backups ? `<div><h3>IF IT GETS DIFFICULT</h3><ul class="routine-list">${backups}</ul></div>` : ""}
+          <div class="utility-note"><strong>Not clinical advice</strong><span>${escapeHtml(data.disclaimer || "")}</span></div>
+        </div>`;
+    }catch(err){
+      result.innerHTML = `<div class="routine-error">Could not reach the routine helper. Check that the API is running.</div>`;
+    }finally{
+      submit.disabled = false;
+      submit.textContent = 'Adapt routine';
+    }
+  });
+}
+
+document.getElementById('btnRoutine').addEventListener('click', openRoutineSupport);
+document.getElementById('btnRoutineNav').addEventListener('click', openRoutineSupport);
 
 document.getElementById('newQuestionBtn').addEventListener('click', () => {
   conversation.innerHTML = '';
