@@ -83,6 +83,76 @@ def contains_emergency_keywords(question: str) -> bool:
     return any(keyword in lowered for keyword in EMERGENCY_KEYWORDS)
 
 
+# Keyword lists used by classify_query_detailed / classify_population.
+# EMERGENCY_KEYWORDS above is unchanged; these are non-emergency gates.
+OUT_OF_SCOPE_KEYWORDS = [
+    "pizza", "best topping", "stock market", "football score",
+    " in cats", " in dogs", " in hamsters", "veterinary",
+    "for cats", "for dogs",
+]
+
+CHILD_POPULATION_HINTS = [
+    "my child", "my son", "my daughter", "my kid",
+    "in children", "in a child", "paediatric", "pediatric",
+    "under 19", "under-19", "school-age", "at school",
+    "going to school", "nursery", "kindergarten",
+]
+
+ADULT_POPULATION_HINTS = [
+    "adult", "adults", "in adults", "aged 18",
+]
+
+_NON_CRISIS_REFUSAL_MESSAGES = {
+    "insufficient_evidence": (
+        "The retrieved guideline excerpts do not contain enough information to answer "
+        "this question safely. No recommendation will be generated."
+    ),
+    "unsupported_claim": (
+        "A draft answer could not be verified against the retrieved excerpts, so it "
+        "was withheld. The assistant will not return unsupported clinical claims."
+    ),
+    "population_mismatch": (
+        "The indexed source is NICE CG142 (autism in adults). This question appears "
+        "to be about a child or paediatric setting. Adult recommendations will not be "
+        "applied. This is not a diagnosis."
+    ),
+}
+
+
+def classify_population(question: str) -> str:
+    lowered = (question or "").lower()
+    child_hit = any(hint in lowered for hint in CHILD_POPULATION_HINTS)
+    adult_hit = any(hint in lowered for hint in ADULT_POPULATION_HINTS)
+    if child_hit and not adult_hit:
+        return "child"
+    if adult_hit and not child_hit:
+        return "adult"
+    return "unknown"
+
+
+def classify_query_detailed(question: str) -> dict:
+    """Structured label used by /ask. Keyword gates do not call Groq."""
+    lowered = (question or "").lower()
+    if contains_emergency_keywords(question or ""):
+        return {"safety_label": "REFUSE", "refuse_reason": "emergency"}
+    if any(keyword in lowered for keyword in OUT_OF_SCOPE_KEYWORDS):
+        return {"safety_label": "REFUSE", "refuse_reason": "out_of_scope"}
+    label = classify_query(question)
+    if label == "REFUSE":
+        return {"safety_label": "REFUSE", "refuse_reason": "out_of_scope"}
+    return {"safety_label": label, "refuse_reason": None}
+
+
+def get_refusal_message(reason: str = "out_of_scope") -> str:
+    """Dispatcher used by the medical pipeline. Crisis/OOD copy stays in existing helpers."""
+    key = (reason or "out_of_scope").lower()
+    if key == "emergency":
+        return get_crisis_message()
+    if key == "out_of_scope":
+        return get_out_of_scope_message()
+    return _NON_CRISIS_REFUSAL_MESSAGES.get(key, get_out_of_scope_message())
+
+
 def get_crisis_message() -> str:
     """رسالة تُستخدم فقط عند وجود مؤشر أزمة نفسية/طوارئ حقيقي في السؤال."""
     return (

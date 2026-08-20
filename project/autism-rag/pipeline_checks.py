@@ -2,7 +2,12 @@
 
 from step4_retrieval import retrieval_quality_gate, serialize_source
 from step6_generation import grounding_check, parse_generation_output, resolve_citations
-from step7_safety import classify_query_detailed, get_refusal_message
+from step7_safety import (
+    classify_query_detailed,
+    get_crisis_message,
+    get_out_of_scope_message,
+    get_refusal_message,
+)
 
 
 def test_serialize_source_keeps_metadata():
@@ -59,7 +64,7 @@ def test_ood_and_emergency_skip_generation():
     assert emergency["status"] == "refused"
     assert emergency["refuse_reason"] == "emergency"
     assert emergency["generation_called"] is False
-    assert "emergency" in (emergency["answer"] or "").lower()
+    assert emergency["answer"] == get_crisis_message()
 
 
 def test_index_retrieval_gate_and_metadata():
@@ -121,9 +126,9 @@ def test_emergency_keyword_no_llm_needed():
     result = classify_query_detailed("I want to kill myself, what should I do?")
     assert result["safety_label"] == "REFUSE"
     assert result["refuse_reason"] == "emergency"
-    assert "emergency" in get_refusal_message("emergency").lower()
+    assert get_refusal_message("emergency") == get_crisis_message()
     assert "guideline" in get_refusal_message("insufficient_evidence").lower()
-    assert "outside the scope" in get_refusal_message("out_of_scope").lower()
+    assert get_refusal_message("out_of_scope") == get_out_of_scope_message()
 
 
 def test_population_child_abstains_without_groq():
@@ -244,8 +249,8 @@ def test_health_and_ask_schema():
     assert ui.status_code == 200
     html = ui.text
     assert "NICE CG142" in html
-    assert "does not diagnose autism" in html.lower() or "This system does not diagnose autism" in html
-    assert "does not use the medical guideline index" in html
+    assert "not an individual diagnosis" in html.lower() or "not a personal diagnosis" in html.lower()
+    assert "/routine" in html.lower() or "routine" in html.lower()
     empty = client.post("/ask", json={"question": "   "})
     assert empty.status_code == 400
     pizza = client.post("/ask", json={"question": "What is the best pizza topping?"})

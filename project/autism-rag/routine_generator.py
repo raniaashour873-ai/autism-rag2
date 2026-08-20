@@ -11,7 +11,7 @@ import json
 
 from config import GROQ_MODEL
 from step6_generation import _groq_client, _strip_json_fence
-from step7_safety import EMERGENCY_KEYWORDS, get_refusal_message
+from step7_safety import EMERGENCY_KEYWORDS, get_crisis_message
 
 ROUTINE_DISCLAIMER = (
     "This is general routine-planning support, not a diagnosis, treatment plan, "
@@ -95,7 +95,7 @@ def generate_routine(
         return _empty_routine(
             status="refused",
             refuse_reason="emergency",
-            message=get_refusal_message("emergency"),
+            message=get_crisis_message(),
             generation_called=False,
         )
 
