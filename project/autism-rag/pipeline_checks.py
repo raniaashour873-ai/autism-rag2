@@ -207,13 +207,21 @@ def test_chunk_ids_survive_hybrid_pipeline():
 def test_health_and_ask_schema():
     from fastapi.testclient import TestClient
     from api import app, AnswerResponse
+    from config import RERANK_SCORE_THRESHOLD
 
+    assert RERANK_SCORE_THRESHOLD == -2.0
     client = TestClient(app)
     root = client.get("/")
     assert root.status_code == 200
     assert root.json()["status"] == "ok"
     health = client.get("/health")
     assert health.status_code == 200
+    ui = client.get("/ui")
+    assert ui.status_code == 200
+    html = ui.text
+    assert "NICE CG142" in html
+    assert "does not diagnose autism" in html.lower() or "This system does not diagnose autism" in html
+    assert "does not use the medical guideline index" in html
     empty = client.post("/ask", json={"question": "   "})
     assert empty.status_code == 400
     pizza = client.post("/ask", json={"question": "What is the best pizza topping?"})

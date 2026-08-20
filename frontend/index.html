@@ -475,18 +475,18 @@ a { color: inherit; text-decoration: none; }
 
           <div class="chat-header">
             <div class="chat-header-meta">
-              <span>CLINICAL AI</span><span class="chat-header-divider">/</span><span>AUTISM SPECTRUM DISORDER</span>
+              <span>CLINICAL AI</span><span class="chat-header-divider">/</span><span>NICE CG142 · ADULTS</span>
             </div>
             <h1>Autism Evidence Assistant</h1>
-            <p>Ask a question and trace the answer back to the supporting guideline evidence</p>
+            <p>Summarizes indexed NICE CG142 guidance for autistic adults. This system does not diagnose autism.</p>
           </div>
 
           <div class="chat-scroll" id="chatScroll">
             <div id="emptyState" class="empty-chat">
               <div class="empty-thread-symbol">∞</div>
-              <div class="empty-kicker" id="emptyIndexKicker">INDEXED NICE GUIDELINES</div>
+              <div class="empty-kicker" id="emptyIndexKicker">NICE CG142 · ADULTS ONLY</div>
               <h2>One thread,<br>traced end to end.</h2>
-              <p>Every answer here is grounded in official certified guidance for autism — covering both adults and children &amp; young people — with the exact page and section behind it.</p>
+              <p>Answers are grounded in indexed NICE CG142 excerpts (autism in adults). Child and paediatric questions are not answered from this corpus. This assistant does not diagnose autism and does not replace a clinician.</p>
               <div class="suggestion-grid">
                 <button class="suggestion-card" data-q="Should chelation be used for adults with autism?">
                   <span class="suggestion-icon">⚕</span>
@@ -496,9 +496,9 @@ a { color: inherit; text-decoration: none; }
                   <span class="suggestion-icon">🔍</span>
                   <span>Key considerations when assessing an adult for autism</span>
                 </button>
-                <button class="suggestion-card" data-q="How should autism teams support children in schools?">
-                  <span class="suggestion-icon">🎒</span>
-                  <span>How should autism teams support children in schools?</span>
+                <button class="suggestion-card" data-q="What does NICE recommend for autistic adults who have difficulty coping with changes in routine?">
+                  <span class="suggestion-icon">🔁</span>
+                  <span>Support for adults who struggle with changes in routine</span>
                 </button>
                 <button class="suggestion-card" data-q="What is a health passport for autistic adults?">
                   <span class="suggestion-icon">🪪</span>
@@ -527,7 +527,7 @@ a { color: inherit; text-decoration: none; }
                 <button class="composer-send" id="askBtn" title="Ask">↑</button>
               </div>
             </div>
-            <p class="composer-disclaimer">Threadline supports clinical judgement — it does not replace it. Answers are grounded only in the currently indexed guideline excerpts.</p>
+            <p class="composer-disclaimer">NICE CG142 (adults only). This is not a diagnosis and does not replace clinical judgement. Answers come only from indexed guideline excerpts.</p>
           </div>
 
         </section>
@@ -566,7 +566,16 @@ a { color: inherit; text-decoration: none; }
 </div>
 
 <script>
-const API_URL = "http://localhost:8000";
+const API_URL = (function () {
+  const params = new URLSearchParams(location.search);
+  const fromQuery = (params.get("api") || "").replace(/\/$/, "");
+  if (fromQuery) return fromQuery;
+  const host = location.hostname;
+  if (!host || host === "localhost" || host === "127.0.0.1") {
+    return "http://localhost:8000";
+  }
+  return "";
+})();
 const chatScroll = document.getElementById('chatScroll');
 const emptyState = document.getElementById('emptyState');
 const conversation = document.getElementById('conversation');
@@ -840,7 +849,7 @@ async function ask(question){
         <div class="clinical-boundary-mark">!</div>
         <div>
           <h3>We ar</h3>
-          <p>Unable to connect to the clinical evidence service. Please try again in a moment.</code>, then try again.</p>
+          <p>Unable to connect to the clinical evidence service. Please try again in a moment.</p>
         </div>
       </div>`;
     conversation.appendChild(turn);
@@ -918,8 +927,8 @@ document.getElementById('btnGuidelines').addEventListener('click', () => {
   `).join('') || `<p>Connect the API to list the documents actually in the index.</p>`;
   openUtility('SOURCES', 'Official guidelines used', `
     <div class="utility-icon">📚</div>
-    <h3>Only indexed guideline text</h3>
-    <p>Answers are generated from retrieved excerpts in the current index, not from general model knowledge.</p>
+    <h3>NICE CG142 — autism in adults</h3>
+    <p>The live index is adult NICE CG142 only. This assistant does not diagnose autism and does not apply child/young-people guidance.</p>
     ${docs}
   `);
 });
@@ -984,7 +993,7 @@ document.getElementById('btnSafety').addEventListener('click', () => {
 function openRoutineSupport(){
   document.getElementById('utilityPanel').classList.add('routine-panel');
   openUtility('SUPPORT', 'Routine Support', `
-    <p>Tell me about the routine you want help adapting. This is general planning support, not medical advice and not a diagnosis.</p>
+    <p>Tell me about the routine you want help adapting. This is general planning support. It does not use the medical guideline index, is not a diagnosis, and is not clinical, OT, or caregiver treatment advice.</p>
     <form class="routine-form" id="routineForm">
       <label>Current routine
         <textarea id="routineCurrent" placeholder="wake up → breakfast → shower → get dressed → leave home"></textarea>

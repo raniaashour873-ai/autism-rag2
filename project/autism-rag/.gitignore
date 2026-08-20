@@ -1,6 +1,16 @@
 venv/
 .venv/
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
 .env
+.env.*
+!.env.example
+*.pem
+credentials.json
 retrieval_logs.jsonl
+*.sqlite3-journal
+*.wal

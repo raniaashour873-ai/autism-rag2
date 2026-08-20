@@ -68,3 +68,12 @@ RETRIEVAL_DEBUG = os.getenv("RETRIEVAL_DEBUG", "false").strip().lower() in {
     "1", "true", "yes", "on",
 }
 CHUNKS_JSON_PATH = os.getenv("CHUNKS_JSON_PATH", "step2_chunks.json")
+
+# Comma-separated browser origins for CORS. Use * for local hackathon only.
+FRONTEND_URL = os.getenv("FRONTEND_URL", "*").strip() or "*"
+
+
+def cors_allow_origins() -> list[str]:
+    if FRONTEND_URL == "*":
+        return ["*"]
+    return [part.strip().rstrip("/") for part in FRONTEND_URL.split(",") if part.strip()]

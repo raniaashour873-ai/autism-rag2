@@ -3,20 +3,25 @@ API Layer: wraps full_pipeline for the frontend.
 Routine support is a separate endpoint and does not use medical retrieval.
 """
 
+from pathlib import Path
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
-from config import TOP_K_DEFAULT
+from config import TOP_K_DEFAULT, cors_allow_origins
 from routine_generator import generate_routine
 from step4_retrieval import get_index_stats
 from step8_full_pipeline import full_pipeline
 
 app = FastAPI(title="Autism Clinical RAG API")
 
+_FRONTEND_INDEX = Path(__file__).resolve().parents[2] / "frontend" / "index.html"
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=cors_allow_origins(),
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -71,6 +76,13 @@ def health_check():
 @app.get("/health")
 def health_alias():
     return health_check()
+
+
+@app.get("/ui")
+def serve_ui():
+    if not _FRONTEND_INDEX.is_file():
+        raise HTTPException(status_code=404, detail="frontend/index.html not found")
+    return FileResponse(_FRONTEND_INDEX, media_type="text/html")
 
 
 @app.post("/ask", response_model=AnswerResponse)
